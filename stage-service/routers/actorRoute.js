@@ -1,3 +1,8 @@
-const actorRoute = {}
+import express from 'express'
+import {getAllActorsInfo} from '../controllers/actorController.js'
 
-export default actorRoute;
+const router = express.Router();
+
+router.get('/', getAllActorsInfo)
+
+export default router;
