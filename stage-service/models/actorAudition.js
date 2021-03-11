@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const { Schema } = mongoose;
 
 
-const actorAudition = {
+const actor_audition = {
     _id: Schema.Types.ObjectId,
     audition_id: Schema.Types.ObjectId,
     actor_id: Schema.Types.ObjectId,
@@ -12,8 +12,8 @@ const actorAudition = {
     DM: Boolean // Direct Message 
 }
 
-const actorAuditionSchema = new mongoose.Schema(actorAudition, { collection: 'actorAudition' })
-const ActorAudition = mongoose.model('actorAudition', actorAuditionSchema)
+const actorAuditionSchema = new mongoose.Schema(actor_audition, { collection: 'actor_audition' })
+const ActorAudition = mongoose.model('actor_audition', actorAuditionSchema)
 
 export default ActorAudition
 
