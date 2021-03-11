@@ -5,9 +5,9 @@ const getUsers = async (req, res) => {
         const docs = await User.find({})
         console.log(docs)
         return res.json(docs)
-    } catch (err){
+    } catch (err) {
         console.log(`query error: ${err}`)
     }
 }
 
-export {getUsers}
+export { getUsers }

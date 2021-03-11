@@ -14,7 +14,7 @@ const audition = {
     availability_date: String,
     open_to_all: Boolean,
     typecast: String, // typecast obj
-    is_active: Boolean    
+    is_active: Boolean
 }
 
 const auditionSchema = new mongoose.Schema(audition, { collection: 'audition' })

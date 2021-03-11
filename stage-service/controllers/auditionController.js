@@ -5,9 +5,9 @@ const getAuditions = async (req, res) => {
         const docs = await Audition.find({})
         console.log(docs)
         return res.json(docs)
-    } catch (err){
+    } catch (err) {
         console.log(`query error: ${err}`)
     }
 }
 
-export {getAuditions}
+export { getAuditions }

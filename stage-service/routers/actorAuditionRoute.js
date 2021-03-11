@@ -1,3 +1,8 @@
-const actorAuditionRoute = {}
+import express from 'express'
+import { getAllActorAudition } from '../controllers/actorAuditionController.js'
 
-export default actorAuditionRoute;
+const router = express.Router()
+
+router.get('/', getAllActorAudition)
+
+export default router;

@@ -1,7 +1,7 @@
 import express from 'express'
-import {getAuditions} from '../controllers/auditionController.js'
+import { getAuditions } from '../controllers/auditionController.js'
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/', getAuditions)
 

@@ -5,9 +5,9 @@ const getAllActorsInfo = async (req, res) => {
         const docs = await Actor.find({})
         console.log(docs)
         return res.json(docs)
-    } catch (err){
+    } catch (err) {
         console.log(`query error: ${err}`)
     }
 }
 
-export {getAllActorsInfo}
+export { getAllActorsInfo }
