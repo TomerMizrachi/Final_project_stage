@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 
 const actor_audition = {
-    _id: Schema.Types.ObjectId,
+    // _id: Schema.Types.ObjectId,
     audition_id: Schema.Types.ObjectId,
     actor_id: Schema.Types.ObjectId,
     submitted: Boolean,

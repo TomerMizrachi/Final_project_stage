@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 
 const user = {
-    _id: Schema.Types.ObjectId,
+    // _id: Schema.Types.ObjectId,
     full_name: String,
-    Email: String,
-    password: String,
+    Email: { type: String, required: true },
+    password: { type: String, required: true },
     profile_picture: String,
     personal_information: String,
     type: String,
