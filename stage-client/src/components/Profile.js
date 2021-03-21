@@ -4,12 +4,12 @@ const header = {
     textAlign: 'center',
 }
 
-function Home() {
+function Profile() {
     return (
         <div>
-            <h3 style={header}>HOME</h3>
+            <h3 style={header}>Profile</h3>
         </div>
     )
 }
 
-export default Home
+export default Profile

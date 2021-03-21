@@ -1,5 +1,6 @@
 /* eslint-disable */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'
 
 import '../App.css';
 
@@ -56,35 +57,43 @@ class Video extends Component {
         //     // this.player.record().saveAs({'video': 'my-video-file-name.mp4'}, 'convert');
         // });
         this.player.on('finishRecord', () => {
-            this.isSaveDisabled = false;
+            this.isSaveDisabled = false
             if (this.retake == 0) {
-                this.isRetakeDisabled = false;
+                this.isRetakeDisabled = false
             }
             // the blob object contains the recorded data that
             // can be downloaded by the user, stored on server etc.
-            console.log('finished recording: ', this.player.recordedData);
-            var formData = new FormData();
-            formData.append('audiovideo',this.player.recordedData);
-            
-            // Execute the ajax request, in this case we have a very simple PHP script
-            // that accepts and save the uploaded "video" file
-            xhr('/upload-video.php', formData, function (fName) {
-                console.log("Video succesfully uploaded !");
-            });
-            
-            // Helper function to send 
-            function xhr(url, data, callback) {
-                var request = new XMLHttpRequest();
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        callback(location.href + request.responseText);
-                    }
-                };
-                request.open('POST', url);
-                // console.log('hhh',data.get('audiovideo'),url)
-                request.send(data);
-            }
-        });
+            var formData = new FormData()
+            formData.append('file', this.player.recordedData)
+            axios({
+                method: "get",
+                url: "http://localhost:8001/actor-audition/get_signed_url",
+                data: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data", 'Access-Control-Allow-Origin': '*'
+                },
+            }).then(function (response) {
+                console.log("sss", response)
+                var postURL = response.data.postURL;
+                var getURL = response.data.getURL;
+                axios({
+                    method: "put",
+                    url: postURL,
+                    data: formData,
+                    // headers: {
+                    //     'Content-Type': 'video/webm', "AllowedHeaders": "*", 'Access-Control-Allow-Origin': 'https://stage-videos.s3.amazonaws.com'
+                    // }
+                }).then(result => {
+                    console.log("Response from s3")
+                    // this.setState({ success: true });
+                }).catch(error => {
+                    console.log(error);
+                })
+                console.log(getURL, postURL);
+            }).catch(function (error) {
+                console.log(error);
+            })
+        })
         // this.player.on('finishConvert', function () {
         //     // show save as dialog
         //     // this.player.record().saveAs({'video': 'my-video-file-name.mp4'}, 'convert');
@@ -113,7 +122,7 @@ class Video extends Component {
             <div data-vjs-player>
                 <video id="myVideo" ref={node => this.videoNode = node} className="video-js vjs-default-skin" playsInline></video>
             </div >
-            
+
         );
     }
 }

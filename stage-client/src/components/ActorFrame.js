@@ -1,30 +1,30 @@
 import React from 'react'
 import Filming from './Filming'
 import TextTrainer from './TextTrainer'
-import Home from './Home'
+import Home from './Profile'
 import { BrowserRouter as Router, Route, Switch, NavLink } from "react-router-dom"
 import { Nav } from 'rsuite'
 
 const linkStyle = {
-    paddingRight: 10
+    paddingRight: 30
+}
+const container = {
+    position: 'relative',
 }
 
-const navStyle = {
-    textAlign: 'center',
-    marginLeft: '-40px'
-}
+
 
 const ActorFrame = () => {
     return (
         <Router>
-            <div>
-                <Nav style={navStyle}>
-                    <NavLink to="/" style={linkStyle}>Home</NavLink>
+            <div style={container}>
+                <Nav>
+                    <NavLink to="/Profile" style={linkStyle}>Profile</NavLink>
                     <NavLink to="/TextTrainer" style={linkStyle}>TextTrainer</NavLink>
                     <NavLink to="/Filming" style={linkStyle}>Filming</NavLink>
                 </Nav>
                 <Switch>
-                    <Route exact path="/">
+                    <Route exact path="/Profile">
                         <Home />
                     </Route>
                     <Route path="/TextTrainer">
