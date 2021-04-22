@@ -1,10 +1,13 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import {validateRegisterInput} from '../validation/register.js'
-import {validateLoginInput} from '../validation/login.js'
+import { validateRegisterInput } from '../validation/register.js'
+import { validateLoginInput } from '../validation/login.js'
+import { validatePasswordInput } from '../validation/password.js'
 import User from '../models/user.js'
 import keys from '../config/keys.js'
+import { USER_TYPE } from '../config/types.js'
+
 
 
 const getUsers = async (req, res) => {
@@ -18,13 +21,13 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
     try {
-        const docs = await User.find({ _id: req.params.id }, (err) => {
+        const docs = await User.findById({ _id: req.params.id }, (err) => {
             if (err) throw err
         })
-        if (docs.length == 0) throw {
+        if (!docs) throw {
             message: 'no content'
         }
-        res.status(200).json(docs[0])
+        res.status(200).json(docs)
     } catch (err) {
         res.status(500).send(err)
     }
@@ -107,5 +110,55 @@ const login = (req, res) => {
     })
 }
 
+const recruiterProfile = (req, res) => {
+    const filter = { Email: req.body.email }
+    const update = {
+        type: USER_TYPE[1],
+    }
+    if (req.body.img)
+        update.profile_picture = req.body.img
+    if (req.body.info)
+        update.personal_information = req.body.info
+    User.findOneAndUpdate(filter, update)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({ err: err }))
+}
 
-export { getUsers, getUserById, register, login }
+const updatePassword = (req, res) => {
+    const { errors, isValid } = validatePasswordInput(req.body)
+    const filter = { _id: req.params.id }
+    let update = { password: req.body.password }
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors)
+    }
+    // Hash password before updating database
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(update.password, salt, (err, hash) => {
+            if (err) throw err
+            update.password = hash
+            User.findOneAndUpdate(filter, update)
+                .then(user => res.json(user))
+                .catch(err => res.status(400).json({ err: err }))
+        })
+    })
+}
+
+const updateUser = (req, res) => {
+    const filter = { _id: req.params.id }
+    let update = {}
+    if (req.body.email)
+        update.Email = req.body.email
+    if (req.body.full_name)
+        update.full_name = req.body.full_name
+    if (req.body.profile_picture)
+        update.profile_picture = req.body.profile_picture
+    if (req.body.personal_information)
+        update.personal_information = req.body.personal_information
+    User.findOneAndUpdate(filter, update)
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({ err: err }))
+}
+
+
+export { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser }

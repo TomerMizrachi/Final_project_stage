@@ -68,21 +68,22 @@ class Video extends Component {
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor-audition/get_signed_url",
-                data: formData,
-                headers: {
-                    "Content-Type": "multipart/form-data", 'Access-Control-Allow-Origin': '*'
-                },
+                // data: formData,
+                // headers: {
+                //     "Content-Type": "multipart/form-data", 'Access-Control-Allow-Origin': '*'
+                // },
             }).then(function (response) {
                 console.log("sss", response)
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
+                delete axios.defaults.headers.common['Authorization']
                 axios({
                     method: "put",
                     url: postURL,
-                    data: formData,
-                    // headers: {
-                    //     'Content-Type': 'video/webm', "AllowedHeaders": "*", 'Access-Control-Allow-Origin': 'https://stage-videos.s3.amazonaws.com'
-                    // }
+                    data: formData.get('file'),
+                    headers: {
+                        'Content-Type': 'video/x-matroska', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                    }
                 }).then(result => {
                     console.log("Response from s3")
                     // this.setState({ success: true });
