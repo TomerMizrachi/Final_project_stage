@@ -15,19 +15,18 @@ const getAllActorAudition = async (req, res) => {
     }
 }
 
-
 const createS3Url = async (req, res) => {
     try {
         await s3.getSignedUrl('putObject', {
-            Bucket: S3_BUCKET,
+            Bucket: 'stage-video',
             Key: uuid(),
             Expires: 300,
             ACL: 'public-read',
-            ContentType: 'video/webm'
+            ContentType: 'video/x-matroska'
         }, function (err, signedURL) {
             if (err) {
                 console.log(err)
-                return next(err)
+                return res.send(err)
             }
             else {
                 return res.json({
