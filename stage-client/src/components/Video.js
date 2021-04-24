@@ -73,7 +73,6 @@ class Video extends Component {
                 //     "Content-Type": "multipart/form-data", 'Access-Control-Allow-Origin': '*'
                 // },
             }).then(function (response) {
-                console.log("sss", response)
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
                 delete axios.defaults.headers.common['Authorization']

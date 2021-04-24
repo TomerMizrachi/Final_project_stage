@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AudioAnalyser from "react-audio-analyser"
+import axios from 'axios'
 
 
 export default class Aud extends Component {
@@ -17,6 +18,7 @@ export default class Aud extends Component {
         this.setState({
             status
         })
+
     }
 
     changeScheme(e) {
@@ -43,7 +45,25 @@ export default class Aud extends Component {
                 this.setState({
                     audioSrc: window.URL.createObjectURL(e)
                 })
+                const formData = new FormData();
+
+                formData.append("file", e);
                 console.log("succ stop", e)
+                axios.post("http://127.0.0.1:5000/audio", formData)
+                .then(res => {
+                let resultTranscript=res.data.transcript
+                let expectedText='to be or not to be this is the question'
+                console.log(resultTranscript)
+                axios.get("http://127.0.0.1:12345/compare", { params: {
+                    inputText: resultTranscript,
+                    expectedText: expectedText
+                      }})
+                    .catch(err => {
+                    console.log(err)
+                })
+
+                })
+
             },
             onRecordCallback: (e) => {
                 console.log("recording", e)
@@ -72,7 +92,6 @@ export default class Aud extends Component {
                         <button onClick={() => this.controlAudio("inactive")}>stop</button>    
                     </div>
                 </AudioAnalyser>
-                {score === ""}
                 {/* <p>choose output type</p>
                 <select name="" id="" onChange={(e) => this.changeScheme(e)} value={audioType}>
                     <option value="audio/webm">audio/webm（default）</option>
