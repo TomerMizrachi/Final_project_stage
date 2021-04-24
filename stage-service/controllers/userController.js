@@ -8,6 +8,8 @@ import User from '../models/user.js'
 import Actor from '../models/actor.js'
 import keys from '../config/keys.js'
 import { USER_TYPE } from '../config/types.js'
+import Audition from '../models/audition.js'
+import ActorAudition from '../models/actoraudition.js'
 
 
 
@@ -42,7 +44,6 @@ const register = (req, res) => {
         return res.status(400).json(errors)
     }
     User.findOne({ Email: req.body.email }).then(user => {
-        console.log("hhh", req.body.email)
         if (user) {
             return res.status(400).json({ email: "Email already exists" })
         } else {
@@ -64,7 +65,8 @@ const register = (req, res) => {
             })
         }
     }).catch((error) => {
-        console.error(error);})
+        console.error(error);
+    })
 }
 
 const login = (req, res) => {
@@ -111,7 +113,8 @@ const login = (req, res) => {
             }
         })
     }).catch((error) => {
-        console.error(error);})
+        console.error(error);
+    })
 }
 
 const recruiterProfile = (req, res) => {
@@ -165,12 +168,18 @@ const updateUser = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-
-    User.findOne({ _id: req.params.id })
+    User.findOneAndDelete({ _id: req.params.id })
         .then(user => {
             if (user.type == USER_TYPE[0]) {
                 Actor.findOneAndDelete({ user_id: user._id })
-                    .then(actor => { res.status(200).jsom(actor) })
+                    .then(actor => {
+                        ActorAudition.deleteMany({ actor_id: actor._id })
+                            .then(response => res.json(response))
+                    })
+            } else if (user.type == USER_TYPE[1]) {
+                Audition.updateMany({ recruiter_id: user._id },
+                    { $set: { is_active: false } })
+                    .then(response => res.json(response))
             }
         })
         .catch(err => res.status(400).json({ err: err }))
@@ -178,4 +187,4 @@ const deleteUser = (req, res) => {
 
 
 
-export { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser }
+export { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser, deleteUser }

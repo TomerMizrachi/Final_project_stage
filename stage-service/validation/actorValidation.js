@@ -9,8 +9,8 @@ const validateActorInput = (data) => {
     data.gender = !isEmpty(data.gender) ? data.gender : ""
     data.body_structure = !isEmpty(data.body_structure) ? data.body_structure : ""
     data.height = !isEmpty(data.height) ? data.height : ""
-    data.skills = !isEmpty(data.skills) ? data.skills : ""
-    data.languages = !isEmpty(data.languages) ? data.languages : ""
+    let skills = !isEmpty(data.skills) ? data.skills.toString() : ""
+    let languages = !isEmpty(data.languages) ? data.languages.toString() : ""
     data.img = !isEmpty(data.img) ? data.img : ""
     data.info = !isEmpty(data.info) ? data.info : ""
     // Password checks
@@ -29,10 +29,10 @@ const validateActorInput = (data) => {
     if (Validator.isEmpty(data.height)) {
         errors.height = "height field is required"
     }
-    if (Validator.isEmpty(data.skills)) {
+    if (Validator.isEmpty(skills)) {
         errors.skills = "skills field is required"
     }
-    if (Validator.isEmpty(data.languages)) {
+    if (Validator.isEmpty(languages)) {
         errors.languages = "languages field is required"
     }
     if (Validator.isEmpty(data.img)) {

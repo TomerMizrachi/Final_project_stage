@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', getAllAA)
 
-router.get('/:id', getAAById)
+router.get('/id/:id', getAAById)
 
 router.post('/', createAA)
 

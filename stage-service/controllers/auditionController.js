@@ -75,10 +75,6 @@ const updateAudition = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-const deleteAudition = (req, res) => {
-    Audition.findOneAndDelete({ _id: req.params.id })
-        .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err }))
-}
 
-export { getAuditions, getAuditionById, createAudition, updateAudition, deleteAudition }
+
+export { getAuditions, getAuditionById, createAudition, updateAudition }

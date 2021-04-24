@@ -1,5 +1,6 @@
 import Actor from '../models/actor.js'
 import User from '../models/user.js'
+import ActorAudition from '../models/actoraudition.js'
 import { USER_TYPE, GENDER_TYPE, BODY_TYPE, HAIR_TYPE, EYES_TYPE, SKILL_TYPE, LANGUAGE_TYPE, HEIGHT_RANGE, TYPECAST_OBJ } from '../config/types.js'
 import { validateActorInput } from '../validation/actorValidation.js'
 
@@ -110,7 +111,10 @@ const uploadVideos = (req, res) => {
 
 const deleteActor = (req, res) => {
     Actor.findOneAndDelete({ _id: req.params.id })
-        .then(aa => res.json(aa))
+        .then(actor => {
+            ActorAudition.deleteMany({ actor_id: actor._id })
+            .then(response => res.json(response))
+        })
         .catch(err => res.status(400).json({ err: err }))
 }
 

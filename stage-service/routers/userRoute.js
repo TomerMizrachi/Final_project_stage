@@ -1,5 +1,5 @@
 import express from 'express'
-import { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser } from '../controllers/userController.js'
+import { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser, deleteUser } from '../controllers/userController.js'
 
 const router = express.Router()
 
@@ -16,6 +16,8 @@ router.post('/recruiterProfile', recruiterProfile)
 router.put('/password/:id', updatePassword)
 
 router.put('/:id', updateUser)
+
+router.delete('/:id', deleteUser)
 
 
 export default router
