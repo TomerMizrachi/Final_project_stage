@@ -3,17 +3,15 @@ const { Schema } = mongoose;
 
 
 const audition = {
-    // _id: Schema.Types.ObjectId,
     recruiter_id: Schema.Types.ObjectId,
     name: String,
     type: String,
     role: String,
     text_file: String,
-    type: String,
     due_date: String,
     availability_date: String,
     open_to_all: Boolean,
-    typecast: String, // typecast obj
+    typecast: Object, 
     is_active: Boolean
 }
 

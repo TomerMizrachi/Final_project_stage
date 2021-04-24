@@ -5,6 +5,7 @@ import { validateRegisterInput } from '../validation/register.js'
 import { validateLoginInput } from '../validation/login.js'
 import { validatePasswordInput } from '../validation/password.js'
 import User from '../models/user.js'
+import Actor from '../models/actor.js'
 import keys from '../config/keys.js'
 import { USER_TYPE } from '../config/types.js'
 
@@ -15,7 +16,7 @@ const getUsers = async (req, res) => {
         const docs = await User.find({})
         return res.status(200).json(docs)
     } catch (err) {
-        console.log(`query error: ${err}`)
+        return res.status(400).json({ err: err })
     }
 }
 
@@ -27,9 +28,9 @@ const getUserById = async (req, res) => {
         if (!docs) throw {
             message: 'no content'
         }
-        res.status(200).json(docs)
+        return res.status(200).json(docs)
     } catch (err) {
-        res.status(500).send(err)
+        return res.status(500).send(err)
     }
 }
 
@@ -126,12 +127,12 @@ const recruiterProfile = (req, res) => {
 
 const updatePassword = (req, res) => {
     const { errors, isValid } = validatePasswordInput(req.body)
-    const filter = { _id: req.params.id }
-    let update = { password: req.body.password }
-    // Check validation
     if (!isValid) {
         return res.status(400).json(errors)
     }
+    const filter = { _id: req.params.id }
+    let update = { password: req.body.password }
+
     // Hash password before updating database
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(update.password, salt, (err, hash) => {
@@ -159,6 +160,19 @@ const updateUser = (req, res) => {
         .then(user => res.json(user))
         .catch(err => res.status(400).json({ err: err }))
 }
+
+const deleteUser = (req, res) => {
+
+    User.findOne({ _id: req.params.id })
+        .then(user => {
+            if (user.type == USER_TYPE[0]) {
+                Actor.findOneAndDelete({ user_id: user._id })
+                    .then(actor => { res.status(200).jsom(actor) })
+            }
+        })
+        .catch(err => res.status(400).json({ err: err }))
+}
+
 
 
 export { getUsers, getUserById, register, login, recruiterProfile, updatePassword, updateUser }

@@ -1,0 +1,51 @@
+import Validator from 'validator'
+import isEmpty from 'is-empty'
+
+const validateActorInput = (data) => {
+    let errors = {}
+    // Convert empty fields to an empty string so we can use validator functions
+    data.email = !isEmpty(data.email) ? data.email : ""
+    data.age = !isEmpty(data.age) ? data.age : ""
+    data.gender = !isEmpty(data.gender) ? data.gender : ""
+    data.body_structure = !isEmpty(data.body_structure) ? data.body_structure : ""
+    data.height = !isEmpty(data.height) ? data.height : ""
+    data.skills = !isEmpty(data.skills) ? data.skills : ""
+    data.languages = !isEmpty(data.languages) ? data.languages : ""
+    data.img = !isEmpty(data.img) ? data.img : ""
+    data.info = !isEmpty(data.info) ? data.info : ""
+    // Password checks
+    if (Validator.isEmpty(data.email)) {
+        errors.email = "email field is required"
+    }
+    if (Validator.isEmpty(data.age)) {
+        errors.age = "age field is required"
+    }
+    if (Validator.isEmpty(data.gender)) {
+        errors.gender = "gender field is required"
+    }
+    if (Validator.isEmpty(data.body_structure)) {
+        errors.body_structure = "body_structure field is required"
+    }
+    if (Validator.isEmpty(data.height)) {
+        errors.height = "height field is required"
+    }
+    if (Validator.isEmpty(data.skills)) {
+        errors.skills = "skills field is required"
+    }
+    if (Validator.isEmpty(data.languages)) {
+        errors.languages = "languages field is required"
+    }
+    if (Validator.isEmpty(data.img)) {
+        errors.img = "img field is required"
+    }
+    if (Validator.isEmpty(data.info)) {
+        errors.info = "info field is required"
+    }
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    }
+}
+
+
+export { validateActorInput }

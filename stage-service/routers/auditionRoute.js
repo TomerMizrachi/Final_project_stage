@@ -1,8 +1,16 @@
 import express from 'express'
-import { getAuditions } from '../controllers/auditionController.js'
+import { getAuditions, getAuditionById, createAudition, updateAudition } from '../controllers/auditionController.js'
 
 const router = express.Router()
 
 router.get('/', getAuditions)
 
-export default router;
+router.get('/:id', getAuditionById)
+
+router.post('/', createAudition)
+
+router.put('/:id', updateAudition)
+
+
+
+export default router
