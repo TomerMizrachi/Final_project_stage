@@ -38,6 +38,7 @@ const register = (req, res) => {
         return res.status(400).json(errors)
     }
     User.findOne({ Email: req.body.email }).then(user => {
+        console.log("hhh", req.body.email)
         if (user) {
             return res.status(400).json({ email: "Email already exists" })
         } else {
@@ -58,7 +59,8 @@ const register = (req, res) => {
                 })
             })
         }
-    })
+    }).catch((error) => {
+        console.error(error);})
 }
 
 const login = (req, res) => {
@@ -104,7 +106,8 @@ const login = (req, res) => {
                     .json({ passwordincorrect: "Password incorrect" })
             }
         })
-    })
+    }).catch((error) => {
+        console.error(error);})
 }
 
 
