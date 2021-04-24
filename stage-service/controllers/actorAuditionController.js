@@ -15,7 +15,6 @@ const getAllActorAudition = async (req, res) => {
     }
 }
 
-
 const createS3Url = async (req, res) => {
     try {
         await s3.getSignedUrl('putObject', {
@@ -27,7 +26,7 @@ const createS3Url = async (req, res) => {
         }, function (err, signedURL) {
             if (err) {
                 console.log(err)
-                return next(err)
+                return res.send(err)
             }
             else {
                 return res.json({
