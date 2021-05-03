@@ -6,10 +6,10 @@ const actor = {
     user_id: Schema.Types.ObjectId, // key to connect with user info
     pictures: [String],
     videos: [String],
-    age: String,
+    age: Number,
     gender: String,
     body_structure: String,
-    height: String,
+    height: Number,
     hair: String,
     eyes: String,
     skills: [String],

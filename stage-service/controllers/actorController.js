@@ -4,13 +4,43 @@ import ActorAudition from '../models/actoraudition.js'
 import { USER_TYPE, GENDER_TYPE, BODY_TYPE, HAIR_TYPE, EYES_TYPE, SKILL_TYPE, LANGUAGE_TYPE, HEIGHT_RANGE, TYPECAST_OBJ } from '../config/types.js'
 import { validateActorInput } from '../validation/actorValidation.js'
 
-const getAllActorsInfo = async (req, res) => {
-    try {
-        const docs = await Actor.find({})
-        return res.json(docs)
-    } catch (err) {
-        return res.status(400).json({ err: err })
+const getActors = (req, res) => {
+    let condition = {}
+    if (req.query.age) {
+        let gt = Number(req.query.age) - 5
+        let lt = Number(req.query.age) + 5
+        condition.age = { $gt: gt, $lt: lt }
     }
+    if (req.query.height) {
+        let heightStr = req.query.height
+        let heightRange = heightStr.split(' - ')
+        condition.height = { $gte: Number(heightRange[0]), $lte: Number(heightRange[1]) }
+    }
+    if (req.query.gender)
+        condition.gender = req.query.gender
+    if (req.query.body_structure)
+        condition.body_structure = req.query.body_structure
+    if (req.query.hair)
+        condition.hair = req.query.hair
+    if (req.query.eyes)
+        condition.eyes = req.query.eyes
+    if (req.query.skills)
+        condition.skills = { $all: req.query.skills }
+    if (req.query.languages)
+        condition.languages = { $all: req.query.languages }
+    // join actor and user collection and filter by condition
+    Actor.aggregate([
+        { $match: condition },
+        {
+            $lookup: {
+                from: "user",
+                localField: "user_id",
+                foreignField: "_id",
+                as: "user_info"
+            }
+        }])
+        .then(actors => res.json(actors))
+        .catch(err => res.status(400).json({ err: err }))
 }
 
 const getActorById = async (req, res) => {
@@ -91,31 +121,45 @@ const updateActorProfile = (req, res) => {
 
 const uploadBook = (req, res) => {
     const filter = { _id: req.params.id }
-    let update = {}
-    if (req.body.pictures)
-        update.pictures = req.body.pictures
-    Actor.findOneAndUpdate(filter, update)
-        .then(user => res.json(user))
-        .catch(err => res.status(400).json({ err: err }))
+    if (req.body.pictures) {
+        Actor.findOneAndUpdate(filter, {
+            $push: {
+                pictures: { $each: req.body.pictures, $positioin: 0 }
+            }
+        })
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({ err: err }))
+    } else {
+        res.status(400).json("there is no body pictures req")
+    }
+}
+
+const deletePic = (req, res) => {
+    
 }
 
 const uploadVideos = (req, res) => {
     const filter = { _id: req.params.id }
-    let update = {}
-    if (req.body.videos)
-        update.videos = req.body.videos
-    Actor.findOneAndUpdate(filter, update)
-        .then(user => res.json(user))
-        .catch(err => res.status(400).json({ err: err }))
+    if (req.body.videos) {
+        Actor.findOneAndUpdate(filter, {
+            $push: {
+                videos: { $each: req.body.videos, $positioin: 0 }
+            }
+        })
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({ err: err }))
+    } else {
+        res.status(400).json("there is no body videos req")
+    }
 }
 
 const deleteActor = (req, res) => {
     Actor.findOneAndDelete({ _id: req.params.id })
         .then(actor => {
             ActorAudition.deleteMany({ actor_id: actor._id })
-            .then(response => res.json(response))
+                .then(response => res.json(response))
         })
         .catch(err => res.status(400).json({ err: err }))
 }
 
-export { getAllActorsInfo, getActorById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
+export { getActors, getActorById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }

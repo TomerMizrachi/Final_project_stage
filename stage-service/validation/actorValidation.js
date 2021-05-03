@@ -5,10 +5,10 @@ const validateActorInput = (data) => {
     let errors = {}
     // Convert empty fields to an empty string so we can use validator functions
     data.email = !isEmpty(data.email) ? data.email : ""
-    data.age = !isEmpty(data.age) ? data.age : ""
+    let age = !isEmpty(data.age) ? data.age.toString() : ""
     data.gender = !isEmpty(data.gender) ? data.gender : ""
     data.body_structure = !isEmpty(data.body_structure) ? data.body_structure : ""
-    data.height = !isEmpty(data.height) ? data.height : ""
+    let height = !isEmpty(data.height) ? data.height.toString() : ""
     let skills = !isEmpty(data.skills) ? data.skills.toString() : ""
     let languages = !isEmpty(data.languages) ? data.languages.toString() : ""
     data.img = !isEmpty(data.img) ? data.img : ""
@@ -17,7 +17,7 @@ const validateActorInput = (data) => {
     if (Validator.isEmpty(data.email)) {
         errors.email = "email field is required"
     }
-    if (Validator.isEmpty(data.age)) {
+    if (Validator.isEmpty(age)) {
         errors.age = "age field is required"
     }
     if (Validator.isEmpty(data.gender)) {
@@ -26,7 +26,7 @@ const validateActorInput = (data) => {
     if (Validator.isEmpty(data.body_structure)) {
         errors.body_structure = "body_structure field is required"
     }
-    if (Validator.isEmpty(data.height)) {
+    if (Validator.isEmpty(height)) {
         errors.height = "height field is required"
     }
     if (Validator.isEmpty(skills)) {

@@ -12,7 +12,7 @@ export const HEIGHT_RANGE = ["0 - 150", "150 - 155", "155 - 160", "160 - 165", "
 
 
 export const TYPECAST_OBJ = {
-    age: String,
+    age: Number,
     gender: GENDER_TYPE[Number],
     body_structure: BODY_TYPE[Number],
     height_range: HEIGHT_RANGE[Number],

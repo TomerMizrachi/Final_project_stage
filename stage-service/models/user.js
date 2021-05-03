@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 
 const user = {
-    // _id: Schema.Types.ObjectId,
     full_name: String,
     Email: { type: String, required: true },
     password: { type: String, required: true },
