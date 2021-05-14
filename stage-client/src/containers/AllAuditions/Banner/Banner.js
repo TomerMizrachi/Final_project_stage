@@ -12,13 +12,15 @@ function Banner() {
 						<h2 className="title">
 							<span>Find your dream auditions</span>
 							<span className="text-accent">through Stage</span>
+							<SearchBar></SearchBar>
+
 						</h2>
 					</div>
 					<div className="image-block">
 						<img className="banner-img" src="/images/pages/auditions/banner.png" alt="Banner" />
 					</div>
+
 				</Box>
-				<SearchBar></SearchBar>
 			</div>
 		</HeroAuditions>
 	)

@@ -2,14 +2,9 @@ import styled from "styled-components";
 
 const BigSearchBar = styled.body`
 .search-box {
-	margin: 0 20px;
-
-
 				.search {
-					position: relative;
-					bottom: 180px;
 					align-items: center;
-
+					padding-top: 35px;
 					input.search-field {
 						background-color: #FFF;
 						border: none;
@@ -23,7 +18,6 @@ const BigSearchBar = styled.body`
 					}
 
 					button.icon-btn {
-						position: absolute;
 						right: 0;
 						top: 0;
 						width: 42px;
@@ -37,7 +31,7 @@ const BigSearchBar = styled.body`
 							background-repeat: no-repeat;
 							background-position: center;
 							background-size: contain;
-							width: 20px;
+							width: 15px;
 							height: 20px;
 							display: inline-block;
 							vertical-align: bottom;

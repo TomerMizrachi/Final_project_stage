@@ -77,7 +77,7 @@ const createS3Url = async (req, res) => {
             Key: uuid(),
             Expires: 300,
             ACL: 'public-read',
-            ContentType: 'video/x-matroska'
+            ContentType: 'video/mp4'
         }, function (err, signedURL) {
             if (err) {
                 console.log(err)
