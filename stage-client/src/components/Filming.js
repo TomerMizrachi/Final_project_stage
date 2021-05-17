@@ -1,56 +1,34 @@
 import React from 'react'
 import Video from './Video'
-// import WaveSurfer from 'wavesurfer.js';
-// import TsEBMLEngine from 'videojs-record/dist/plugins/videojs.record.ts-ebml.js';
 // import FFmpegjsEngine from 'videojs-record/dist/plugins/videojs.record.ffmpegjs.js';
-// import FFmpegWasmEngine from 'videojs-record/dist/plugins/videojs.record.ffmpeg-wasm.js';
-// import MicrophonePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.microphone.js';
-// // Register videojs-wavesurfer plugin
-// import 'videojs-wavesurfer/dist/css/videojs.wavesurfer.css';
-// WaveSurfer.microphone = MicrophonePlugin;
 
 
 const videoJsOptions = {
     controls: true,
-    recordToggle: false,
-    bigPlayButton: false,
+    recordToggle: true,
+    bigPlayButton: true,
     width: 320,
     height: 240,
     fluid: false,
     plugins: {
-        // wavesurfer: {
-        //     backend: 'WebAudio',
-        //     waveColor: '#36393b',
-        //     progressColor: 'black',
-        //     debug: true,
-        //     cursorWidth: 1,
-        //     msDisplayMax: 20,
-        //     hideScrollbar: true,
-        //     displayMilliseconds: true,
-        //     // plugins: [
-        //     //     // enable microphone plugin
-        //     //     WaveSurfer.microphone.create({
-        //     //         bufferSize: 4096,
-        //     //         numberOfInputChannels: 1,
-        //     //         numberOfOutputChannels: 1,
-        //     //         constraints: {
-        //     //             video: false,
-        //     //             audio: true
-        //     //         }
-        //     //     })
-        //     // ]
-        // },
         record: {
             audio: true,
             video: true,
             maxLength: 60000,
             debug: true,
-            pluginLibraryOptions: {
-                // outputType: 'video/mp4'
-                outputType: 'video/x-matroska'
-            },
+            // convertEngine: 'ffmpeg.js',
+            
+            // convertWorkerURL: 'ffmpeg.js/ffmpeg-worker-mp4.js',
+            // // convert recorded data to MP4 (and copy over audio data without encoding)
+            // // convertOptions: ['-f', 'mp3', '-codec:a', 'libmp3lame', '-qscale:a', '2'],
+            // convertOptions: ['-c:v', 'libx264', '-preset', 'slow', '-crf', '22', '-c:a', 'copy', '-f', 'mp4'],
+            // pluginLibraryOptions: {
+            //     outputType: 'video/mp4'
+            //     // outputType: 'video/x-matroska'
+            // },
             // fire the timestamp event every 2 seconds
-            timeSlice: 2000
+            timeSlice: 2000,
+            videoMimeType: 'video/mp4',
         }
     }
 };

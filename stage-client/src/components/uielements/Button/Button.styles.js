@@ -6,7 +6,7 @@ const buttonCss = `
 	cursor: pointer;
 	border: none;
 	font-size: 13px;
-	font-weight: 600;
+	font-weight: 400;
 	height: 42px;
 	padding: 0 30px;
 	margin: 0;
@@ -23,6 +23,13 @@ const buttonCss = `
 		padding: 0 20px;
 		font-size: 12px;
 		font-weight: 500;
+	}
+
+	&.filter-btn 
+		margin-right: 5px;
+}
+	&.login-btn{
+		padding: 0 10px;
 	}
 	
 	&.bt-xl {
