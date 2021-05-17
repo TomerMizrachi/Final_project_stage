@@ -41,7 +41,7 @@ const register = (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body)
     // Check validation
     if (!isValid) {
-        return res.status(400).json(errors)
+        return res.status(422).json(errors)
     }
     User.findOne({ Email: req.body.email }).then(user => {
         if (user) {
@@ -50,6 +50,7 @@ const register = (req, res) => {
             const newUser = new User({
                 full_name: req.body.name,
                 Email: req.body.email,
+                type: req.body.type,
                 password: req.body.password
             })
             // Hash password before saving in database
@@ -59,7 +60,7 @@ const register = (req, res) => {
                     newUser.password = hash
                     newUser
                         .save()
-                        .then(user => res.json(user))
+                        .then(user => res.status(201).json(user))
                         .catch(err => console.log(err))
                 })
             })
