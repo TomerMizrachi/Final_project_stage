@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import '../App.css';
 
 import 'video.js/dist/video-js.css';
 import videojs from 'video.js';

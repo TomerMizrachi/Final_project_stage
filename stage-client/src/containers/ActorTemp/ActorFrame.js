@@ -1,8 +1,11 @@
 import React from 'react'
-import Filming from '../Filming'  
-import TextTrainer from '../TextTrainer'
+import TextTrainer from '../TextTrainer/TextTrainer'
+import Filming from '../Filming'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import { BrowserRouter as Router, Route, Switch, NavLink } from "react-router-dom"
 import { Nav } from 'rsuite'
+import StyledActorFrame from './ActorFrame.styles';
 
 const linkStyle = {
     paddingRight: 30
@@ -15,23 +18,16 @@ const container = {
 
 const ActorFrame = () => {
     return (
-        <Router>
+        <StyledActorFrame>
             <div style={container}>
-                <Nav>
-                    <NavLink to="/Profile" style={linkStyle}>Profile</NavLink>
-                    <NavLink to="/TextTrainer" style={linkStyle}>TextTrainer</NavLink>
-                    <NavLink to="/Filming" style={linkStyle}>Filming</NavLink>
-                </Nav>
-                <Switch>
-                    <Route path="/TextTrainer">
-                        <TextTrainer />
-                    </Route>
-                    <Route path="/Filming">
-                        <Filming  />
-                    </Route>
-                </Switch>
+                <Popup trigger={<button> Audio practice</button>} position="center" modal>
+                <TextTrainer></TextTrainer>
+                </Popup>
+                <Popup trigger={<button> Film Audition</button>} position="center" modal>
+                <Filming></Filming>
+                </Popup>
             </div>
-        </Router>
+        </StyledActorFrame>
     )
 }
 
