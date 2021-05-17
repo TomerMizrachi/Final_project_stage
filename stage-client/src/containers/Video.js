@@ -62,6 +62,7 @@ class Video extends Component {
                 var formDataAudio = new FormData()
                 formDataAudio.append('file', merged_blob)
                 // speechToText API
+                if (sessionBlobs.length!=0) {
                 axios({
                     method: "post",
                     url: "http://127.0.0.1:5000/audio",
@@ -91,10 +92,9 @@ class Video extends Component {
                     console.log(error);
                 })
             }
+        }
         });
-
         
-
         this.videoPlayer.onStateChanged = function (state) {
             console.log('Video player state changed', state)
         }

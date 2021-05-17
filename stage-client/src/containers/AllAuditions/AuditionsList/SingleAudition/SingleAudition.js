@@ -16,20 +16,6 @@ export default function SingleAudition(props) {
 						<div className="audition-role">{audition.role}</div>
 					</Grid>
 				</Grid>
-
-				<Box pt={20} />
-
-				<Grid container className="rating-block" justify="space-between" alignItems="center">
-					<Grid item>
-						<Box display="flex" alignItems="center">
-							<Rating value={audition.rating} precision={0.1} size="small" readOnly />
-							<span className="actor-rating">{audition.rating}</span>
-						</Box>
-					</Grid>
-					<Grid item>
-						<LinkButton href={audition.link} className="orange bt-sm round">View</LinkButton>
-					</Grid>
-				</Grid>
 			</Grid>
 		</StyledFeaturedActorAudition>
 	)

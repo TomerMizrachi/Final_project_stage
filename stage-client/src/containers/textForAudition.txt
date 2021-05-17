@@ -1,0 +1,4 @@
+actor:I love bamba
+otherLine:Yes? how about bisli?
+actor:I think it's overrated
+otherLine:good for me, I will eat it all
