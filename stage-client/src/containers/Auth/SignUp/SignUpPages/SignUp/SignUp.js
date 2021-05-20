@@ -6,24 +6,40 @@ import SignUpLayout from '@containers/Auth/SignUp/SignUpLayout/SignUpLayout'
 import StyledSignUp from './SignUp.styles'
 import { useParams, withRouter } from 'react-router-dom'
 import { Grid, Box } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import SignUpSteps from '@containers/Auth/SignUp/SignUpSteps/SignUpSteps'
 import { Button } from '@components/uielements/Button/Button'
-import { registerUser } from '@actions/authActions'
+import { registerUser, loginUser } from '@actions/authActions'
 
 function SignUp(props) {
+	const isFirstRun = useRef(true)
 	const { userRole } = useParams()
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [password2, setPassword2] = useState('')
+	const [errors, setErrors] = useState()
 
 	useEffect(() => {
 		// If logged in and user navigates to Register page, should redirect them to dashboard
 		if (props.auth.isAuthenticated) {
-			props.history.push("/dashboard")
+			console.log("in sign up useeffect")
+			if(props.auth.user.type === "actor"){
+				props.history.push("/dashboard")
+			}else{
+				props.history.push("/")
+			}
 		}
-	}, [])
+	})
 
+	useEffect(() => {
+		if (isFirstRun.current) {
+			isFirstRun.current = false;
+			return;
+		}
+		setErrors({ errors: props.errors })
+	}, [props.errors])
+	
 	useEffect(() => {
 		ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
 			if (value !== password) {
@@ -116,6 +132,9 @@ function SignUp(props) {
 							<Button type="submit" className="accent fullwidth bt-xl">Create an account</Button>
 						</Grid>
 
+						<Grid item xs={8}>
+							{errors && <Alert severity="error"> {JSON.stringify(errors.errors)} </Alert>}
+						</Grid>
 					</Grid>
 				</ValidatorForm>
 			</StyledSignUp>
@@ -124,6 +143,7 @@ function SignUp(props) {
 }
 
 SignUp.propTypes = {
+	loginUser: PropTypes.func.isRequired,
 	registerUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -136,5 +156,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ registerUser }
+	{ registerUser, loginUser } 
 )(withRouter(SignUp))

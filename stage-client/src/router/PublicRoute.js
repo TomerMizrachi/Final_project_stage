@@ -8,7 +8,8 @@ const PublicRoute = ({ component: Component, auth, ...rest }) => (
         {...rest}
         render={props =>
             auth.isAuthenticated === true ? (
-                <Redirect to="/dashboard" />
+                auth.user.type === "actor" ? (<Redirect to="/dashboard" />) :
+                (<Redirect to="/recruiter" />)
             ) : (
                 <Component {...props} />
             )

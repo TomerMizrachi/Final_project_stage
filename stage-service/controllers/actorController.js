@@ -82,16 +82,15 @@ const actorProfile = (req, res) => {
                     return res.status((400).json({ actor_profile: "faild to create actor profile" }))
                 } else {
                     const update = {
-                        type: USER_TYPE[0],
                         actor_collection_id: actor._id,
                         profile_picture: req.body.img,
                         personal_information: req.body.info
                     }
                     User.updateOne(filter, update)
                         .then(user => res.json(user))
-                        .catch(err => res.status(400).json({ err: err }))
+                        .catch(err => res.status(400).json({ error: err }))
                 }
-            })
+            }).catch(err=>res.status(400).json({ error: err }) )
         }
     })
 }

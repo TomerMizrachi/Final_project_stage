@@ -1,13 +1,23 @@
 import axios from 'axios'
 import setAuthToken from '../utils/setAuthToken'
 import jwt_decode from 'jwt-decode'
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types'
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, SET_USER_EMAIL } from './types'
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     axios
         .post("/user/register", userData)
-        .then(res => history.push("/login")) // re-direct to login on successful register
+        .then(res => {
+            if (userData.type === "actor") {
+                dispatch({
+                    type: SET_USER_EMAIL,
+                    payload: {email: res.data.Email}
+                })
+                history.push('/signup/' + userData.type + '/profile')
+            } else {
+                history.push('/login')
+            }
+        }) // re-direct actor to complete sign up recruiter to login
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
@@ -15,6 +25,20 @@ export const registerUser = (userData, history) => dispatch => {
             })
         )
 }
+// Register Actor
+export const registerActor = (actorData, history) => dispatch => {
+    axios
+        .post("/actor", actorData)
+        .then(res => history.push('/login')) // re-direct successful register
+        .catch(err => {
+            console.log(err)
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
@@ -31,12 +55,12 @@ export const loginUser = userData => dispatch => {
             // Set current user
             dispatch(setCurrentUser(decoded))
         })
-        .catch(err =>
+        .catch(err => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
-        )
+        })
 }
 
 // Set logged in user

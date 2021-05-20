@@ -91,7 +91,9 @@ const login = (req, res) => {
                 // Create JWT Payload
                 const payload = {
                     id: user._id,
-                    name: user.full_name
+                    name: user.full_name,
+                    type: user.type,
+                    email: user.Email
                 }
                 // Sign token
                 jwt.sign(

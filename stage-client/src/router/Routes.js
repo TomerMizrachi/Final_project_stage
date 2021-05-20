@@ -21,11 +21,6 @@ export const OpenRoutes = [
 
 export const PublicRoutes = [
 	{
-		path: '/login',
-		exact: true,
-		component: lazy(() => import('@containers/Auth/Login/Login')),
-	},
-	{
 		path: '/signup',
 		exact: true,
 		component: lazy(() => import('@containers/Auth/SignUp/SignUpPages/StartSignUp/StartSignUp')),
@@ -40,24 +35,28 @@ export const PublicRoutes = [
 		exact: true,
 		component: lazy(() => import('@containers/Auth/SignUp/SignUpPages/SignUpActor/SignUpActor')),
 	},
+	{
+		path: '/login',
+		exact: true,
+		component: lazy(() => import('@containers/Auth/Login/Login')),
+	}
+];
 
-	// PRIVATE ROUTES, TEMPORARY PLACES HERE
-	// SO NO NEED TO LOGIN TO ACCESS THESE PAGES
+export const PrivateRoutes = [
 	{
 		path: '/dashboard',
 		exact: true,
 		component: lazy(() => import('@containers/Dashboard/Dashboard')),
 	},
-
 	{
 		path: '/dashboard/trainer',
 		exact: true,
 		component: lazy(() => import('@containers/ActorTemp/ActorFrame')),
 	},
-
-
-];
-
-export const PrivateRoutes = [
+	{
+		path: '/recruiter',
+		exact: true,
+		component: lazy(() => import('@containers/Dashboard/Recruiter')),
+	}
 ];
 
