@@ -10,6 +10,7 @@ export default class Aud extends Component {
             status: "",
             entireText:"",
             currentLineIterator:0,
+            lineToRead:"",
             finishedText:false,
             sumSimilariyScore:0,
             sumExactScore:0,
@@ -18,29 +19,34 @@ export default class Aud extends Component {
         }
     }
 
+x
+
     calculateTotalScore(){
         //avg of sumSimilarty and sumExcat divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
-        var similarityScore= this.state.sumSimilariyScore/(this.state.text.length/2)
-        var exactScore=this.state.sumExactScore/(this.state.text.length/2)
+        var similarityScore= this.state.sumSimilariyScore/(this.state.entireText.length/2)
+        var exactScore=this.state.sumExactScore/(this.state.entireText.length/2)
         var finalScore={
             "similarityScore": similarityScore,
             "exactScore":exactScore,
         }
+        this.setState({
+            finalScore: finalScore
+        })
         return JSON.stringify(finalScore)
     }
     readText(){
         fetch(auditionText)
         .then((r) => r.text())
         .then(text  => {
-          this.state.text=text.split("\n")
+            this.setState({
+                entireText:text.split("\n")
+            })
         })   
     }
 
-    retrieveNextLine(){
-
-    }
   
     componentDidMount() {
+
     }
 
     controlAudio(status) {
@@ -57,10 +63,12 @@ export default class Aud extends Component {
 
     render() {
         this.readText()
+        console.log(this.state.entireText)
+        const isFinishedText = this.state.finishedText;
+        console.log(this.state)
         const { status, audioSrc } = this.state; // audioType is also available
         const audioProps = {
             audioType: "audio/wav",
-            // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
             status,
             audioSrc,
             timeslice: 1000, // timeslice（https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/start#Parameters）
@@ -80,44 +88,39 @@ export default class Aud extends Component {
                 formData.append("file", e);
                 console.log("succ stop", e)
 
-                if (this.state.currentLineIterator<this.state.text.length){
+                if (this.state.currentLineIterator<this.state.entireText.length){
 
                 axios.post("http://127.0.0.1:5000/speechToTextAudio", formData)
                     .then(res => {
                         let resultTranscript = res.data.transcript
-                        let expectedText = this.state.text[this.state.currentLineIterator].replace('actor:','')
-                        this.state.currentLineIterator+=1
-                        this.state.roleSpeaking="ACTOR"
-                        console.log( this.state.roleSpeaking)
-                        console.log(resultTranscript)
+                        let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:','')
+                        this.setState({currentLineIterator:this.state.currentLineIterator+1,roleSpeaking:"ACTOR",lineToRead:this.state.entireText[this.state.currentLineIterator]})
                         axios.get("http://127.0.0.1:12345/compare", {
                             params: {
                                 inputText: resultTranscript,
                                 expectedText: expectedText
                             }
                         }).then(res=>{
-                            this.state.roleSpeaking="VOCAL_SERVICE"
-                            this.state.sumExactScore=parseFloat(this.state.sumExactScore)+parseFloat(res.data.exactScore)
-                            this.state.sumSimilariyScore=parseFloat(this.state.sumSimilariyScore)+parseFloat(res.data.similarityScore)
-                            console.log(this.state.sumExactScore)
-                            console.log(this.state.sumSimilariyScore)
-                            console.log( this.state.roleSpeaking)
+                            this.setState({roleSpeaking:"VOCAL_SERVICE",sumExactScore:parseFloat(this.state.sumExactScore)+parseFloat(res.data.exactScore),sumSimilariyScore:parseFloat(this.state.sumSimilariyScore)+parseFloat(res.data.similarityScore)})
                             axios.get("http://127.0.0.1:5000/textToSpeech", {
                             params: {
-                                textToRead: this.state.text[this.state.currentLineIterator].replace('otherLine:','')
+                                textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:','')
                             }
-                        }).then(res=>{
-                            if (this.state.currentLineIterator<this.state.text.length){
-                                this.state.currentLineIterator+=1
+                        }).then(res=>{ 
+                            if (this.state.currentLineIterator<this.state.entireText.length){
                                 console.log(res.data.data)
                                 var base64string=res.data.data
                                 var snd = new Audio("data:audio/wav;base64," + base64string);
                                 snd.play()
+                                this.setState({currentLineIterator:this.state.currentLineIterator+1})
+                                if (this.state.currentLineIterator==this.state.entireText.length){
+                                    this.setState({finishedText:true,finalScore:this.calculateTotalScore()})
+
+                                }
                             }
                             else{
                                 console.log("No more texts to read")
-                                this.state.finishedText=true
-                                this.state.finalScore=this.calculateTotalScore()
+                                this.setState({finishedText:true,finalScore:this.calculateTotalScore()})
                                 console.log(this.state.finalScore)
                             }
                         })
@@ -130,10 +133,7 @@ export default class Aud extends Component {
                 }
                 else{
                     console.log("no more text to read")
-                    this.state.finishedText=true
-                    this.state.finalScore=this.calculateTotalScore()
-                    console.log(this.state.finalScore)
-
+                    this.setState({finishedText:true,finalScore:this.calculateTotalScore()})
 
                 }
             },
@@ -144,25 +144,25 @@ export default class Aud extends Component {
                 console.log("error", err)
             }
         }
+        { if (!this.state.finishedText){
         return (
             <div>
+            <p>{this.state.entireText[this.state.currentLineIterator]}</p>
                 <AudioAnalyser {...audioProps}>
                     <div className="btn-box">
-
                         {status !== "recording" &&
                             <button onClick={() => this.controlAudio("recording")}>record</button>
                         }
-
                         <button onClick={() => this.controlAudio("inactive")}>stop</button>
                     </div>
                 </AudioAnalyser>
-                {/* <p>choose output type</p>
-                <select name="" id="" onChange={(e) => this.changeScheme(e)} value={audioType}>
-                    <option value="audio/webm">audio/webm（default）</option>
-                    <option value="audio/wav">audio/wav</option>
-                    <option value="audio/mp3">audio/mp3</option>
-                </select> */}
             </div>
         );
+                    } 
+        else{
+            return(<p>{(this.state.finalScore)}</p>)
+        }
     }
+}
+
 }

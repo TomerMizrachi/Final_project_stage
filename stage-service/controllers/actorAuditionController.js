@@ -50,6 +50,8 @@ const createAA = (req, res) => {
 }
 
 const updateAA = (req, res) => {
+    console.log(req.params);
+    console.log(req.body)
     const filter = { _id: req.params.id }
     let update = {}
     if (req.body.submitted)
