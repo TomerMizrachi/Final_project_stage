@@ -158,9 +158,9 @@ x
                 </AudioAnalyser>
             </div>
         );
-                    }
+                    } 
         else{
-            return(<p>{JSON.stringify(this.state.finalScore.exactScore)}</p>)
+            return(<p>{(this.state.finalScore)}</p>)
         }
     }
 }

@@ -152,7 +152,7 @@ class Video extends Component {
                     url: "http://localhost:8001/actor-audition/get_signed_url",
                 }).then(function (response) {
                     var postURL = response.data.postURL;
-                    var getURL = response.data.getURL;
+                    var video = response.data.getURL;
                     delete axios.defaults.headers.common['Authorization']
                     axios({
                         method: "put",
@@ -162,11 +162,29 @@ class Video extends Component {
                             'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                         }
                     }).then(res => {
-                        console.log("Response from s3")
+
+                        var data = JSON.stringify({"video":"https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a"});
+
+                        var config = {
+                          method: 'put',
+                          url: 'http://localhost:8001/actor-audition/6084204bdb649568101fede1',
+                          headers: { 
+                            'Content-Type': 'application/json'
+                          },
+                          data : data
+                        };
+                        
+                        axios(config)
+                        .then(function (response) {
+                          console.log(JSON.stringify(response.data));
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                     }).catch(error => {
                         console.log(error);
                     })
-                    console.log(getURL, postURL);
+                    console.log(video, postURL);
                 }).catch(function (error) {
                     console.log(error);
                 })
