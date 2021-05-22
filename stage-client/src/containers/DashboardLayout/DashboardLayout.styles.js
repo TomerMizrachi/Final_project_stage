@@ -6,12 +6,14 @@ const StyledDashboardLayout = styled.div`
 	overflow: hidden;
 
 	#dashboard-sidebar {
+
 		flex: 0 0 260px;
 		box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
-		padding: 30px;
+    	padding: 60px 30px
 	}
 	
 	#dashboard-content {
+		background-color: #F8F9FD;
 		flex: 1;
 		padding: 30px;
 

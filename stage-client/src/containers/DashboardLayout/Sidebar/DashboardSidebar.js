@@ -13,6 +13,7 @@ export default function DashboardSidebar() {
 				<div className="user-details">
 					<div className="name">Michal Frankel</div>
 					<div className="role">Actor</div>
+					<NavLink to="/" size xs>Logout</NavLink>
 				</div>
 			</Box>
 

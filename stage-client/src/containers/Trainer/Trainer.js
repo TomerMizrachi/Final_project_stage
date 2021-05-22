@@ -4,18 +4,15 @@ import Banner from './Banner/Banner';
 import SearchBar from './Banner/SearchBar/SearchBar';
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
 
-import AuditionList from './AuditionsList/AuditionList';
+import PracticeList from './PracticeList/PracticeList';
 
 
-function AllAuditions() {
+function Trainer() {
 	return (
 		<DashboardLayout>
-			<Banner>
-			<SearchBar/>
-			</Banner>
-			<AuditionList/>
+			<PracticeList/>
 		</DashboardLayout>
 	)
 }
 
-export default AllAuditions;
+export default Trainer;
