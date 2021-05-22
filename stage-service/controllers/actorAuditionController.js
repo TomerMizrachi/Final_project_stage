@@ -50,8 +50,6 @@ const createAA = (req, res) => {
 }
 
 const updateAA = (req, res) => {
-    console.log(req.params);
-    console.log(req.body)
     const filter = { _id: req.params.id }
     let update = {}
     if (req.body.submitted)
@@ -75,11 +73,13 @@ const deleteAA = (req, res) => {
 const createS3Url = async (req, res) => {
     try {
         await s3.getSignedUrl('putObject', {
-            Bucket: 'stage-video',
+            Bucket: 'stage-videos',
             Key: uuid(),
             Expires: 300,
             ACL: 'public-read',
             ContentType: 'video/mp4'
+            
+            // ContentType: 'video/x-matroska'
         }, function (err, signedURL) {
             if (err) {
                 console.log(err)

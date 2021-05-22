@@ -21,10 +21,10 @@ const ActorFrame = () => {
         <StyledActorFrame>
             <div style={container}>
                 <Popup trigger={<button> Audio practice</button>} position="center" modal>
-                <TextTrainer></TextTrainer>
+                    <TextTrainer></TextTrainer>
                 </Popup>
                 <Popup trigger={<button> Film Audition</button>} position="center" modal>
-                <Filming></Filming>
+                    <Filming></Filming>
                 </Popup>
             </div>
         </StyledActorFrame>
