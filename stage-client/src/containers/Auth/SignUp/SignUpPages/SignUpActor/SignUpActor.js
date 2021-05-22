@@ -29,18 +29,13 @@ function SignUpActor(props) {
 
 
 	useEffect(() => {
-		console.log(skills, languages)
-
-	}, [skills, languages])
-
-	useEffect(() => {
 		if (isFirstRun.current) {
 			setEmail(props.auth.user.email)
 			isFirstRun.current = false;
 			return;
 		}
 		setErrors({ errors: props.errors })
-	}, [props.errors]);
+	}, [props.errors])
 
 	const SkillsChange = (event) => {
 		setSkills({ ...skills, [event.target.name]: event.target.checked })
@@ -69,6 +64,7 @@ function SignUpActor(props) {
 			gender: gender,
 			body_structure: bodyStructure,
 			height: height,
+			eyes: eyes,
 			hair: hair,
 			skills: skillArr,
 			languages: languagesArr
