@@ -16,7 +16,7 @@ const StyledDashboardLayout = styled.div`
 		padding: 30px;
 
 		>.wrapper {
-			max-width: 1100px;
+			max-width: 1270px;
 			margin: 0 auto;
 		}
 	}
