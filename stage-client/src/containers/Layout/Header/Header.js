@@ -7,6 +7,7 @@ import { Badge, Box } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 function Header({ auth }) {
+	if (!auth.isAuthenticated){
 	return (
 		<StyledHeader>
 			<Box className="header-wrapper" px={3} py={2}>
@@ -31,22 +32,21 @@ function Header({ auth }) {
 						</div>
 					</div>
 
-					{auth.isAuthenticated ? (
-						<IconButton className="default">
-							<Badge badgeContent={12} color="primary">
-								<i className="material-icons">notifications</i>
-							</Badge>
-						</IconButton>
-					) : (
+				 
 						<div className="nav-btns">
 							<LinkButton href="/login" className="login-btn default round">Log In</LinkButton>
 							<LinkButton href="/signup" className="signup-btn accent round offset-left-sm">Sign Up</LinkButton>
 						</div>
-					)}
 				</div>
 			</Box>
 		</StyledHeader>
 	)
+	}
+	else{
+		return(
+			<div></div>
+		)
+	}
 }
 
 const mapStateToProps = state => ({

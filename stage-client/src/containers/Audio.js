@@ -46,6 +46,8 @@ x
 
   
     componentDidMount() {
+        this.readText()
+
 
     }
 
@@ -62,7 +64,6 @@ x
     }
 
     render() {
-        this.readText()
         console.log(this.state.entireText)
         const isFinishedText = this.state.finishedText;
         console.log(this.state)

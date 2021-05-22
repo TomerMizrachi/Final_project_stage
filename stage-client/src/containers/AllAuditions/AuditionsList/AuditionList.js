@@ -39,6 +39,7 @@ export default function AuditionList() {
 	];
 
 	return (
+		
 		<StyledFeaturedActorAudition>
 			<div className="container">
 				<Box className="wrapper" py={8} mb={4}>
@@ -52,10 +53,9 @@ export default function AuditionList() {
 							</Grid>
 						</Grid>
 					</Box>
-
 					<Grid container className="featured-auditions" spacing={3}>
 						{featuredAuditions.map((audition, index) => (
-							<Grid item key={index} className="featured-audition" sm={3}>
+							<Grid item key={index} className="featured-audition"  xs={12} height={20}>
 								<SingleAudition audition={audition} />
 							</Grid>
 						))}

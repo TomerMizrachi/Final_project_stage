@@ -3,9 +3,8 @@ import TextTrainer from '../TextTrainer/TextTrainer'
 import Filming from '../Filming'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import { BrowserRouter as Router, Route, Switch, NavLink } from "react-router-dom"
-import { Nav } from 'rsuite'
 import StyledActorFrame from './ActorFrame.styles';
+import DashboardLayout from '../DashboardLayout/DashboardLayout';
 
 const linkStyle = {
     paddingRight: 30
@@ -18,6 +17,7 @@ const container = {
 
 const ActorFrame = () => {
     return (
+        <DashboardLayout>
         <StyledActorFrame>
             <div style={container}>
                 <Popup trigger={<button> Audio practice</button>} position="center" modal>
@@ -28,6 +28,7 @@ const ActorFrame = () => {
                 </Popup>
             </div>
         </StyledActorFrame>
+        </DashboardLayout>
     )
 }
 
