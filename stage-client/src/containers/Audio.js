@@ -22,8 +22,12 @@ export default class Aud extends Component {
 
     }
 
+    controlAudio(status) {
+        this.setState({
+            status:status,auto_record_active:!this._record_active
+        })
+    }
 
-x
     calculateTotalScore(){
         //avg of sumSimilarty and sumExcat divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
         var similarityScore= this.state.sumSimilariyScore/(this.state.entireText.length/2)
