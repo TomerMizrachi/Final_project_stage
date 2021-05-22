@@ -43,7 +43,7 @@ export default function AuditionList() {
 			<div className="container">
 				<Box className="wrapper" py={8} mb={4}>
 					<Box className="header" mb={5}>
-						<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
+						<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 							<Grid item>
 								<h3 className="title">Showing 24 auditions matches your profile</h3>
 							</Grid>
