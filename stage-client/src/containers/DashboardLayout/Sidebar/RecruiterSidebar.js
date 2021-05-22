@@ -4,7 +4,7 @@ import { Grid, Box } from '@material-ui/core';
 import StyledDashboardSidebar from './DashboardSidebar.styles';
 import { IconButton } from '@components/uielements/Button/Button';
 
-export default function DashboardSidebar() {
+export default function RecruiterSidebar() {
 	return (
 		<StyledDashboardSidebar>
 			<Box className="header" display="flex" mb={8}>
@@ -19,21 +19,21 @@ export default function DashboardSidebar() {
 			<div className="navigation">
 				<Grid container direction="column">
 					<Grid item>
-						<NavLink to="/dashboard" exact activeClassName="active">
+						<NavLink to="/recruiter" exact activeClassName="active">
 							<i className="material-icons">home</i>
 							<span>Dashboard</span>
 						</NavLink>
 					</Grid>
 					<Grid item>
-						<NavLink to="/allauditions" exact activeClassName="active">
+						<NavLink to="/allactors" exact activeClassName="active">
 							<i className="material-icons flipX">search</i>
-							<span>Search Job</span>
+							<span>Search Actor</span>
 						</NavLink>
 					</Grid>
 					<Grid item>
-						<NavLink to="/dashboard/trainer" exact activeClassName="active">
+						<NavLink to="/recruiter/publish" exact activeClassName="active">
 							<i className="material-icons">extension</i>
-							<span>Trainer</span>
+							<span>Publish Audition</span>
 						</NavLink>
 					</Grid>
 				</Grid>

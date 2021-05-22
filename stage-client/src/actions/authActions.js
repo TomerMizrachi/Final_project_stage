@@ -31,7 +31,6 @@ export const registerActor = (actorData, history) => dispatch => {
         .post("/actor", actorData)
         .then(res => history.push('/login')) // re-direct successful register
         .catch(err => {
-            console.log(err)
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
