@@ -4,7 +4,7 @@ const StyledFeaturedActorAudition = styled.div`
 	box-shadow: 0px 2px 15px rgba(62, 53, 120, 0.2);
 	background-color: rgba(62, 53, 120, 0.04);
 	border-radius: 10px;
-	padding: 30px;
+	padding: 35px;
 
 	.subtitle{
 		color: #8A8A8A;

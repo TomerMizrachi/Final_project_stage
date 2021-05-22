@@ -57,6 +57,12 @@ export const PrivateRoutes = [
 		path: '/recruiter',
 		exact: true,
 		component: lazy(() => import('@containers/Dashboard/Recruiter')),
+	},
+	{
+		path: '/recruiter/publish',
+		exact: true,
+		component: lazy(() => import('@containers/Dashboard/PublishForm/PublishForm')),
 	}
 ];
+
 

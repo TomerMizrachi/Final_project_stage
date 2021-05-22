@@ -3,16 +3,17 @@ import Layout from '@containers/Layout/Layout';
 import StyledDashboardLayout from './DashboardLayout.styles';
 import DashboardSidebar from '@containers/DashboardLayout/Sidebar/DashboardSidebar';
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout(props) {
+	console.log("PROPS",props)
 	return (
 		<Layout>
 			<StyledDashboardLayout className="dashboard-layout">
 				<div id="dashboard-sidebar">
-					<DashboardSidebar />
+					<DashboardSidebar user={props} />
 				</div>
 				<div id="dashboard-content">
 					<div className="wrapper">
-						{children}
+						{props.children}
 					</div>
 				</div>
 			</StyledDashboardLayout>

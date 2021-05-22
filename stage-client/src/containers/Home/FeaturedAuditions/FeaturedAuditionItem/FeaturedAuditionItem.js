@@ -14,7 +14,7 @@ export default function FeaturedAuditionItem(props) {
 				</Grid>
 
 				<Grid item>
-					<div className="audition-title">{audition.title}</div>
+					<div className="audition-name">{audition.title}</div>
 				</Grid>
 
 				<Grid item>

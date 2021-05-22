@@ -56,7 +56,7 @@ const updateAA = (req, res) => {
         update.submitted = req.body.submitted
     if (req.body.score)
         update.score = req.body.score
-    if (req.body.video)
+    if (req.body.video) 
         update.video = req.body.video
     ActorAudition.findOneAndUpdate(filter, update)
         .then(aa => res.json(aa))

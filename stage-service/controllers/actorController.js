@@ -74,6 +74,7 @@ const actorProfile = (req, res) => {
                 body_structure: req.body.body_structure,
                 height: req.body.height,
                 hair: req.body.hair,
+                eyes: req.eyes.eyes,
                 skills: req.body.skills,
                 languages: req.body.languages
             })

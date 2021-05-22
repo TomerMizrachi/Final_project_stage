@@ -5,6 +5,7 @@ const validateActorInput = (data) => {
     let errors = {}
     // Convert empty fields to an empty string so we can use validator functions
     data.email = !isEmpty(data.email) ? data.email : ""
+    data.eyes = !isEmpty(data.eyes) ? data.eyes : ""
     let age = !isEmpty(data.age) ? data.age.toString() : ""
     data.gender = !isEmpty(data.gender) ? data.gender : ""
     data.body_structure = !isEmpty(data.body_structure) ? data.body_structure : ""
@@ -16,6 +17,9 @@ const validateActorInput = (data) => {
     // Password checks
     if (Validator.isEmpty(data.email)) {
         errors.email = "email field is required"
+    }
+    if (Validator.isEmpty(data.eyes)) {
+        errors.email = "eyes field is required"
     }
     if (Validator.isEmpty(age)) {
         errors.age = "age field is required"

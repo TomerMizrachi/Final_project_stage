@@ -6,7 +6,7 @@ export const HAIR_TYPE = ["Brunette", "Black", "Blond", "Reddish", "Gray"]
 export const EYES_TYPE = ["Green", "Blue", "Brown"]
 export const SKILL_TYPE = ["Dancing", "Singing", "Musician", "Mimic", "Acrobatics", "Clowning"]
 export const LANGUAGE_TYPE = ["English", "Spanish", "French", "Arabic", "Italian", "German", "Russian"]
-export const AUDITION_TYPE = ["commercial", "theatre", "cinema", "TV series", "musical"]
+export const AUDITION_TYPE = ["Commercial", "Theatre", "Cinema", "TV series", "Musical"]
 export const HEIGHT_RANGE = ["0 - 150", "150 - 155", "155 - 160", "160 - 165", "165 - 170", "170 - 175",
     "175 - 180", "185 - 190", "190 - 195", "195 - 200", "200 - 230"]
 
