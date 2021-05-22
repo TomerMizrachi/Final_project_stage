@@ -1,12 +1,21 @@
 import styled from 'styled-components';
 
-const StyledVacancyStats = styled.div`
-	height: 500px;
-	background-color: #EEE;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 10px;
+const StyledVacancyStatsGraph = styled.div`
+	.stats-graph {}
+	.legendLabels {
+		>.legendLabel {
+			display: flex;
+			align-items: center;
+			>.point {
+				width: 20px;
+				height: 20px;
+				border-radius: 8px;
+			}
+			>.name {
+				padding-left: 10px;
+			}
+		}
+	}
 `;
 
-export default StyledVacancyStats;
+export default StyledVacancyStatsGraph;
