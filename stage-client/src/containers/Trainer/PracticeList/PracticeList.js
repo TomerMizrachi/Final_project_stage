@@ -5,7 +5,7 @@ import { Grid, Box } from '@material-ui/core';
 import SiteConfig from '@config/site.config';
 import SingleAudition from './SingleAudition/SingleAudition';
 
-export default function AuditionList() {
+export default function PracticeList() {
 	const featuredAuditions = [
 		{
 			'name': 'Beauty & the Beast',
@@ -42,7 +42,7 @@ export default function AuditionList() {
 					<Box className="header" mb={5}>
 						<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
 							<Grid item>
-								<h3 className="title">Showing {featuredAuditions.length} auditions matches your profile</h3>
+								<h3 className="title">Showing {featuredAuditions.length} trainings</h3>
 							</Grid>
 						</Grid>
 					</Box>
