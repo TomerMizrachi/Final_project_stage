@@ -3,15 +3,19 @@ import { NavLink } from 'react-router-dom';
 import { Grid, Box } from '@material-ui/core';
 import StyledDashboardSidebar from './DashboardSidebar.styles';
 import { IconButton } from '@components/uielements/Button/Button';
+import { connect } from 'react-redux'
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar(props) {
+	console.log("SIDE BAR:",props)
+	const { user } = props;
+	console.log("USER",user.user.name)
 	return (
 		<StyledDashboardSidebar>
 			<Box className="header" display="flex" mb={8}>
 				<IconButton className="accent offset-right-sm">M</IconButton>
 
 				<div className="user-details">
-					<div className="name">Michal Frankel</div>
+					<div className="name">{user.user.name}</div>
 					<div className="role">Actor</div>
 					<NavLink to="/" size xs>Logout</NavLink>
 				</div>
@@ -28,7 +32,7 @@ export default function DashboardSidebar() {
 					<Grid item>
 						<NavLink to="/allauditions" exact activeClassName="active">
 							<i className="material-icons flipX">search</i>
-							<span>Search Job</span>
+							<span>Auditions</span>
 						</NavLink>
 					</Grid>
 					<Grid item>

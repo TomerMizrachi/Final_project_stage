@@ -6,6 +6,7 @@ const Test = styled.section`
 	.banner-wrapper {
 		display: flex;
 		align-items: center;
+		padding-bottom: 10px;
 
 		.content {
 			flex: 0 0 50%;

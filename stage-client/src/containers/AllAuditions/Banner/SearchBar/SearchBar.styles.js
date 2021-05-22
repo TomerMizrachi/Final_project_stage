@@ -5,6 +5,7 @@ const BigSearchBar = styled.body`
 				.search {
 					align-items: center;
 					padding-top: 35px;
+					padding-bottom:100px;
 					input.search-field {
 						background-color: #FFF;
 						border: none;

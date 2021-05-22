@@ -29,7 +29,7 @@ export default function SingleAudition(props) {
 					<Grid item className="recruitment-details" md>{audition.genere}</Grid>
 					<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><LinkButton href="/login" className="default round active text-accent offset-left-sm">More details</LinkButton></Grid>
+					<Grid item className="ctas" rtl><LinkButton href="/login" className="default round active text-accent offset-left-sm">Start Practice</LinkButton></Grid>
 					<Grid><IconButton className="danger heart static offset-right-sm">
 						<i className="material-icons">favorite</i>
 					</IconButton></Grid>
