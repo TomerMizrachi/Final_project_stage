@@ -2,7 +2,7 @@ import axios from 'axios'
 import { SET_AUDITIONS, GET_ERRORS } from './types'
 
 
-export const searchAuditions = (actor_id) => dispatch => {
+export const getMyAuditions = (actor_id) => dispatch => {
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
         .then(res => res.data)

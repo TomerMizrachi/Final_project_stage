@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Grid, Box } from '@material-ui/core';
 import SingleAudition from './SingleAudition/SingleAudition';
 import { Select, MenuItem, FormControl } from '@material-ui/core';
-import { searchAuditions } from '@actions/actorActions'
+import { getMyAuditions } from '@actions/actorActions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -74,7 +74,7 @@ function AuditionList(props) {
 }
 
 AuditionList.propTypes = {
-	searchAuditions: PropTypes.func.isRequired,
+	getMyAuditions: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
 }
@@ -86,5 +86,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ searchAuditions }
+	{ getMyAuditions }
 )(AuditionList)
