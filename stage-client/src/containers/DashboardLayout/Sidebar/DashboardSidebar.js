@@ -8,14 +8,14 @@ import { connect } from 'react-redux'
 export default function DashboardSidebar(props) {
 	console.log("SIDE BAR:",props)
 	const { user } = props;
-	console.log("USER",user.user.name)
+	console.log("USER",props.user.name)
 	return (
 		<StyledDashboardSidebar>
 			<Box className="header" display="flex" mb={8}>
 				<IconButton className="accent offset-right-sm">M</IconButton>
 
 				<div className="user-details">
-					<div className="name">{user.user.name}</div>
+					<div className="name"></div>
 					<div className="role">Actor</div>
 					<NavLink to="/" size xs>Logout</NavLink>
 				</div>
