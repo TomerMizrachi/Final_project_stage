@@ -1,8 +1,7 @@
 import React from 'react';
 import StyledFeaturedActorAudition from './SingleAudition.styles';
-import Rating from '@material-ui/lab/Rating';
 import { LinkButton,IconButton} from '@components/uielements/Button/Button';
-import { Grid, Box, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 export default function SingleAudition(props) {
 	const { audition } = props;

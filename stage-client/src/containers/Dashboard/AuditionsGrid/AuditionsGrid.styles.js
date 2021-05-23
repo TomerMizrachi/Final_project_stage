@@ -8,7 +8,7 @@ const StyledAuditionsGrid = styled.div`
 		overflow: hidden;
 
 		>.wrapper {
-			width: 121%;
+			width: 100%;
 		}
 	}
 `;

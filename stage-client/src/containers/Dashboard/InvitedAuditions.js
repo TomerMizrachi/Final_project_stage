@@ -50,6 +50,17 @@ export default function InvitedAuditions() {
 			map_link: 'https://maps.google.com',
 			type: ['FULTIME'],
 		},
+		{
+			title: 'Intern UX Designer',
+			name: 'Maximoz Team',
+			image: SiteConfig.BLANK_IMAGE,
+			link: '#',
+			cost_from: '14,000',
+			cost_to: '25,000',
+			location: 'London, England',
+			map_link: 'https://maps.google.com',
+			type: ['FULTIME'],
+		}
 	];
 
 	return (

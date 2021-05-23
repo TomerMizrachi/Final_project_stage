@@ -1,25 +1,20 @@
 import { lazy } from 'react';
 
 export const OpenRoutes = [
+	
+	{
+		path: '/case-studies',
+		exact: true,
+		component: lazy(() => import('@containers/CaseStudies/CaseStudies')),
+	}
+];
+
+export const PublicRoutes = [
 	{
 		path: '/',
 		exact: true,
 		component: lazy(() => import('@containers/Home/Home')),
 	},
-	{
-		path: '/case-studies',
-		exact: true,
-		component: lazy(() => import('@containers/CaseStudies/CaseStudies')),
-	},
-
-	{
-		path: '/allauditions',
-		exact: true,
-		component: lazy(() => import('@containers/AllAuditions/AllAuditions'))
-	},
-];
-
-export const PublicRoutes = [
 	{
 		path: '/signup',
 		exact: true,
@@ -62,6 +57,16 @@ export const PrivateRoutes = [
 		path: '/recruiter/publish',
 		exact: true,
 		component: lazy(() => import('@containers/Dashboard/PublishForm/PublishForm')),
+	},
+	{
+		path: '/allauditions',
+		exact: true,
+		component: lazy(() => import('@containers/AllAuditions/AllAuditions'))
+	},
+	{
+		path: '/allactors',
+		exact: true,
+		component: lazy(() => import('@containers/AllActors/AllActors'))
 	}
 ];
 

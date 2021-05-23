@@ -3,8 +3,16 @@ import { NavLink } from 'react-router-dom';
 import { Grid, Box } from '@material-ui/core';
 import StyledDashboardSidebar from './DashboardSidebar.styles';
 import { IconButton } from '@components/uielements/Button/Button';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { logoutUser } from '@actions/authActions'
 
-export default function DashboardSidebar() {
+function DashboardSidebar(props) {
+	const onClick = e =>{
+		e.preventDefault()
+		props.logoutUser()
+	}
+
 	return (
 		<StyledDashboardSidebar>
 			<Box className="header" display="flex" mb={8}>
@@ -13,7 +21,7 @@ export default function DashboardSidebar() {
 				<div className="user-details">
 					<div className="name">Michal Frankel</div>
 					<div className="role">Actor</div>
-					<NavLink to="/" size xs>Logout</NavLink>
+					<NavLink to="/" onClick={onClick} size xs>Logout</NavLink>
 				</div>
 			</Box>
 
@@ -42,3 +50,17 @@ export default function DashboardSidebar() {
 		</StyledDashboardSidebar>
 	)
 }
+
+DashboardSidebar.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(DashboardSidebar)

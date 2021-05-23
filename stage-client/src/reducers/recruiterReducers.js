@@ -1,11 +1,16 @@
-import { } from '../actions/types'
+import { SET_ACTORS } from '../actions/types'
 
-const initialState = {}
+const initialState = {
+    actors:[]
+}
 
 export default function recruiterReducer(state = initialState, action) {
     switch (action.type) {
-        case action:
-            return action.payload
+        case SET_ACTORS:
+            return {
+                ...state,
+                actors: action.payload
+            }
         default:
             return state
     }
