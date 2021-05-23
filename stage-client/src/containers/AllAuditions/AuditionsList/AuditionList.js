@@ -36,7 +36,7 @@ export default function AuditionList() {
 		
 			<div className="container">
 					<Box className="header" mb={5}>
-						<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
+						<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 							<Grid item>
 								<h3 className="title">Showing {featuredAuditions.length} invited auditions</h3>
 							</Grid>

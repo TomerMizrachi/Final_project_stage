@@ -86,10 +86,10 @@ const buttonCss = `
 	}
 
 	&.danger {
-		background-color: ${themeConfig.dangerColor};
+		background-color: #FBA556;
 	}
 	&.danger:hover {
-		background-color: ${themeConfig.dangerColorActive};
+		background-color: #FBA556;
 	}
 
 	&.disabled {
@@ -207,9 +207,12 @@ const StyledIconButton = styled.button`
 		background-color: transparent;
 	}
 
+<<<<<<< HEAD
+=======
 	&.default {
 		background-color: ${themeConfig.defaultColor};
 	}
+>>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
 	&.default:hover {
 		background-color: ${themeConfig.defaultColorActive};
 	}
@@ -224,12 +227,12 @@ const StyledIconButton = styled.button`
 	}
 
 	&.danger.outline {
-		color: ${themeConfig.dangerColor};
-		border-color: ${themeConfig.dangerColor};
+		color: #FBA556;
+		border-color: #FBA556;
 	}
 	&.danger.outline:hover {
-		color: ${themeConfig.dangerColorActive};
-		border-color: ${themeConfig.dangerColorActive};
+		color: #FBA556;
+		border-color: #FBA556;
 	}
 
 	&.disabled {
@@ -237,8 +240,8 @@ const StyledIconButton = styled.button`
 	}
 
 	&.heart {
-		color: ${themeConfig.dangerColor} !important;
-		background-color: ${themeConfig.dangerColorLight} !important;
+		color: #FBA556 !important;
+		background-color: #FBA556 !important;
 	}
 
 	&.static {
