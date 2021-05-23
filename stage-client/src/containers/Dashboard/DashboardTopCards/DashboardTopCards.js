@@ -16,21 +16,21 @@ export default function DashboardTopCards() {
 								<Grid item xs={6}>
 									<Grid container spacing={1} alignItems="center">
 										<Grid item>
-											<IconButton className="danger heart static">
-												<i className="material-icons">favorite</i>
+											<IconButton className="orange static">
+												<i className="material-icons">library_books</i>
 											</IconButton>
 										</Grid>
 										<Grid item>
 											<div className="heading2">55</div>
-											<div className="desc">Liked auditions</div>
+											<div className="desc">Availible Auditions</div>
 										</Grid>
 									</Grid>
 								</Grid>
 								<Grid item xs={6}>
 									<Grid container spacing={1} alignItems="center">
 										<Grid item>
-											<IconButton className="accent static">
-												<i className="material-icons">library_books</i>
+											<IconButton className="success">
+												<i className="material-icons">mail</i>
 											</IconButton>
 										</Grid>
 										<Grid item>
@@ -42,34 +42,34 @@ export default function DashboardTopCards() {
 							</Grid>
 						</div>
 					</Grid>
-
-					<Grid item xs={7}>
+					<Grid item xs={5}>
 						<div className="card-box">
-							<Grid container spacing={3}>
-								<Grid item xs={5}>
-									<Box className="heading4" mb={2}>Trainer</Box>
-									<Grid container spacing={1} alignItems="center" className="audition-in-progress">
+							<Box className="heading4" mb={2}>Trainer</Box>
+
+							<Grid container spacing={2}>
+								<Grid item xs={6}>
+									<Grid container spacing={1} alignItems="center">
 										<Grid item>
-											<IconButton className="success static">
-												<i className="material-icons">event</i>
+											<IconButton className="orange static">
+												<i className="material-icons">library_books</i>
 											</IconButton>
 										</Grid>
 										<Grid item>
-											<div className="heading2">3</div>
-											<div className="desc">Auditions in progress</div>
+											<div className="heading2">55</div>
+											<div className="desc">Audition in practice</div>
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid item className="recent-audition" xs={7}>
-									<Box className="heading6" mb={2}>Recent audition practice</Box>
-									<Grid container spacing={1}>
-										<Grid item className="audition-info" xs={6}>
-											<div className="heading2">Cinderalla</div>
-											<div className="desc">Avi Nesher, 14/2/2021</div>
+								<Grid item xs={6}>
+									<Grid container spacing={1} alignItems="center">
+										<Grid item>
+											<IconButton className="success">
+												<i className="material-icons">mail</i>
+											</IconButton>
 										</Grid>
-										<Grid item className="audition-rating" xs={6}>
-											<Box className="heading2" display="inline-flex" alignItems="center"><i className="material-icons">star</i><span>96</span></Box>
-											<div className="desc">Highest score</div>
+										<Grid item>
+											<div className="heading2">4</div>
+											<div className="desc">Audition Submitted</div>
 										</Grid>
 									</Grid>
 								</Grid>

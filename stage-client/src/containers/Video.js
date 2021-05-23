@@ -20,6 +20,9 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
+<<<<<<< HEAD
+        this.state = { auto_record_active: false }
+=======
         console.log(this)
         this.state = {
             auto_record_active: false,
@@ -35,7 +38,9 @@ class Video extends Component {
             videoURL: ""
 
         }
+>>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
         this.toggleAutoRecord = this.toggleAutoRecord.bind(this);
+        this.sendRecording = this.sendRecording.bind(this);
     }
     calculateTotalScore() {
         //avg of sumSimilarty and sumExcat divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
@@ -150,8 +155,11 @@ class Video extends Component {
                 if (react_comp.state.auto_record_active == false) return;
                 if (!react_comp.recording) {
                     console.log('Toggle record one', react_comp.videoPlayer)
-                    react_comp.videoPlayer.recordToggle.handleClick()
+                    //react_comp.videoPlayer.recordToggle.handleClick()
 
+                }
+                if(react_comp.speaking == false){
+                    react_comp.startSpeechTimestamp = new Date().getTime();
                 }
                 react_comp.speaking = true;
                 console.log('started speaking!');
@@ -164,15 +172,10 @@ class Video extends Component {
                 this.speach_timeout = setTimeout(function () {
                     console.log(react_comp.recording)
                     if (react_comp.recording) {
-                        try {
-                            react_comp.videoPlayer.recordToggle.handleClick()
-                        }
-                        catch {
-                            console.log('catched')
-                        }
-
+                        //react_comp.videoPlayer.recordToggle.handleClick()
                     }
                     react_comp.speaking = false;
+                    react_comp.need_s2t = true;
                     console.log('Stopped speaking')
                 }, 1 * 1000);
 
@@ -195,6 +198,19 @@ class Video extends Component {
             react_comp.state.auto_record_active = true;
         });
 
+        this.videoPlayer.on('timestamp', (timestamp, timestamps) => {
+            console.log('in timestamp need s2t', react_comp.need_s2t)
+            if(react_comp.need_s2t){
+                console.log('timestamps',timestamps)
+                console.log('timestamp',timestamp)
+                react_comp.need_s2t = false;
+                var duration_ms = (react_comp.startSpeechTimestamp - react_comp.startRecordTimestamp);
+                if(duration_ms < 0) duration_ms = 0;
+
+                react_comp.sendSpeech2Text(new Blob(react_comp.videoPlayer.recordedData), duration_ms)
+            }
+        });
+
         this.videoPlayer.on('finishRecord', () => {
             console.log("this is finish")
             this.isSaveDisabled = false
@@ -203,6 +219,19 @@ class Video extends Component {
             }
             var formData = new FormData()
             formData.append('file', this.videoPlayer.recordedData)
+<<<<<<< HEAD
+            react_comp.currSessionBlobs.push(this.videoPlayer.recorcdedData);
+
+            // }
+            console.log("react_comp.state.auto_record_active", react_comp.state.auto_record_active)
+            if (!react_comp.state.auto_record_active) {
+                var merged_blob = new Blob(react_comp.currSessionBlobs);
+
+                // save in S3
+                console.log("[finish] Auto record active", react_comp.state.auto_record_active)
+                console.log("recording", react_comp.speaking)
+                this.sendRecording(merged_blob)
+=======
             react_comp.currSessionBlobs.push(this.videoPlayer.recordedData);
             if (this.state.currentLineIterator < this.state.entireText.length) {
                 axios({
@@ -265,6 +294,7 @@ class Video extends Component {
                         console.log(error);
                     })
                 })
+>>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
             }
             else {
                 this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
@@ -299,19 +329,114 @@ class Video extends Component {
         }
         if (this.audioPlayer) this.audioPlayer.dispose();
     }
+
+    sendSpeech2Text(blob, startDurationMS){
+        console.log('Sending blob to Speech2Text')
+        var formData = new FormData();
+        formData.append('file', blob)
+        formData.append('start_duration', startDurationMS)
+
+        axios({
+            method: "post",
+            url: "http://127.0.0.1:5000/speechToTextVideo",
+            data: formData,
+            headers: {
+                'Content-Type': 'video/mp4', "AllowedHeaders": "*", 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+            }
+        }).then(res => {
+            let resultTranscript = res.data.transcript
+            let expectedText = 'to be or not to be this is the question'
+            console.log("Response from speechToText", resultTranscript)
+            axios({
+                method: "get",
+                url: "http://127.0.0.1:12345/compare",
+                params: {
+                    inputText: resultTranscript,
+                    expectedText: expectedText
+                }
+            }).then(function (response) {
+                console.log("Response from speechToText", response)
+
+            }).catch(function (error) {
+                console.log(error);
+            })
+
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    sendRecording(blob){
+        var formData = new FormData()
+        formData.append('file', blob)
+
+        axios({
+            method: "get",
+            url: "http://localhost:8001/actor-audition/get_signed_url",
+        }).then(function (response) {
+            var postURL = response.data.postURL;
+            var video = response.data.getURL;
+            delete axios.defaults.headers.common['Authorization']
+            axios({
+                method: "put",
+                url: postURL,
+                data: formData.get('file'),
+                headers: {
+                    'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                }
+            }).then(res => {
+
+                var data = JSON.stringify({"video":"https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a"});
+
+                var config = {
+                  method: 'put',
+                  url: 'http://localhost:8001/actor-audition/6084204bdb649568101fede1',
+                  headers: { 
+                    'Content-Type': 'application/json'
+                  },
+                  data : data
+                };
+                
+                axios(config)
+                .then(function (response) {
+                  console.log(JSON.stringify(response.data));
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            }).catch(error => {
+                console.log(error);
+            })
+            console.log(video, postURL);
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
     toggleAutoRecord() {
         console.log("this is", this)
         console.log("Toggling recording from", this.state.auto_record_active)
         if (!this.state.auto_record_active) {
             // Meaning we will now turn it on
             this.currSessionBlobs = [];
+            this.startRecordTimestamp = new Date().getTime();
+        }else if(!this.speaking){
+            // About to turn off
+            this.sendRecording(new Blob(this.currSessionBlobs))
         }
+<<<<<<< HEAD
+
+        this.videoPlayer.recordToggle.handleClick()
+
+        this.setState(state => {
+=======
         var react_comp = this
         this.state.auto_record_active = true
         this.setState(state => {
             if (react_comp.state.auto_record_active && !react_comp.videoPlayer.paused()) {
                 react_comp.videoPlayer.recordToggle.handleClick()
             }
+>>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
             return { auto_record_active: !state.auto_record_active }
         });
     }

@@ -26,8 +26,8 @@ const videoJsOptions = {
             //     outputType: 'video/mp4'
             //     // outputType: 'video/x-matroska'
             // },
-            // fire the timestamp event every 2 seconds
-            timeSlice: 10,
+            // fire the timestamp event every 100ms
+            timeSlice: 100,
             videoMimeType: 'video/mp4',
         }
     }

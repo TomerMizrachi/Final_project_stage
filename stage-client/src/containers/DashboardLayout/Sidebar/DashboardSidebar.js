@@ -19,7 +19,7 @@ function DashboardSidebar(props) {
 				<IconButton className="accent offset-right-sm">M</IconButton>
 
 				<div className="user-details">
-					<div className="name">Michal Frankel</div>
+					<div className="name"></div>
 					<div className="role">Actor</div>
 					<NavLink to="/" onClick={onClick} size xs>Logout</NavLink>
 				</div>
@@ -36,7 +36,7 @@ function DashboardSidebar(props) {
 					<Grid item>
 						<NavLink to="/allauditions" exact activeClassName="active">
 							<i className="material-icons flipX">search</i>
-							<span>Search Job</span>
+							<span>Auditions</span>
 						</NavLink>
 					</Grid>
 					<Grid item>

@@ -1,22 +1,25 @@
 import React from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
-import DashboardTopCards from '@containers/Dashboard/DashboardTopCards/DashboardTopCards';
+import DashboardTopCards from '@containers/Trainer/TrainerTopCards/TrainerTopCards';
 import VacancyStats from '@containers/Dashboard/VacancyStats/VacancyStats'
+import PracticeComp from '@containers/Trainer/PracticeComp';
+import FilmedAuditions from '@containers/Trainer/FilmedAuditions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
 
-function Dashboard(props) {
-	console.log("props: ", props.auth.user)
+function Trainer(props) {
+	console.log("props: ", props)
 	return (
-		<DashboardLayout user={props.auth.user}>
+		<DashboardLayout>
 			<DashboardTopCards />
-			<VacancyStats />
+			<PracticeComp />
+			<FilmedAuditions />
 		</DashboardLayout>
 	);
 }
 
-Dashboard.propTypes = {
+Trainer.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 }
@@ -28,4 +31,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { logoutUser }
-)(Dashboard)
+)(Trainer)
