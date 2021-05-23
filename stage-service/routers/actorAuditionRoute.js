@@ -1,11 +1,13 @@
 import express from 'express'
-import { getAllAA, getAAById, createAA, updateAA, deleteAA, createS3Url } from '../controllers/actorAuditionController.js'
+import { getAllAA, getAAById, createAA ,getAAByActorId, updateAA, deleteAA, createS3Url } from '../controllers/actorAuditionController.js'
 
 const router = express.Router()
 
 router.get('/', getAllAA)
 
 router.get('/id/:id', getAAById)
+
+router.get('/actor', getAAByActorId)
 
 router.post('/', createAA)
 

@@ -13,7 +13,7 @@ const getAuditions = async (req, res) => {
 
 const getAuditionById = async (req, res) => {
     try {
-        const docs = await User.findById({ _id: req.params.id }, (err) => {
+        const docs = await Audition.findById({ _id: req.query.audition_id }, (err) => {
             if (err) throw err
         })
         if (!docs) throw {

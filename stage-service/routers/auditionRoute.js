@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', getAuditions)
 
-router.get('/:id', getAuditionById)
+router.get('/actor', getAuditionById)
 
 router.post('/', createAudition)
 

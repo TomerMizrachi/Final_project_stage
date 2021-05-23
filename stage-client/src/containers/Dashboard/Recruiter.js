@@ -3,14 +3,14 @@ import RecruiterLayout from '@containers/DashboardLayout/RecruiterLayout'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
-import LikedAuditions from '@containers/Dashboard/LikedAuditions'
+
 
 
 function Recruiter(props) {
     console.log("props: ", props)
     return (
         <RecruiterLayout>
-           <LikedAuditions/>
+
         </RecruiterLayout>
     );
 }

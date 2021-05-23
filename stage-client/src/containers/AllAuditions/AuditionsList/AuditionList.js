@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Box } from '@material-ui/core';
 import SingleAudition from './SingleAudition/SingleAudition';
-import { FormControlLabel, Switch, Select, MenuItem, FormControl } from '@material-ui/core';
+import { Select, MenuItem, FormControl } from '@material-ui/core';
+import { searchAuditions } from '@actions/actorActions'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export default function AuditionList() {
+function AuditionList(props) {
+	useEffect(() => {
+		console.log(props)
+		//props.searchAuditions(props.auth.user.id)
+		//props.actor.auditions
+	})
+
 	const featuredAuditions = [
 		{
 			'name': 'Beauty & the Beast',
@@ -11,7 +20,6 @@ export default function AuditionList() {
 			'end_of_recruitment': '14/2/2021',
 			'genere': 'comedy,genere',
 		},
-
 		{
 			'name': 'Beauty & the Beast',
 			'role': 'The beast',
@@ -33,34 +41,50 @@ export default function AuditionList() {
 	];
 
 	return (
-		
-			<div className="container">
-					<Box className="header" mb={5}>
-						<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
-							<Grid item>
-								<h3 className="title">Showing {featuredAuditions.length} invited auditions</h3>
-							</Grid>
-							<FormControl variant="outlined" size="small">
-									<Select
-										labelId="demo-simple-select-outlined-label"
-										id="demo-simple-select-outlined"
-										value="invited"
-									>
-										<MenuItem value="invited">Invited Auditions</MenuItem>
-										<MenuItem value="relevant">Relevant Auditions</MenuItem>
 
-									</Select>
-								</FormControl>
-						</Grid>
-					</Box>
-					<Grid container className="all-auditions" spacing={5}>
+		<div className="container">
+			<Box className="header" mb={5}>
+				<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
+					<Grid item>
+						<h3 className="title">Showing {featuredAuditions.length} invited auditions</h3>
+					</Grid>
+					<FormControl variant="outlined" size="small">
+						<Select
+							labelId="demo-simple-select-outlined-label"
+							id="demo-simple-select-outlined"
+							value="invited"
+						>
+							<MenuItem value="invited">Invited Auditions</MenuItem>
+							<MenuItem value="relevant">Relevant Auditions</MenuItem>
 
-						{featuredAuditions.map((audition, index) => (
-							<Grid item key={index} className="featured-audition"  xs={12}>
-								<SingleAudition audition={audition} />
-							</Grid>
-						))}
-					</Grid>	
-			</div>
+						</Select>
+					</FormControl>
+				</Grid>
+			</Box>
+			<Grid container className="all-auditions" spacing={5}>
+
+				{featuredAuditions.map((audition, index) => (
+					<Grid item key={index} className="featured-audition" xs={12}>
+						<SingleAudition audition={audition} />
+					</Grid>
+				))}
+			</Grid>
+		</div>
 	)
 }
+
+AuditionList.propTypes = {
+	searchAuditions: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	actor: state.actor
+})
+
+export default connect(
+	mapStateToProps,
+	{ searchAuditions }
+)(AuditionList)
