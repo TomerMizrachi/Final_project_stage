@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 function AuditionList(props) {
 	useEffect(() => {
 		console.log(props)
-		//props.searchAuditions(props.auth.user.id)
 		//props.actor.auditions
 	})
 

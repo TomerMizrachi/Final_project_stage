@@ -9,6 +9,12 @@ const { S3_BUCKET } = config
 
 const getAllAA = async (req, res) => {
     try {
+        if (req.query.DM){
+            console.log("dM")
+            const docs = await ActorAudition.find({"DM":req.query.DM})
+            return res.json(docs)
+        }
+
         const docs = await ActorAudition.find({})
         console.log(docs)
         return res.json(docs)
@@ -32,6 +38,7 @@ const getAAById = async (req, res) => {
 }
 
 const getAAByActorId = async (req, res) => {
+    console.log("actor id is reached")
     try {
         const docs = await ActorAudition.find({ actor_id: req.query.actor_id }, (err) => {
             if (err) throw err
