@@ -11,7 +11,7 @@ router.post('/', createAudition)
 
 router.put('/:id', updateAudition)
 
-router.get('/rec/:id', recruiterAudition)
+router.get('/rec', recruiterAudition)
 
 router.get('/getRelevantAuditions',getRelevantAuditions)
 

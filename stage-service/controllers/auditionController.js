@@ -119,8 +119,8 @@ const updateAudition = (req, res) => {
 // recruiter audition by id or by id and status if req.query
 const recruiterAudition = (req, res) => {
     const open_to_all = req.query.open_to_all
-    let condition = open_to_all ? { recruiter_id: req.params.id, open_to_all: open_to_all } :
-        { recruiter_id: req.params.id }
+    let condition = open_to_all ? { recruiter_id: req.query.id, open_to_all: open_to_all } :
+        { recruiter_id: req.query.id }
     Audition.find(condition)
         .then(user => res.json(user))
         .catch(err => res.status(400).json({ err: err }))

@@ -20,9 +20,6 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-<<<<<<< HEAD
-        this.state = { auto_record_active: false }
-=======
         console.log(this)
         this.state = {
             auto_record_active: false,
@@ -38,7 +35,6 @@ class Video extends Component {
             videoURL: ""
 
         }
->>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
         this.toggleAutoRecord = this.toggleAutoRecord.bind(this);
         this.sendRecording = this.sendRecording.bind(this);
     }
@@ -219,19 +215,6 @@ class Video extends Component {
             }
             var formData = new FormData()
             formData.append('file', this.videoPlayer.recordedData)
-<<<<<<< HEAD
-            react_comp.currSessionBlobs.push(this.videoPlayer.recorcdedData);
-
-            // }
-            console.log("react_comp.state.auto_record_active", react_comp.state.auto_record_active)
-            if (!react_comp.state.auto_record_active) {
-                var merged_blob = new Blob(react_comp.currSessionBlobs);
-
-                // save in S3
-                console.log("[finish] Auto record active", react_comp.state.auto_record_active)
-                console.log("recording", react_comp.speaking)
-                this.sendRecording(merged_blob)
-=======
             react_comp.currSessionBlobs.push(this.videoPlayer.recordedData);
             if (this.state.currentLineIterator < this.state.entireText.length) {
                 axios({
@@ -294,7 +277,6 @@ class Video extends Component {
                         console.log(error);
                     })
                 })
->>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
             }
             else {
                 this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
@@ -424,19 +406,12 @@ class Video extends Component {
             // About to turn off
             this.sendRecording(new Blob(this.currSessionBlobs))
         }
-<<<<<<< HEAD
-
-        this.videoPlayer.recordToggle.handleClick()
-
-        this.setState(state => {
-=======
         var react_comp = this
         this.state.auto_record_active = true
         this.setState(state => {
             if (react_comp.state.auto_record_active && !react_comp.videoPlayer.paused()) {
                 react_comp.videoPlayer.recordToggle.handleClick()
             }
->>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
             return { auto_record_active: !state.auto_record_active }
         });
     }

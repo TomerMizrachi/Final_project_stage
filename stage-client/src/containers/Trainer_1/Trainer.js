@@ -1,12 +1,11 @@
 import React from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
-import DashboardTopCards from '@containers/Trainer/TrainerTopCards/TrainerTopCards';
-import VacancyStats from '@containers/Dashboard/VacancyStats/VacancyStats'
-import PracticeComp from '@containers/Trainer/PracticeComp';
-import FilmedAuditions from '@containers/Trainer/FilmedAuditions'
+import DashboardTopCards from './TrainerTopCards/TrainerTopCards'
+import PracticeComp from './PracticeComp'
+import FilmedAuditions from './FilmedAuditions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { logoutUser } from '@actions/authActions'
+import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
 	console.log("props: ", props)
@@ -20,15 +19,15 @@ function Trainer(props) {
 }
 
 Trainer.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+	actor: state.actor
 })
 
 export default connect(
     mapStateToProps,
-    { logoutUser }
-)(Trainer)
+)(withRouter(Trainer))
