@@ -8,7 +8,7 @@ export default function SingleAudition(props) {
 
 	return (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
-			<Grid container direction="coloumn">
+			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
 					<Grid item className="audition-content" md>
 						<div className="audition-name heading4">{audition.name}</div>

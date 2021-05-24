@@ -11,6 +11,7 @@ import { Button } from '@components/uielements/Button/Button';
 import { searchActors } from '@actions/recruiterActions'
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions'
 import { heightOptions } from '@containers/Dashboard/PublishForm/recruiterOptions'
+import { myAuditions } from '@actions/recruiterActions'
 
 function Typecast(props) {
     const isFirstRun = useRef(true)
@@ -29,7 +30,9 @@ function Typecast(props) {
 
     useEffect(() => {
         if (isFirstRun.current) {
-            isFirstRun.current = false;
+            isFirstRun.current = false
+            props.myAuditions(props.auth.user.id)
+
             return;
         }
         setErrors({ errors: props.errors })
@@ -176,6 +179,7 @@ function Typecast(props) {
 }
 
 Typecast.propTypes = {
+    myAuditions: PropTypes.func.isRequired,
     searchActors: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     recruiter: PropTypes.object.isRequired,
@@ -190,5 +194,6 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { searchActors }
+    { searchActors,
+        myAuditions }
 )(withRouter(Typecast))

@@ -24,7 +24,7 @@ const buttonCss = `
 		font-size: 12px;
 		font-weight: 500;
 	}
-
+{
 	&.filter-btn 
 		margin-right: 5px;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -6,14 +6,17 @@ import Banner from './Banner/Banner'
 import RecruiterLayout from '@containers/DashboardLayout/RecruiterLayout'
 import ActorList from './ActorsList/ActorsList'
 import Typecast from './Typecast/TypeCast'
-
 function AllActors(props) {
-	console.log("allactorscomp:",props)
+	console.log("allactorscomp:", props)
+	useEffect(() => {
+		console.log(props)
+	}, [])
+
 	return (
 		<RecruiterLayout>
-			<Banner/>
-			<Typecast/>
-			<ActorList/>
+			<Banner />
+			<Typecast />
+			<ActorList />
 		</RecruiterLayout>
 	)
 }

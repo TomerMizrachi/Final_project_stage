@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ERRORS, SET_ACTORS } from './types'
+import { GET_ERRORS, SET_ACTORS, SET_REC_AUDITIONS, SET_DM } from './types'
 
 export const publishAudition = (audData, history) => dispatch => {
     axios
@@ -15,7 +15,7 @@ export const publishAudition = (audData, history) => dispatch => {
 
 export const searchActors = (typecast) => dispatch => {
     axios
-        .get("/actor",{params: typecast})
+        .get("/actor", { params: typecast })
         .then(res => {
             dispatch({
                 type: SET_ACTORS,
@@ -28,4 +28,45 @@ export const searchActors = (typecast) => dispatch => {
                 payload: err.response.data
             })
         })
+}
+
+export const myAuditions = (id) => dispatch => {
+    axios
+        .get("/audition/rec", { params: { id: id } })
+        .then(res => {
+            dispatch({
+                type: SET_REC_AUDITIONS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
+export const sendDM = (data) => dispatch => {
+    axios
+        .post("/actor-audition", data)
+        .then(res => {
+            dispatch(toggleDMEvent())
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+} 
+
+export const toggleDM = () => dispatch =>{
+    dispatch(toggleDMEvent())
+}
+
+export const toggleDMEvent = () => {
+    return {
+        type: SET_DM
+    }
 }

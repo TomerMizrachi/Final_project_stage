@@ -2,12 +2,15 @@ import React from 'react'
 import { Grid, Box } from '@material-ui/core'
 import SingleAudition from './SingleAudition/SingleAudition'
 import { Select, MenuItem, FormControl } from '@material-ui/core'
-import { getMyAuditions } from '@actions/actorActions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 function AuditionList(props) {
+	useEffect(() => {
+		console.log(props)
+		//props.actor.auditions
+	})
 
 	const featuredAuditions = [
 		{

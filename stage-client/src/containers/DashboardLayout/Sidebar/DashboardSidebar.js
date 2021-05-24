@@ -8,6 +8,9 @@ import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
 
 function DashboardSidebar(props) {
+	let user=props.user.user
+	console.log("user",user)
+	console.log("propsdside",props)
 	const onClick = e =>{
 		e.preventDefault()
 		props.logoutUser()
@@ -19,11 +22,11 @@ function DashboardSidebar(props) {
 				<IconButton className="accent offset-right-sm">M</IconButton>
 
 				<div className="user-details">
-					<div className="name"></div>
+					<div className="name">{props.auth.user.name}</div>
 					<div className="role">Actor</div>
 					<NavLink to="/" onClick={onClick} size xs>Logout</NavLink>
 				</div>
-			</Box>
+				</Box>
 
 			<div className="navigation">
 				<Grid container direction="column">
