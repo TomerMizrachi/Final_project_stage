@@ -14,8 +14,6 @@ function PracticeList(props) {
 	}, [])
 	
 	return (
-
-
 		<div className="container">
 			<Box className="wrapper" py={8} mb={4}>
 				<Box className="header" mb={5}>

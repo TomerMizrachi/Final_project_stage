@@ -15,7 +15,7 @@ function SingleAudition(props) {
 
 	return (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
-			<Grid container direction="coloumn">
+			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
 					<Grid item className="audition-content" md>
 						<div className="audition-name heading4">Name: {audition.auditionInfo.name}</div>
@@ -36,7 +36,7 @@ function SingleAudition(props) {
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
 					<Grid item className="ctas" rtl>
-						<LinkButton /*href="/login"*/ onClick={onClick} className="default round active text-accent offset-left-sm">Start Practice</LinkButton>
+						<LinkButton onClick={onClick} className="default round active text-accent offset-left-sm">Start Practice</LinkButton>
 					</Grid>
 					<Grid>
 						<IconButton className="danger static offset-right-sm">
