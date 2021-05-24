@@ -1,7 +1,7 @@
 import React from 'react';
 import SiteConfig from '@config/site.config';
 import { Box } from '@material-ui/core';
-import PracticeGrid from '@containers/Trainer/PracticeGrid/PracticeGrid';
+import PracticeGrid from './PracticeGrid/PracticeGrid';
 
 export default function PracticeComp() {
 	const auditions = [

@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledPracticeStep from './PracticeGrid.styles';
-import Audition from '@containers/Trainer/PracticeGrid/PracticeSteps/Audition';
+import Audition from './PracticeSteps/Audition';
 import { Grid } from '@material-ui/core';
 
 export default function AuditionsGrid({ auditions }) {

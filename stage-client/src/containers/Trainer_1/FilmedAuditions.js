@@ -2,7 +2,7 @@ import React from 'react';
 import SiteConfig from '@config/site.config';
 import { Box } from '@material-ui/core';
 import { IconButton, LinkButton } from '@components/uielements/Button/Button';
-import PracticeGrid from '@containers/Trainer/PracticeGrid/AuditionGrid';
+import PracticeGrid from './PracticeGrid/AuditionGrid';
 
 export default function FilmedAuditions() {
 	const auditions = [

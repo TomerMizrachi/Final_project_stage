@@ -207,12 +207,9 @@ const StyledIconButton = styled.button`
 		background-color: transparent;
 	}
 
-<<<<<<< HEAD
-=======
 	&.default {
 		background-color: ${themeConfig.defaultColor};
 	}
->>>>>>> d9356d7fa01ff0620a14e18c9de9cd787b3dfc04
 	&.default:hover {
 		background-color: ${themeConfig.defaultColorActive};
 	}

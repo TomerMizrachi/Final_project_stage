@@ -49,6 +49,11 @@ export const PrivateRoutes = [
 		component: lazy(() => import('@containers/Trainer/Trainer')),
 	},
 	{
+		path: '/trainer',
+		exact: true,
+		component: lazy(() => import('@containers/Trainer_1/Trainer')),
+	},
+	{
 		path: '/recruiter',
 		exact: true,
 		component: lazy(() => import('@containers/Dashboard/Recruiter')),

@@ -13,7 +13,6 @@ export const getMyAuditions = (actor_id) => dispatch => {
                     .get("/audition/actor", { params: { audition_id: element.audition_id } })
                     .then(res => {
                         element.auditionInfo = res.data
-                        console.log(res.data)
                     })
                     .then(res => {
                         dispatch({

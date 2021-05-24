@@ -1,61 +1,56 @@
-import React from 'react';
-import StyledFeaturedActorAudition from './SingleAudition/SingleAudition.styles';
-import { Link } from 'react-router-dom';
-import { Grid, Box } from '@material-ui/core';
-import SiteConfig from '@config/site.config';
-import SingleAudition from './SingleAudition/SingleAudition';
+import React, { useState, useEffect } from 'react'
+import { Grid, Box } from '@material-ui/core'
+import SingleAudition from './SingleAudition/SingleAudition'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { getMyAuditions } from '@actions/actorActions'
 
-export default function PracticeList() {
-	const featuredAuditions = [
-		{
-			'name': 'Beauty & the Beast',
-			'role': 'The beast',
-			'end_of_recruitment': '14/2/2021',
-			'genere': 'comedy,genere',
-		},
 
-		{
-			'name': 'Beauty & the Beast',
-			'role': 'The beast',
-			'end_of_recruitment': '14/2/2021',
-			'genere': 'comedy,genere',
-		},
-		{
-			'name': 'Beauty & the Beast',
-			'role': 'The beast',
-			'end_of_recruitment': '14/2/2021',
-			'genere': 'comedy,genere',
-		},
-		{
-			'name': 'Beauty & the Beast',
-			'role': 'The beast',
-			'end_of_recruitment': '14/2/2021',
-			'genere': 'comedy,genere',
-		},
-	];
-
-	return (
-		
+function PracticeList(props) {
+	useEffect(() => {
+		console.log(props)
+		props.getMyAuditions(props.auth.user.id)
+	}, [])
 	
-			<div className="container">
-				<Box className="wrapper" py={8} mb={4}>
-					<Box className="header" mb={5}>
-						<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
-							<Grid item>
-								<h3 className="title">Showing {featuredAuditions.length} trainings</h3>
-							</Grid>
+	return (
+
+
+		<div className="container">
+			<Box className="wrapper" py={8} mb={4}>
+				<Box className="header" mb={5}>
+					<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
+						<Grid item>
+							<h3 className="title">Showing {props.actor.auditions.length} trainings</h3>
 						</Grid>
-					</Box>
-					<Grid container className="all-auditions" spacing={5}>
-
-						{featuredAuditions.map((audition, index) => (
-							<Grid item key={index} className="featured-audition"  xs={12} height={30}>
-								<SingleAudition audition={audition} />
-							</Grid>
-						))}
 					</Grid>
-
 				</Box>
-			</div>
+				<Grid container className="all-auditions" spacing={5}>
+
+					{props.actor.auditions.map((audition, index) => (
+						<Grid item key={index} className="featured-audition" xs={12} height={30}>
+							<SingleAudition audition={audition} />
+						</Grid>
+					))}
+				</Grid>
+
+			</Box>
+		</div>
 	)
 }
+
+PracticeList.propTypes = {
+	getMyAuditions: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	actor: state.actor
+})
+
+export default connect(
+	mapStateToProps,
+	{ getMyAuditions }
+)(withRouter(PracticeList))

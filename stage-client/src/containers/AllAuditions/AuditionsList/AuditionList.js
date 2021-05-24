@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
-import { Grid, Box } from '@material-ui/core';
-import SingleAudition from './SingleAudition/SingleAudition';
-import { Select, MenuItem, FormControl } from '@material-ui/core';
+import React from 'react'
+import { Grid, Box } from '@material-ui/core'
+import SingleAudition from './SingleAudition/SingleAudition'
+import { Select, MenuItem, FormControl } from '@material-ui/core'
 import { getMyAuditions } from '@actions/actorActions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 function AuditionList(props) {
-	useEffect(() => {
-		console.log(props)
-		//props.searchAuditions(props.auth.user.id)
-		//props.actor.auditions
-	})
 
 	const featuredAuditions = [
 		{
@@ -74,7 +70,6 @@ function AuditionList(props) {
 }
 
 AuditionList.propTypes = {
-	getMyAuditions: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
 }
@@ -86,5 +81,4 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getMyAuditions }
-)(AuditionList)
+)(withRouter(AuditionList))
