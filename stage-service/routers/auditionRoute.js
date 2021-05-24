@@ -11,6 +11,6 @@ router.post('/', createAudition)
 
 router.put('/:id', updateAudition)
 
-router.get('/rec/:id', recruiterAudition)
+router.get('/rec', recruiterAudition)
 
 export default router
