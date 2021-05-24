@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledPracticeStep from './PracticeStep.styles';
+import StyledPracticeStep from './Audition.styles';
 import { Grid, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { IconButton, LinkButton } from '@components/uielements/Button/Button';

@@ -38,6 +38,13 @@ const buttonCss = `
 		font-size: 16px;
     font-weight: 400;
 	}
+	&.bt-xxl {
+		height: 55px;
+		width: 55px;
+		// padding: 0 50px;
+		font-size: 16px;
+    // font-weight: 400;
+	}
 
 	&.outline {
 		border: 1px solid ${themeConfig.disabledColor};

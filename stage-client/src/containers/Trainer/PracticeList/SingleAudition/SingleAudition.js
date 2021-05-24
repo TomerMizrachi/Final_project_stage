@@ -5,12 +5,17 @@ import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
 function SingleAudition(props) {
 	const { audition } = props;
 	console.log(props)
 	const onClick = e =>{
 		e.preventDefault()
-		props.history.push('/trainer')
+		props.history.push({
+			pathname: '/trainer',
+			// search: '?query=abc',
+			state: { audition: audition }
+		  })
 	}
 
 	return (
