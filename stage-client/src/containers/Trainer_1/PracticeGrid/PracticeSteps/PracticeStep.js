@@ -14,7 +14,7 @@ export default function PracticeStep({ audition }) {
 		<StyledPracticeStep>
 			<div className="header">
 				<Box display="flex" alignItems="center" justifyContent="space-evenly">
-					<IconButton className="danger static">
+					<IconButton className="orange static">
 						<i className="material-icons">{audition.icon}</i>
 					</IconButton>
 

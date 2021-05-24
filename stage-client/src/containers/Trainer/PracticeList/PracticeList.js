@@ -19,7 +19,7 @@ function PracticeList(props) {
 		<div className="container">
 			<Box className="wrapper" py={8} mb={4}>
 				<Box className="header" mb={5}>
-					<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
+					<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 						<Grid item>
 							<h3 className="title">Showing {props.actor.auditions.length} trainings</h3>
 						</Grid>

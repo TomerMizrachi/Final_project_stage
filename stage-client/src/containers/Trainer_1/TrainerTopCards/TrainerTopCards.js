@@ -69,7 +69,7 @@ class DashboardTopCards extends Component {
 									<Grid item xs={5}>
 										<Grid container spacing={1} alignItems="center">
 											<Grid item>
-												<IconButton className="danger static">
+												<IconButton className="orange static">
 													<i className="material-icons">event</i>
 												</IconButton>
 											</Grid>
@@ -82,7 +82,7 @@ class DashboardTopCards extends Component {
 									<Grid item xs={5}>
 										<Grid container spacing={1} alignItems="center" className="audition-in-progress">
 											<Grid item>
-												<IconButton className="danger static">
+												<IconButton className="orange static">
 													<i className="material-icons">library_books</i>
 												</IconButton>
 											</Grid>
