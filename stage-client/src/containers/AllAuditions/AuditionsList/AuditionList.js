@@ -7,11 +7,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 function AuditionList(props) {
-	useEffect(() => {
-		console.log(props)
-		//props.actor.auditions
-	})
-
 	const featuredAuditions = [
 		{
 			'name': 'Beauty & the Beast',

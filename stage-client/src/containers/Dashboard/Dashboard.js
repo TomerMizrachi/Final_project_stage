@@ -8,6 +8,7 @@ import { logoutUser } from '@actions/authActions'
 
 function Dashboard(props) {
 	console.log("props: ", props.auth.user)
+	
 	return (
 		<DashboardLayout user={props.auth.user}>
 			<DashboardTopCards />
