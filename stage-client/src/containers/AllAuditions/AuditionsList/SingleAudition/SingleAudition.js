@@ -1,11 +1,21 @@
 import React from 'react';
 import StyledFeaturedActorAudition from './SingleAudition.styles';
 import { Button,LinkButton,IconButton} from '@components/uielements/Button/Button';
+import{registerToAudition} from '@actions/actorActions'
 import { Grid } from '@material-ui/core';
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-export default function SingleAudition(props) {
+
+function SingleAudition(props) {
+	console.log(props)
 	const { audition } = props;
-
+	const onClick = e => {
+		e.preventDefault()
+	console.log(props.actor.profile._id, audition._id)
+	props.registerToAudition(props.actor.profile._id, audition._id)
+	}
 	return (audition && (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
@@ -28,7 +38,7 @@ export default function SingleAudition(props) {
 					<Grid item className="recruitment-details" md>{audition.type}</Grid>
 					<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={console.log("clicked")}>Add to trainer</Button></Grid>
+					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
 
 
 				</Grid>
@@ -38,3 +48,21 @@ export default function SingleAudition(props) {
 	)
 	)
 }
+
+SingleAudition.propTypes = {
+	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+	registerToAudition: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors,
+	actor: state.actor
+})
+
+export default connect(
+	mapStateToProps,
+	{registerToAudition}
+)(withRouter(SingleAudition))

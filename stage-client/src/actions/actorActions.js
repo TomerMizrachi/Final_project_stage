@@ -22,11 +22,7 @@ export const getMyAuditions = (actor_id) => dispatch => {
     console.log(actor_id)
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
-        .then(res => {
-        //res.data
-        console.log("TPM",res.data)})
-
-        
+        .then(res => res.data)
         .then(data => {
             console.log("dataTest",data)
             let auditions = data
@@ -44,6 +40,7 @@ export const getMyAuditions = (actor_id) => dispatch => {
                         })
                     })
             })
+            
         })
         .catch(err => {
             dispatch({
@@ -59,13 +56,19 @@ export const registerToAudition = (actor_id, audition_id) => dispatch => {
         url: '/actor-audition',
         data: {
             actor_id: actor_id,
-            lastName: audition_id,
-            DM: false,
+            audition_id: audition_id,
+            DM: "false",
         }
     }).then(res => {
         dispatch({
             type: REGISTER_TO_AUDITION,
-            payload: res
+            payload: res.data
+        })
+    })
+    .catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
         })
     })
 }

@@ -11,7 +11,6 @@ function PracticeList(props) {
 	useEffect(() => {
 		console.log(props)
 		props.getMyAuditions(props.actor.profile._id)
-		console.log(props.actor.auditions)
 	}, [])
 	// useEffect(() => {
 	// 	console.log(props.actor.auditions)
@@ -28,8 +27,8 @@ function PracticeList(props) {
 				</Box>
 				<Grid container className="all-auditions" spacing={5}>
 
-					{props.actor.auditions.auditionInfo &&	
-					props.actor.auditions.auditionInfo.map((audition, index) => (
+					{props.actor.auditions &&	
+					props.actor.auditions.map((audition, index) => (
 						<Grid item key={index} className="featured-audition" xs={12} height={30}>
 							<SingleAudition audition={audition} />
 						</Grid>
