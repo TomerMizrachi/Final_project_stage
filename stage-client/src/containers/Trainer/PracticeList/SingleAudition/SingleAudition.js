@@ -41,12 +41,7 @@ function SingleAudition(props) {
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
 					<Grid item className="ctas" rtl>
-						<LinkButton onClick={onClick} className="default round active text-accent offset-left-sm">Start Practice</LinkButton>
-					</Grid>
-					<Grid>
-						<IconButton className="danger static offset-right-sm">
-							<i className="material-icons">favorite</i>
-						</IconButton>
+						<LinkButton onClick={onClick} className="default round active text-accent offset-left-sm">Continue Practice</LinkButton>
 					</Grid>
 				</Grid>
 			</Grid>
