@@ -162,4 +162,4 @@ const deleteActor = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-export { getActors, getActorUserById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
+export { getActors, getActorByUserId, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
