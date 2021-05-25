@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom'
 
 class DashboardTopCards extends Component {
 	constructor(props) {
+		const { auditionDetails }=props;
+		console.log("details",auditionDetails)
 		super(props);
 		this.state = {
 			// audition: this.props.location.state.audition,

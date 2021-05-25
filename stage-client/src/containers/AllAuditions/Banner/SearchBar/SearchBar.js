@@ -10,10 +10,10 @@ return(
     <BigSearchBar>
     <div className="search-box">
     <div className="search">
-        <LinkButton className="filter-btn default white round graystroke ">Comedy</LinkButton>
+        {/* <LinkButton className="filter-btn default white round graystroke ">Comedy</LinkButton>
         <LinkButton className="filter-btn default white round graystroke ">Drama</LinkButton>
         <LinkButton className="filter-btn default white round graystroke ">Theatre</LinkButton>
-        <LinkButton className="filter-btn default white round graystroke ">TV</LinkButton>
+        <LinkButton className="filter-btn default white round graystroke ">TV</LinkButton> */}
 
 
 
