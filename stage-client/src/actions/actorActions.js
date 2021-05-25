@@ -22,9 +22,15 @@ export const getMyAuditions = (actor_id) => dispatch => {
     console.log(actor_id)
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
-        .then(res => res.data)
+        .then(res => {
+        //res.data
+        console.log("TPM",res.data)})
+
+        
         .then(data => {
+            console.log("dataTest",data)
             let auditions = data
+            console.log("auditions",auditions)
             auditions.forEach(element => {
                 axios
                     .get("/audition/actor", { params: { audition_id: element.audition_id } })

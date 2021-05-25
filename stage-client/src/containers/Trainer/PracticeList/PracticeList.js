@@ -11,6 +11,7 @@ function PracticeList(props) {
 	useEffect(() => {
 		console.log(props)
 		props.getMyAuditions(props.actor.profile._id)
+		console.log(props.actor.auditions)
 	}, [])
 	
 	return (

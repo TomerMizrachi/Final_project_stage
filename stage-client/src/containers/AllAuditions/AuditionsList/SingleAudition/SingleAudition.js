@@ -5,7 +5,10 @@ import { Grid } from '@material-ui/core';
 
 export default function SingleAudition(props) {
 	const { audition } = props;
-
+	const onClick = e =>{
+		e.preventDefault()
+		console.log("pressed")
+	}
 	return (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
@@ -28,7 +31,7 @@ export default function SingleAudition(props) {
 					<Grid item className="recruitment-details" md>{audition.type}</Grid>
 					<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={console.log("clicked")}>Add to trainer</Button></Grid>
+					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
 
 
 				</Grid>

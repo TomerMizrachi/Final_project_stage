@@ -5,17 +5,14 @@ import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios';
 
-function SingleAudition(props) {
+
+export default function SingleAudition(props) {
 	const { audition } = props;
 	console.log(props)
 	const onClick = e =>{
 		e.preventDefault()
-		props.history.push({
-			pathname: '/trainer',
-			// search: '?query=abc',
-			state: { audition: audition }
-		  })
 	}
 
 	return (
@@ -49,16 +46,16 @@ function SingleAudition(props) {
 	)
 }
 
-SingleAudition.propTypes = {
-	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
-}
+// SingleAudition.propTypes = {
+// 	auth: PropTypes.object.isRequired,
+// 	errors: PropTypes.object.isRequired
+// }
 
-const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
-})
+// const mapStateToProps = state => ({
+// 	auth: state.auth,
+// 	errors: state.errors
+// })
 
-export default connect(
-	mapStateToProps,
-)(withRouter(SingleAudition))
+// export default connect(
+// 	mapStateToProps,
+// )(withRouter(SingleAudition))
