@@ -9,9 +9,9 @@ import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
 	useEffect(() => {
-		console.log("hii", props)
+		console.log("hii", props.location.state.audition)
+		// props.getMyAudition(props.location.state.audition)
 	}, [])
-	console.log("propssssss: ", props)
 	return (
 		<DashboardLayout>
 			<TrainerTopCards />
@@ -23,12 +23,14 @@ function Trainer(props) {
 
 Trainer.propTypes = {
     auth: PropTypes.object.isRequired,
-	actor: PropTypes.object.isRequired
+	actor: PropTypes.object.isRequired,
+	// audition: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
-	actor: state.actor
+	actor: state.actor,
+	// audition: state.location.state.audition
 })
 
 export default connect(
