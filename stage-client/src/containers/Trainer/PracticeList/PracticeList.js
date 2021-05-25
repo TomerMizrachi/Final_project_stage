@@ -8,13 +8,16 @@ import { getMyAuditions } from '@actions/actorActions'
 
 
 function PracticeList(props) {
+	const [auditions, setAuditions] = useState([])
 	useEffect(() => {
+		async function fetchData() {
+			await props.getMyAuditions(props.actor.profile._id)
+			setAuditions(props.actor.auditions)
+		}
 		console.log(props)
-		props.getMyAuditions(props.actor.profile._id)
+		fetchData()
 	}, [])
-	// useEffect(() => {
-	// 	console.log(props.actor.auditions)
-	// })
+	
 	return (
 		<div className="container">
 			<Box className="wrapper" py={8} mb={4}>
@@ -27,12 +30,12 @@ function PracticeList(props) {
 				</Box>
 				<Grid container className="all-auditions" spacing={5}>
 
-					{props.actor.auditions &&	
-					props.actor.auditions.map((audition, index) => (
+					{auditions ?	
+					auditions.map((audition, index) => (
 						<Grid item key={index} className="featured-audition" xs={12} height={30}>
 							<SingleAudition audition={audition} />
 						</Grid>
-					))}
+					)): null}
 				</Grid>
 
 			</Box>

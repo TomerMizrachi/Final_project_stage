@@ -15,8 +15,6 @@ function SingleActor(props) {
     const [auditionID, setAuditionID] = useState('')
     const recruiterAudition = props.recruiter.auditions
 
-   
-
     const onClick = e => {
         e.preventDefault()
         const data = {
