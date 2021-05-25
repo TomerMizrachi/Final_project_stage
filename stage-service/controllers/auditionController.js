@@ -3,20 +3,20 @@ import { validateAuditionInput } from '../validation/auditionValidation.js'
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 //Michal: Remove, as line 14 describes exactly the same??
- const getAuditions = async (req, res) => {
-     try {
-         const docs = await Audition.find({})
-         return res.json(docs)
-     } catch (err) {
-         return res.status(400).json({ err: err })
-     }
- }
+const getAuditions = async (req, res) => {
+    try {
+        const docs = await Audition.find({})
+        return res.json(docs)
+    } catch (err) {
+        return res.status(400).json({ err: err })
+    }
+}
 
 const getRelevantAuditions = (req, res) => {
     var dot = require('dot-object');
-    let condition={}
-    let typecast={}
-    condition.typecast=typecast
+    let condition = {}
+    let typecast = {}
+    condition.typecast = typecast
     console.log(condition)
     if (req.query.age) {
         let gt = Number(req.query.age) - 5
@@ -29,19 +29,21 @@ const getRelevantAuditions = (req, res) => {
         condition.height = { $gte: Number(heightRange[0]), $lte: Number(heightRange[1]) }
     }
     if (req.query.gender)
-        condition.typecast.gender =req.query.gender
+        condition.typecast.gender = req.query.gender
 
     if (req.query.body_structure)
         condition.body_structure = req.query.body_structure
     if (req.query.hair)
         condition.hair = req.query.hair
-    if (req.query.eyes)
+    if (req.query.eyes) {
         condition.typecast.eyes = req.query.eyes
+        console.log("ssssssssssssssss")
+    }
     if (req.query.skills)
         condition.skills = { $all: req.query.skills }
     if (req.query.languages)
         condition.languages = { $all: req.query.languages }
-        console.log(condition)
+    console.log(condition)
 
     //transform to dot notation, as specified in mongoDB documentation:
     //https://docs.mongodb.com/manual/tutorial/query-embedded-documents/
@@ -51,8 +53,9 @@ const getRelevantAuditions = (req, res) => {
         .then(auditions => res.json(auditions))
         .catch(err => res.status(400).json({ err: err }))
 }
+
 const getAuditionById = async (req, res) => {
-console.log("audition id has reached")
+    console.log("audition id has reached")
     try {
         const docs = await Audition.findById({ _id: req.query.audition_id }, (err) => {
             if (err) throw err
@@ -128,4 +131,4 @@ const recruiterAudition = (req, res) => {
 
 
 
-export { getAuditions, getAuditionById, createAudition, updateAudition, recruiterAudition,getRelevantAuditions }
+export { getAuditions, getAuditionById, createAudition, updateAudition, recruiterAudition, getRelevantAuditions }

@@ -8,8 +8,6 @@ import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
 
 function DashboardSidebar(props) {
-	let user=props.user.user
-	console.log("user",user)
 	console.log("propsdside",props)
 	const onClick = e =>{
 		e.preventDefault()

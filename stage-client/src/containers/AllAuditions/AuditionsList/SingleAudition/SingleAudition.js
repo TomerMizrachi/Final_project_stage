@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 export default function SingleAudition(props) {
 	const { audition } = props;
 
-	return (
+	return (audition && (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
@@ -34,5 +34,7 @@ export default function SingleAudition(props) {
 				</Grid>
 			</Grid>
 		</StyledFeaturedActorAudition>
+	
+	)
 	)
 }
