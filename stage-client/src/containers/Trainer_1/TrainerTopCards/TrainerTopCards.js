@@ -3,20 +3,24 @@ import StyledDashboardTopCards from './TrainerTopCards.styles';
 import { Grid, Box, colors } from '@material-ui/core';
 import { IconButton } from '@components/uielements/Button/Button';
 import Chart from 'react-apexcharts'
-
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class DashboardTopCards extends Component {
-
 	constructor(props) {
+		const { auditionDetails }=props;
+		console.log("details",auditionDetails)
 		super(props);
 		this.state = {
+			// audition: this.props.location.state.audition,
 			options: {
-				colors:['#FBA556', '#2BC155'],
+				colors: ['#FBA556', '#2BC155'],
 				labels: ['Similarity Score', 'Exact Score'],
 				// legend: "#FFFFFF",
-				alignItems:{
-					position:'left'
-				},
+				// alignItems:{
+				// 	position:'left'
+				// },
 				chart: {
 					type: 'donut',
 				},
@@ -48,11 +52,19 @@ class DashboardTopCards extends Component {
 			labels: ['Similarity Score', 'Exact Score'],
 			series: [44, 55]
 		}
+		// console.log(this.audition)
 	}
 	render() {
 		return (
 			<Box mb={6}>
 				<StyledDashboardTopCards>
+					<Box display="flex" justifyContent="normal" alignItems="center" mb={4}>
+						<Link to="/Dashboard/trainer">Trainer {'> '}</Link>
+						<Link to="/Trainer"> Cinderalla</Link>
+						{/* <div target="_blank" onClick={this.trainerPage} >Trainer {'> '} </div>
+						<div onClick={this.currPage}>Cinderalla</div> */}
+
+					</Box>
 					<Grid container spacing={5}>
 
 						<Grid item xs={12}>
@@ -99,38 +111,7 @@ class DashboardTopCards extends Component {
 												<Chart options={this.state.options} series={this.state.series} type="donut" />
 											</div>
 										</Grid>
-										{/* <Grid container spacing={1} alignItems="center">
-											<Grid item>
-												<IconButton className="success static">
-													<i className="material-icons">event</i>
-												</IconButton>
-											</Grid>
-											<Grid item>
-												<div className="heading3">Similarity Score</div>
-												<div className="desc">80%</div>
-											</Grid>
-										</Grid>
-										<Grid container spacing={1} alignItems="center">
-											<Grid item>
-												<IconButton className="success static">
-													<i className="material-icons">event</i>
-												</IconButton>
-											</Grid>
-											<Grid item>
-												<div className="heading3">Exact Score</div>
-												<div className="desc">40%</div>
-											</Grid>
-										</Grid> */}
 									</Grid>
-									{/* <Grid item xs={5}>
-										<Grid container spacing={1} alignItems="center">
-											<Grid item>
-												<div className="donut">
-												<Chart options={this.state.options} series={this.state.series} type="donut" width="250" />
-												</div>
-											</Grid>
-										</Grid>
-									</Grid> */}
 								</Grid>
 							</div>
 						</Grid>
@@ -140,4 +121,17 @@ class DashboardTopCards extends Component {
 		)
 	}
 }
-export default DashboardTopCards
+DashboardTopCards.propTypes = {
+    auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	actor: state.actor,
+    auth: state.auth,
+    errors: state.errors
+})
+export default connect(
+    mapStateToProps,
+)(DashboardTopCards)

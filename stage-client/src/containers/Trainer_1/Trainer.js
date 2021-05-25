@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
-import DashboardTopCards from './TrainerTopCards/TrainerTopCards'
+import TrainerTopCards from './TrainerTopCards/TrainerTopCards'
 import PracticeComp from './PracticeComp'
 import FilmedAuditions from './FilmedAuditions'
 import PropTypes from 'prop-types'
@@ -8,10 +8,13 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
-	console.log("props: ", props)
+	useEffect(() => {
+		console.log("hii", props)
+	}, [])
+	console.log("propssssss: ", props)
 	return (
 		<DashboardLayout>
-			<DashboardTopCards />
+			<TrainerTopCards />
 			<PracticeComp />
 			<FilmedAuditions />
 		</DashboardLayout>

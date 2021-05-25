@@ -47,7 +47,6 @@ const video = {
 const Filming = () => {
     return (
         <div>
-            <h3 style={header}>Film your audition</h3>
             <div style={video}>
                 <Video style={video}{...videoJsOptions}></Video>
             </div>
