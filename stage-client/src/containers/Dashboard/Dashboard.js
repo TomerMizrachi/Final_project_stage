@@ -4,11 +4,12 @@ import DashboardTopCards from '@containers/Dashboard/DashboardTopCards/Dashboard
 import VacancyStats from '@containers/Dashboard/VacancyStats/VacancyStats'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
 import { getActorInfo } from '@actions/actorActions'
 
 function Dashboard(props) {
-	console.log("props: ", props.auth.user)
+	console.log("props: ", props)
 	useEffect(() => {
 		props.getActorInfo(props.auth.user.id)
 	}, [props.auth.user])
@@ -22,14 +23,17 @@ function Dashboard(props) {
 
 Dashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
+	getActorInfo: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	auth: state.auth,
+	actor: state.actor
 })
 
 export default connect(
 	mapStateToProps,
 	{ logoutUser, getActorInfo }
-)(Dashboard)
+)(withRouter(Dashboard))
