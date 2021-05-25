@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import SiteConfig from '@config/site.config';
 import { Box } from '@material-ui/core';
 import { LinkButton } from '@components/uielements/Button/Button';
 import PracticeGrid from './PracticeGrid/AuditionGrid';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-export default function FilmedAuditions() {
+function FilmedAuditions(props) {
+	useEffect(() => {
+		console.log("this is me- props", props)
+		// props.getMyAuditions(props.auth.user.id)
+	}, [])
 	const auditions = [
 		{
 			date: '11/10/2020',
@@ -33,3 +40,16 @@ export default function FilmedAuditions() {
 		</Box>
 	)
 }
+FilmedAuditions.propTypes = {
+	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	actor: state.actor
+})
+
+export default connect(
+	mapStateToProps,
+)(withRouter(FilmedAuditions))

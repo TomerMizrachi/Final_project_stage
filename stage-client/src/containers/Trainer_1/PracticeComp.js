@@ -18,7 +18,7 @@ import { withRouter } from 'react-router-dom'
 
  function PracticeComp(props) {
 	useEffect(() => {
-		console.log("this is me", props)
+		// console.log("this is me", props.location.state.audition)
 		// props.getMyAuditions(props.auth.user.id)
 	}, [])
 	
@@ -182,17 +182,15 @@ import { withRouter } from 'react-router-dom'
 	)
 }
 PracticeComp.propTypes = {
-	// getMyAuditions: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	// actor: PropTypes.object.isRequired
+	actor: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
 	auth: state.auth,
-	// actor: state.actor
+	actor: state.actor
 })
 
 export default connect(
 	mapStateToProps,
-	// { getMyAuditions }
 )(withRouter(PracticeComp))

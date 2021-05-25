@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom'
 
 class DashboardTopCards extends Component {
 	constructor(props) {
-		const { auditionDetails }=props;
-		console.log("details",auditionDetails)
 		super(props);
+		const { auditionDetails }=props;
+		console.log("details",props)
 		this.state = {
 			// audition: this.props.location.state.audition,
 			options: {
@@ -123,12 +123,12 @@ class DashboardTopCards extends Component {
 }
 DashboardTopCards.propTypes = {
     auth: PropTypes.object.isRequired,
-	actor: PropTypes.object.isRequired,
+	// actor: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-	actor: state.actor,
+	// actor: state.actor,
     auth: state.auth,
     errors: state.errors
 })
