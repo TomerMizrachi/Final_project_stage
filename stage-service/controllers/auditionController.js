@@ -35,10 +35,8 @@ const getRelevantAuditions = (req, res) => {
         condition.body_structure = req.query.body_structure
     if (req.query.hair)
         condition.hair = req.query.hair
-    if (req.query.eyes) {
+    if (req.query.eyes)
         condition.typecast.eyes = req.query.eyes
-        console.log("ssssssssssssssss")
-    }
     if (req.query.skills)
         condition.skills = { $all: req.query.skills }
     if (req.query.languages)
