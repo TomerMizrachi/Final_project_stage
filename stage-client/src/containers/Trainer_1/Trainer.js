@@ -8,11 +8,10 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
-	console.log("props: ", props)
 	return (
 		<DashboardLayout>
-			<DashboardTopCards />
-			<PracticeComp />
+			<DashboardTopCards/>
+			<PracticeComp/>
 			<FilmedAuditions />
 		</DashboardLayout>
 	);

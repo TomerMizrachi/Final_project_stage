@@ -3,7 +3,7 @@ import { SET_AUDITIONS,GET_RELEVANT_AUDITIONS,GET_ERRORS } from './types'
 
 
 export const getMyAuditions = (actor_id) => dispatch => {
-    console.log("HERE!")
+    console.log(actor_id)
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
         .then(res => res.data)
@@ -33,31 +33,46 @@ export const getMyAuditions = (actor_id) => dispatch => {
 }
 
 export const getMyRelevantAuditions = (actor_id) => dispatch => {
+   //Michal- to check complex params after the beta
     axios
-        .get("/actor-audition/actor", { params: { actor_id: actor_id } })
-        .then(res => res.data)
+        .get("/user/"+actor_id)
         .then(data => {
-            let auditions = data
-            auditions.forEach(element => {
-                axios
-                    .get("/audition/actor", { params: { audition_id: element.audition_id } })
+            let actorId = data.data.actor_collection_id
+            axios.get("/actor/"+actorId)
+            .then(res=> {
+                let params={}
+                console.log("Details",res)
+                // if (res.data.age)
+                //     params.age= res.data.age
+                // if (res.height)
+                //     params.height= res.height
+                if (res.data.gender)
+                    params.gender=res.data.gender
+                // if (res.data.body_structure)
+                //     params.body_structure=res.data.body_structure
+                 if (res.data.eyes)
+                     params.eyes=res.data.eyes
+                // if (res.data.skills)
+                //     params.skills = { $all: res.data.skills }
+                // if (res.data.languages)
+                //     params.languages = { $all: res.data.languages }
+                console.log(params)
+                    axios
+                    .get("audition/getRelevantAuditions", { params: params})
                     .then(res => {
-                        element.auditionInfo = res.data
-                        console.log(res.data)
-                    })
-                    .then(res => {
+                        console.log("allAuditions",res)
                         dispatch({
-                            type: SET_AUDITIONS,
-                            payload: auditions
+                            type: GET_RELEVANT_AUDITIONS,
+                            payload: res.data
                         })
-                    })
-            })
-        })
+                    })            
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
         })
-}
 
+    })
+})
+}
