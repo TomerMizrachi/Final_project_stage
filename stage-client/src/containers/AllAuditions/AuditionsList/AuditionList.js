@@ -8,11 +8,11 @@ import { useState, useEffect } from 'react'
 import { getMyRelevantAuditions } from '@actions/actorActions'
 
 function AuditionList(props) {
-	useEffect(() => {
-		console.log(props)
-		props.getMyRelevantAuditions(props.auth.user.id)
-		console.log(props.actor.relevantauditions)
-	}, [])
+	// useEffect(() => {
+	// 	console.log(props)
+	// 	props.getMyRelevantAuditions(props.auth.user.id)
+	// 	console.log(props.actor.relevantauditions)
+	// }, [])
 //Mock data
 	// const featuredAuditions = [
 	// 	{

@@ -10,7 +10,7 @@ import { getMyAuditions } from '@actions/actorActions'
 function PracticeList(props) {
 	useEffect(() => {
 		console.log(props)
-		props.getMyAuditions(props.auth.user.id)
+		props.getMyAuditions(props.actor.profile._id)
 	}, [])
 	
 	return (

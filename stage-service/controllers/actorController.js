@@ -45,15 +45,15 @@ const getActors = (req, res) => {
 
 const getActorByUserId = async (req, res) => {
     try {
-        const docs = await Actor.findById({ user_id: req.params.id }, (err) => {
+        const docs = await Actor.find({ user_id: req.query.user_id }, (err) => {
             if (err) throw err
         })
         if (!docs) throw {
             message: 'no content'
         }
-        return res.status(200).json(docs)
+        return res.status(200).json(docs[0])
     } catch (err) {
-        return res.status(400).send(err)
+        return res.status(400).json({ err: err })
     }
 }
 

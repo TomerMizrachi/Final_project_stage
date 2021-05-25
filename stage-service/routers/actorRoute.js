@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', getActors)
 
-router.get('/:id', getActorByUserId)
+router.get('/info', getActorByUserId)
 
 router.post('/', actorProfile)
 
