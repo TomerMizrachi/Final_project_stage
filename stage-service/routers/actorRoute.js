@@ -1,11 +1,11 @@
 import express from 'express'
-import { getActors, getActorById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor } from '../controllers/actorController.js'
+import { getActors, getActorByUserId, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor } from '../controllers/actorController.js'
 
 const router = express.Router()
 
 router.get('/', getActors)
 
-router.get('/:id', getActorById)
+router.get('/:id', getActorByUserId)
 
 router.post('/', actorProfile)
 

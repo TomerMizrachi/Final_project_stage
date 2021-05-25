@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SET_AUDITIONS,GET_RELEVANT_AUDITIONS,GET_ERRORS } from './types'
+import { SET_AUDITIONS,GET_RELEVANT_AUDITIONS,GET_ERRORS ,REGISTER_TO_AUDITION} from './types'
 
 
 export const getMyAuditions = (actor_id) => dispatch => {
@@ -31,6 +31,23 @@ export const getMyAuditions = (actor_id) => dispatch => {
             })
         })
 }
+
+export const registerToAudition= (actor_id,audition_id)=>dispatch=>{
+    axios({
+        method: 'post',
+        url: '/actor-audition',
+        data: {
+          actor_id: actor_id,
+          lastName: audition_id,
+          DM:false,
+        }
+      }).then(res => {
+        dispatch({
+            type: REGISTER_TO_AUDITION,
+            payload: res
+        })
+    })
+      }
 
 export const getMyRelevantAuditions = (actor_id) => dispatch => {
    //Michal- to check complex params after the beta

@@ -1,6 +1,6 @@
 import React from 'react';
 import StyledFeaturedActorAudition from './SingleAudition.styles';
-import { LinkButton,IconButton} from '@components/uielements/Button/Button';
+import { Button,LinkButton,IconButton} from '@components/uielements/Button/Button';
 import { Grid } from '@material-ui/core';
 
 export default function SingleAudition(props) {
@@ -28,10 +28,7 @@ export default function SingleAudition(props) {
 					<Grid item className="recruitment-details" md>{audition.type}</Grid>
 					<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><LinkButton href="/login" className="default round active text-accent offset-left-sm">More details</LinkButton></Grid>
-					<Grid><IconButton className="danger heart static offset-right-sm">
-						<i className="material-icons">favorite</i>
-					</IconButton></Grid>
+					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={console.log("clicked")}>Add to trainer</Button></Grid>
 
 
 				</Grid>

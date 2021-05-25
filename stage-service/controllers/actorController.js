@@ -43,9 +43,9 @@ const getActors = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-const getActorById = async (req, res) => {
+const getActorByUserId = async (req, res) => {
     try {
-        const docs = await Actor.findById({ _id: req.params.id }, (err) => {
+        const docs = await Actor.findById({ user_id: req.params.id }, (err) => {
             if (err) throw err
         })
         if (!docs) throw {
@@ -162,4 +162,4 @@ const deleteActor = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-export { getActors, getActorById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
+export { getActors, getActorUserById, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
