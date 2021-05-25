@@ -1,4 +1,3 @@
-import React from 'react'
 import { Grid, Box } from '@material-ui/core'
 import SingleAudition from './SingleAudition/SingleAudition'
 import { Select, MenuItem, FormControl } from '@material-ui/core'

@@ -52,16 +52,8 @@ class DashboardTopCards extends Component {
 			labels: ['Similarity Score', 'Exact Score'],
 			series: [44, 55]
 		}
-		console.log(this.audition)
+		// console.log(this.audition)
 	}
-	// trainerPage = (e) =>{
-	// 	e.preventDefault()
-	// 	this.props.history.push('/trainer')
-	// }
-	// currPage = (e) =>{
-	// 	e.preventDefault()
-	// 	this.props.history.push('/Dashboard/trainer')
-	// }
 	render() {
 		return (
 			<Box mb={6}>
@@ -136,7 +128,7 @@ DashboardTopCards.propTypes = {
 }
 
 const mapStateToProps = state => ({
-	actor: state.auth, 
+	actor: state.actor,
     auth: state.auth,
     errors: state.errors
 })
