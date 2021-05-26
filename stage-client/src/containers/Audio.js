@@ -17,15 +17,18 @@ export default class Aud extends Component {
             sumExactScore: 0,
             finalScore: {},
             roleSpeaking: "NONE",
-            auto_record_active: false
+            auto_record_active: false,
+            conversation_start:false
         }
 
     }
 
     controlAudio(status) {
         this.setState({
-            status: status, auto_record_active: !this._record_active
+            status: status, auto_record_active: !this._record_active,
+            conversation_start: true
         })
+        
     }
 
     calculateTotalScore() {
@@ -75,7 +78,7 @@ export default class Aud extends Component {
                 // }
                 react_comp.speaking = true;
                 console.log('started speaking!');
-                clearTimeout(react_comp.speech_timeout);
+                //clearTimeout(react_comp.speech_timeout);
 
             });
             speechEvents.on('stopped_speaking', function () {
@@ -207,10 +210,9 @@ export default class Aud extends Component {
                         <p>{this.state.entireText[this.state.currentLineIterator]}</p>
                         <AudioAnalyser {...audioProps}>
                             <div className="btn-box">
-                                {status !== "recording" &&
+                                {this.state.conversation_start == false &&
                                     <button onClick={() => this.controlAudio("recording")}>record</button>
                                 }
-                                <button onClick={() => this.controlAudio("inactive")}>stop</button>
                             </div>
                         </AudioAnalyser>
                     </div>

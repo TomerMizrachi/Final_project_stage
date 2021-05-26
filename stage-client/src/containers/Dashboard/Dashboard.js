@@ -6,16 +6,24 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
-import { getActorInfo } from '@actions/actorActions'
+import { getActorInfo,getMyRelevantAuditions,getMyAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
 	console.log("props: ", props)
+
 	useEffect(() => {
+		const params = {
+			// gender:props.actor.profile.gender,
+			//	body_structure:props.actor.profile.body_structure,
+			 eyes: "Blue",
+			// hair:props.actor.profile.hair
+		}
 		props.getActorInfo(props.auth.user.id)
+
 	}, [props.auth.user])
 	return (
 		<DashboardLayout user={props.auth.user}>
-			<DashboardTopCards />
+			<DashboardTopCards /> 
 			<VacancyStats />
 		</DashboardLayout>
 	);
@@ -29,11 +37,13 @@ Dashboard.propTypes = {
 }
 
 const mapStateToProps = state => ({
+	getMyRelevantAuditions: PropTypes.func.isRequired,
+	getMyAuditions: PropTypes.func.isRequired,
 	auth: state.auth,
 	actor: state.actor
 })
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, getActorInfo }
+	{ logoutUser, getActorInfo,getMyRelevantAuditions,getMyAuditions}
 )(withRouter(Dashboard))

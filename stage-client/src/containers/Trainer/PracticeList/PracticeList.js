@@ -33,7 +33,7 @@ function PracticeList(props) {
 					{auditions ?	
 					auditions.map((audition, index) => (
 						<Grid item key={index} className="featured-audition" xs={12} height={30}>
-							<SingleAudition audition={audition} />
+							<SingleAudition audition={auditions[0]} />
 						</Grid>
 					)): null}
 				</Grid>

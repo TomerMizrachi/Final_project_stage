@@ -7,12 +7,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-class DashboardTopCards extends Component {
+class TrainerTopCards extends Component {
 	constructor(props) {
 		super(props);
-		const { auditionDetails }=props;
-		console.log("details",props)
+		//console.log("aa",audition)
 		this.state = {
+			audition:props.data.location.state.audition,
 			// audition: this.props.location.state.audition,
 			options: {
 				colors: ['#FBA556', '#2BC155'],
@@ -52,7 +52,7 @@ class DashboardTopCards extends Component {
 			labels: ['Similarity Score', 'Exact Score'],
 			series: [44, 55]
 		}
-		// console.log(this.audition)
+		console.log("STATE",this.state)
 	}
 	render() {
 		return (
@@ -60,7 +60,7 @@ class DashboardTopCards extends Component {
 				<StyledDashboardTopCards>
 					<Box display="flex" justifyContent="normal" alignItems="center" mb={4}>
 						<Link to="/Dashboard/trainer">Trainer {'> '}</Link>
-						<Link to="/Trainer"> Cinderalla</Link>
+						<Link to="/Trainer">{this.state.audition.auditionInfo.name}</Link>
 						{/* <div target="_blank" onClick={this.trainerPage} >Trainer {'> '} </div>
 						<div onClick={this.currPage}>Cinderalla</div> */}
 
@@ -73,8 +73,8 @@ class DashboardTopCards extends Component {
 									<Grid item className="recent-audition" xs={5}>
 										<Grid container spacing={1} >
 											<Grid item className="audition-info">
-												<div className="heading2">Cinderalla</div>
-												<div className="desc">Avi Nesher, 14/2/2021</div>
+												<div className="heading2">{this.state.audition.auditionInfo.name}</div>
+												<div className="desc">{this.state.audition.auditionInfo.name}, 14/2/2021</div>
 											</Grid>
 										</Grid>
 									</Grid>
@@ -121,17 +121,19 @@ class DashboardTopCards extends Component {
 		)
 	}
 }
-DashboardTopCards.propTypes = {
-    auth: PropTypes.object.isRequired,
-	// actor: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
-}
 
-const mapStateToProps = state => ({
-	// actor: state.actor,
-    auth: state.auth,
-    errors: state.errors
-})
-export default connect(
-    mapStateToProps,
-)(DashboardTopCards)
+export default TrainerTopCards;
+// TrainerTopCards.propTypes = {
+//     auth: PropTypes.object.isRequired,
+// 	// actor: PropTypes.object.isRequired,
+//     errors: PropTypes.object.isRequired
+// }
+
+// const mapStateToProps = state => ({
+// 	// actor: state.actor,
+//     auth: state.auth,
+//     errors: state.errors
+// })
+// export default connect(
+//     mapStateToProps,
+// )(TrainerTopCards)

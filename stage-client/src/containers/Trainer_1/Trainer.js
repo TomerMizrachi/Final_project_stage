@@ -8,13 +8,15 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
+	const data=props
 	useEffect(() => {
-		console.log("hii", props.location.state.audition)
+		console.log("trainerData",data)
+		 //console.log("hii", props.location.state.audition)
 		// props.getMyAudition(props.location.state.audition)
 	}, [])
 	return (
 		<DashboardLayout>
-			<TrainerTopCards />
+			<TrainerTopCards data={data}/>
 			<PracticeComp />
 			<FilmedAuditions />
 		</DashboardLayout>

@@ -11,6 +11,7 @@ function SingleAudition(props) {
 	console.log(props)
 	const onClick = e => {
 		e.preventDefault()
+		console.log("TESTNOW",props)
 		props.history.push({
 			pathname: '/trainer',
 			// search: '?query=abc',
