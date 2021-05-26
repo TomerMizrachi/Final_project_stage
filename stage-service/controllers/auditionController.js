@@ -17,7 +17,7 @@ const getRelevantAuditions = (req, res) => {
     let condition = {}
     let typecast = {}
     condition.typecast = typecast
-    console.log(condition)
+    // console.log(condition)
     if (req.query.age) {
         let gt = Number(req.query.age) - 5
         let lt = Number(req.query.age) + 5
@@ -41,7 +41,7 @@ const getRelevantAuditions = (req, res) => {
         condition.skills = { $all: req.query.skills }
     if (req.query.languages)
         condition.languages = { $all: req.query.languages }
-    console.log(condition)
+    // console.log(condition)
 
     //transform to dot notation, as specified in mongoDB documentation:
     //https://docs.mongodb.com/manual/tutorial/query-embedded-documents/

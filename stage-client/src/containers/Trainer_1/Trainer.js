@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 function Trainer(props) {
 	useEffect(() => {
-		console.log("hii", props.location.state.audition)
+		// console.log("hii", props.location.state.audition)
 		// props.getMyAudition(props.location.state.audition)
 	}, [])
 	return (
