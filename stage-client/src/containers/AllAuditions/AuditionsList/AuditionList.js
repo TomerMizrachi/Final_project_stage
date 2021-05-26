@@ -8,19 +8,38 @@ import { useState, useEffect } from 'react'
 import { getMyRelevantAuditions } from '@actions/actorActions'
 
 function AuditionList(props) {
-	console.log(props)
 	useEffect(() => {
 		console.log(props)
-		const params = {
-			// gender:props.actor.profile.gender,
-			//	body_structure:props.actor.profile.body_structure,
-			 eyes: "Blue",
-			// hair:props.actor.profile.hair
-		}
-		props.getMyRelevantAuditions(props.actor.profile._id, params)
-
+		props.getMyRelevantAuditions(props.auth.user.id)
+		console.log(props.actor.relevantauditions)
 	}, [])
-
+//Mock data
+	// const featuredAuditions = [
+	// 	{
+	// 		'name': 'Beauty & the Beast',
+	// 		'role': 'The beast',
+	// 		'end_of_recruitment': '14/2/2021',
+	// 		'genere': 'comedy,genere',
+	// 	},
+	// 	{
+	// 		'name': 'Beauty & the Beast',
+	// 		'role': 'The beast',
+	// 		'end_of_recruitment': '14/2/2021',
+	// 		'genere': 'comedy,genere',
+	// 	},
+	// 	{
+	// 		'name': 'Beauty & the Beast',
+	// 		'role': 'The beast',
+	// 		'end_of_recruitment': '14/2/2021',
+	// 		'genere': 'comedy,genere',
+	// 	},
+	// 	{
+	// 		'name': 'Beauty & the Beast',
+	// 		'role': 'The beast',
+	// 		'end_of_recruitment': '14/2/2021',
+	// 		'genere': 'comedy,genere',
+	// 	},
+	// ];
 
 	return (
 
@@ -43,14 +62,14 @@ function AuditionList(props) {
 					</FormControl>
 				</Grid>
 			</Box>
-			{<Grid container className="all-auditions" spacing={5}>
+			<Grid container className="all-auditions" spacing={5}>
 
 				{props.actor.relevantauditions.map((audition, index) => (
 					<Grid item key={index} className="featured-audition" xs={12}>
 						<SingleAudition audition={audition} />
 					</Grid>
 				))}
-			</Grid>}
+			</Grid>
 		</div>
 	)
 }
@@ -68,5 +87,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getMyRelevantAuditions }
+	{getMyRelevantAuditions}
 )(withRouter(AuditionList))
