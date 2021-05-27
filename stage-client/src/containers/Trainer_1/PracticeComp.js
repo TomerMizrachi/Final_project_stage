@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
  function PracticeComp(props) {
+	const audition=props.history.location.state.audition.auditionInfo
 	useEffect(() => {
 		// console.log("this is me", props.location.state.audition)
 		// props.getMyAuditions(props.auth.user.id)
@@ -78,7 +79,7 @@ import { withRouter } from 'react-router-dom'
 													</div>
 												</div>
 												<DialogContentText>
-													"To be or not to be, this is the question."
+													{audition.text_file}
           										</DialogContentText>
 											</DialogContentText>
 										</DialogContent>

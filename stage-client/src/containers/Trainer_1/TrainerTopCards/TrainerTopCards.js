@@ -50,7 +50,7 @@ class TrainerTopCards extends Component {
 				}],
 			},
 			labels: ['Similarity Score', 'Exact Score'],
-			series: [44, 55]
+			series: [props.data.location.state.audition.score, props.data.location.state.audition.score]
 		}
 		console.log("STATE",this.state)
 	}
@@ -74,7 +74,6 @@ class TrainerTopCards extends Component {
 										<Grid container spacing={1} >
 											<Grid item className="audition-info">
 												<div className="heading2">{this.state.audition.auditionInfo.name}</div>
-												<div className="desc">{this.state.audition.auditionInfo.name}, 14/2/2021</div>
 											</Grid>
 										</Grid>
 									</Grid>
@@ -86,7 +85,7 @@ class TrainerTopCards extends Component {
 												</IconButton>
 											</Grid>
 											<Grid item >
-												<div className="heading3">14/2/2020</div>
+												<div className="heading3">{this.state.audition.auditionInfo.due_date}</div>
 												<div className="desc">End Of Recruitment</div>
 											</Grid>
 										</Grid>
@@ -99,7 +98,7 @@ class TrainerTopCards extends Component {
 												</IconButton>
 											</Grid>
 											<Grid item>
-												<div className="heading3">Comedy, Movie</div>
+												<div className="heading3">{this.state.audition.auditionInfo.type}</div>
 												<div className="desc">Genere</div>
 											</Grid>
 										</Grid>

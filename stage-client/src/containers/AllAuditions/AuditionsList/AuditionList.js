@@ -10,7 +10,8 @@ import { getMyRelevantAuditions } from '@actions/actorActions'
 function AuditionList(props) {
 	useEffect(() => {
 		console.log(props)
-		props.getMyRelevantAuditions(props.auth.user.id)
+		const params={}
+		props.getMyRelevantAuditions(props.auth.user.id,params)
 		console.log(props.actor.relevantauditions)
 	}, [])
 //Mock data

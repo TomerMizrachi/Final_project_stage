@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
-import { getActorInfo,getMyRelevantAuditions,getMyAuditions } from '@actions/actorActions'
+import { Grid, Box} from '@material-ui/core';
+import { getActorInfo,getAuditionMetrics,getMyAuditions,getMyRelevantAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
 	console.log("props: ", props)
@@ -18,13 +19,23 @@ function Dashboard(props) {
 			 eyes: "Blue",
 			// hair:props.actor.profile.hair
 		}
+		props.getMyAuditions(props.auth.user.id)
+		props.getAuditionMetrics(props.auth.user.id)
 		props.getActorInfo(props.auth.user.id)
+		props.getMyRelevantAuditions(props.auth.user.id)
 
 	}, [props.auth.user])
 	return (
 		<DashboardLayout user={props.auth.user}>
-			<DashboardTopCards /> 
-			<VacancyStats />
+			<Grid>
+			<Grid item xs={6}>	
+			<h1 className="title">Hi {props.auth.user.name}, it׳s great having you here.</h1>
+			</Grid>
+			<Grid>
+			<h3 className="dec">here are your recent practices and audition submissions:</h3>
+			</Grid>
+			</Grid>
+			<DashboardTopCards stats={props.actor} /> 
 		</DashboardLayout>
 	);
 }
@@ -32,18 +43,20 @@ function Dashboard(props) {
 Dashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	getActorInfo: PropTypes.func.isRequired,
+	getAuditionMetrics: PropTypes.func.isRequired,
+	getMyRelevantAuditions: PropTypes.func.isRequired,
+	getMyAuditions:PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	actor: PropTypes.object.isRequired
+	actor: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-	getMyRelevantAuditions: PropTypes.func.isRequired,
-	getMyAuditions: PropTypes.func.isRequired,
+	
 	auth: state.auth,
 	actor: state.actor
 })
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, getActorInfo,getMyRelevantAuditions,getMyAuditions}
+	{ logoutUser, getActorInfo,getAuditionMetrics,getMyAuditions,getMyRelevantAuditions}
 )(withRouter(Dashboard))

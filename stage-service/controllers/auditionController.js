@@ -13,6 +13,7 @@ const getAuditions = async (req, res) => {
 }
 
 const getRelevantAuditions = (req, res) => {
+    console.log("PARAMS",req.query)
     var dot = require('dot-object');
     let condition = {}
     let typecast = {}
@@ -45,11 +46,19 @@ const getRelevantAuditions = (req, res) => {
 
     //transform to dot notation, as specified in mongoDB documentation:
     //https://docs.mongodb.com/manual/tutorial/query-embedded-documents/
+    if (typecast={})
+    {
+        Audition.find({})
+        .then(auditions => res.json(auditions))
+        .catch(err => res.status(400).json({ err: err }))
+}
+else{
     var tgt = dot.dot(condition);
     console.log(tgt)
     Audition.find(tgt)
         .then(auditions => res.json(auditions))
         .catch(err => res.status(400).json({ err: err }))
+}
 }
 
 const getAuditionById = async (req, res) => {
