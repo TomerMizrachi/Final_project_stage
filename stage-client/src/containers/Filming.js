@@ -44,11 +44,13 @@ const video = {
     // transform: 'translate(-50%, -50%)'
 }
 
-const Filming = () => {
+const Filming = (props) => {
+    const actor_id = props
+    console.log("actor_id", actor_id)
     return (
         <div>
             <div style={video}>
-                <Video style={video}{...videoJsOptions}></Video>
+                <Video style={video}{...videoJsOptions} data={actor_id}></Video>
             </div>
         </div>
     )

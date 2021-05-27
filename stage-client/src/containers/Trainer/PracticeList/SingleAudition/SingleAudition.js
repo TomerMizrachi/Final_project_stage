@@ -8,10 +8,10 @@ import { withRouter } from 'react-router-dom'
 
 function SingleAudition(props) {
 	const { audition } = props;
-	console.log(props)
+	// console.log(props)
 	const onClick = e => {
 		e.preventDefault()
-		console.log("TESTNOW",props)
+		// console.log("TESTNOW",props)
 		props.history.push({
 			pathname: '/trainer',
 			// search: '?query=abc',

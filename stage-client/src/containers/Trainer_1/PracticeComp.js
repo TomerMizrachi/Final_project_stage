@@ -17,9 +17,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
  function PracticeComp(props) {
-	const audition=props.history.location.state.audition.auditionInfo
+	const audition=props.history.location.state.audition
 	useEffect(() => {
-		// console.log("this is me", props.location.state.audition)
+		console.log("this is me", audition)
 		// props.getMyAuditions(props.auth.user.id)
 	}, [])
 	
@@ -79,7 +79,7 @@ import { withRouter } from 'react-router-dom'
 													</div>
 												</div>
 												<DialogContentText>
-													{audition.text_file}
+													{audition.auditionInfo.text_file}
           										</DialogContentText>
 											</DialogContentText>
 										</DialogContent>
@@ -164,7 +164,7 @@ import { withRouter } from 'react-router-dom'
 													</div>
 												</div>
 												<div className="audioWrapper">
-													<Filming></Filming>
+													<Filming actor_id={audition.actor_id}></Filming>
 												</div>
 											</DialogContentText>
 										</DialogContent>

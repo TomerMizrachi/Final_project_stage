@@ -10,10 +10,8 @@ import { Link } from 'react-router-dom'
 class TrainerTopCards extends Component {
 	constructor(props) {
 		super(props);
-		//console.log("aa",audition)
 		this.state = {
 			audition:props.data.location.state.audition,
-			// audition: this.props.location.state.audition,
 			options: {
 				colors: ['#FBA556', '#2BC155'],
 				labels: ['Similarity Score', 'Exact Score'],
@@ -52,7 +50,6 @@ class TrainerTopCards extends Component {
 			labels: ['Similarity Score', 'Exact Score'],
 			series: [props.data.location.state.audition.score, props.data.location.state.audition.score]
 		}
-		console.log("STATE",this.state)
 	}
 	render() {
 		return (
@@ -122,17 +119,3 @@ class TrainerTopCards extends Component {
 }
 
 export default TrainerTopCards;
-// TrainerTopCards.propTypes = {
-//     auth: PropTypes.object.isRequired,
-// 	// actor: PropTypes.object.isRequired,
-//     errors: PropTypes.object.isRequired
-// }
-
-// const mapStateToProps = state => ({
-// 	// actor: state.actor,
-//     auth: state.auth,
-//     errors: state.errors
-// })
-// export default connect(
-//     mapStateToProps,
-// )(TrainerTopCards)

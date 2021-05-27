@@ -24,9 +24,9 @@ export const getMyAuditions = (actor_id) => dispatch => {
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
         .then(res => res.data)
         .then(data => {
-            console.log("dataTest",data)
+            // console.log("dataTest",data)
             let auditions = data
-            console.log("auditions",auditions)
+            // console.log("auditions",auditions)
             auditions.forEach(element => {
                 axios
                     .get("/audition/actor", { params: { audition_id: element.audition_id } })
@@ -53,7 +53,7 @@ export const getMyAuditions = (actor_id) => dispatch => {
 
 export const getAuditionMetrics =(actor_id)=>  dispatch => {
    let trainingsArr=getMyAuditions(actor_id)
-    console.log("efdsfsh",trainingsArr)
+    // console.log("efdsfsh",trainingsArr)
     
 }
 export const registerToAudition = (actor_id, audition_id) => dispatch => {
@@ -84,7 +84,7 @@ export const getMyRelevantAuditions = (actor_id, params) => dispatch => {
             axios
                 .get("audition/getRelevantAuditions")
                 .then(res => {
-                    console.log("allAuditions", res)
+                    // console.log("allAuditions", res)
                     dispatch({
                         type: GET_RELEVANT_AUDITIONS,
                         payload: res.data

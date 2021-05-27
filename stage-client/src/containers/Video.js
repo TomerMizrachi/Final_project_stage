@@ -22,6 +22,7 @@ class Video extends Component {
         super(props);
         console.log(this)
         this.state = {
+            actor_id: props.data.actor_id,
             auto_record_active: false,
             status: "",
             entireText: "",
@@ -90,7 +91,7 @@ class Video extends Component {
                 var data = JSON.stringify({ "video": "https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a" });
                 var config = {
                     method: 'put',
-                    url: 'http://localhost:8001/actor-audition/6084204bdb649568101fede1',
+                    url: `http://localhost:8001/actor-audition/${this.actor_id}`,
                     headers: {
                         'Content-Type': 'application/json'
                     },
