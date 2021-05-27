@@ -88,7 +88,7 @@ class Video extends Component {
                     'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                 }
             }).then(res => {
-                var data = JSON.stringify({ "video": "https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a" });
+                var data = JSON.stringify({ "video": `https://stage-video.s3.amazonaws.com/${this.actor_id}` });
                 var config = {
                     method: 'put',
                     url: `http://localhost:8001/actor-audition/${this.actor_id}`,
