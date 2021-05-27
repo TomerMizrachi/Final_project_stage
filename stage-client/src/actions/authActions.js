@@ -11,7 +11,7 @@ export const registerUser = (userData, history) => dispatch => {
             if (userData.type === "actor") {
                 dispatch({
                     type: SET_USER_EMAIL,
-                    payload: {email: res.data.Email}
+                    payload: { email: res.data.Email }
                 })
                 history.push('/signup/' + userData.type + '/profile')
             } else {
@@ -64,6 +64,7 @@ export const loginUser = userData => dispatch => {
 
 // Set logged in user
 export const setCurrentUser = decoded => {
+    console.log("decoded", decoded);
     return {
         type: SET_CURRENT_USER,
         payload: decoded

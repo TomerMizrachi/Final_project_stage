@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 function FilmedAuditions(props) {
+	const audition=props.history.location.state.audition.auditionInfo
+	console.log("this is me- props", audition)
 	useEffect(() => {
-		console.log("this is me- props", props)
 		// props.getMyAuditions(props.auth.user.id)
 	}, [])
 	const auditions = [

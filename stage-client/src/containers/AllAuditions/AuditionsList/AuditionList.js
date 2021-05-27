@@ -4,17 +4,17 @@ import { Select, MenuItem, FormControl } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { getMyRelevantAuditions } from '@actions/actorActions'
 
 function AuditionList(props) {
 	useEffect(() => {
 		console.log(props)
-		const params={}
-		props.getMyRelevantAuditions(props.auth.user.id,params)
+		const params = {}
+		props.getMyRelevantAuditions(props.auth.user.id, params)
 		console.log(props.actor.relevantauditions)
 	}, [])
-//Mock data
+	//Mock data
 	// const featuredAuditions = [
 	// 	{
 	// 		'name': 'Beauty & the Beast',
@@ -88,5 +88,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{getMyRelevantAuditions}
+	{ getMyRelevantAuditions }
 )(withRouter(AuditionList))

@@ -8,7 +8,8 @@ import { withRouter } from 'react-router-dom'
 
 function SingleAudition(props) {
 	const { audition } = props;
-	// console.log(props)
+	// console.log("SingleAudition audition.auditionInfo.name", { ...audition.auditionInfo });
+	console.log("SingleAudition audition.auditionInfo.name", audition.auditionInfo);
 	const onClick = e => {
 		e.preventDefault()
 		// console.log("TESTNOW",props)

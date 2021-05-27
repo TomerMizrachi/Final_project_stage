@@ -19,7 +19,6 @@ import { withRouter } from 'react-router-dom'
  function PracticeComp(props) {
 	const audition=props.history.location.state.audition
 	useEffect(() => {
-		console.log("this is me", audition)
 		// props.getMyAuditions(props.auth.user.id)
 	}, [])
 	

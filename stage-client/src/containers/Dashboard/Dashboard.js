@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
-import { Grid, Box} from '@material-ui/core';
-import { getActorInfo,getAuditionMetrics,getMyAuditions,getMyRelevantAuditions } from '@actions/actorActions'
+import { Grid, Box } from '@material-ui/core';
+import { getActorInfo, getAuditionMetrics, getMyAuditions, getMyRelevantAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
 	console.log("props: ", props)
@@ -16,26 +16,26 @@ function Dashboard(props) {
 		const params = {
 			// gender:props.actor.profile.gender,
 			//	body_structure:props.actor.profile.body_structure,
-			 eyes: "Blue",
+			eyes: "Blue",
 			// hair:props.actor.profile.hair
 		}
-		props.getMyAuditions(props.auth.user.id)
-		props.getAuditionMetrics(props.auth.user.id)
+		props.getMyAuditions(props.auth.user.actor_id)
+		props.getAuditionMetrics(props.auth.user.actor_id)
 		props.getActorInfo(props.auth.user.id)
-		props.getMyRelevantAuditions(props.auth.user.id)
+		props.getMyRelevantAuditions(props.auth.user.actor_id)
 
 	}, [props.auth.user])
 	return (
 		<DashboardLayout user={props.auth.user}>
 			<Grid>
-			<Grid item xs={6}>	
-			<h1 className="title">Hi {props.auth.user.name}, it׳s great having you here.</h1>
+				<Grid item xs={6}>
+					<h1 className="title">Hi {props.auth.user.name}, it׳s great having you here.</h1>
+				</Grid>
+				<Grid>
+					<h3 className="dec">here are your recent practices and audition submissions:</h3>
+				</Grid>
 			</Grid>
-			<Grid>
-			<h3 className="dec">here are your recent practices and audition submissions:</h3>
-			</Grid>
-			</Grid>
-			<DashboardTopCards stats={props.actor} /> 
+			<DashboardTopCards stats={props.actor} />
 		</DashboardLayout>
 	);
 }
@@ -45,18 +45,17 @@ Dashboard.propTypes = {
 	getActorInfo: PropTypes.func.isRequired,
 	getAuditionMetrics: PropTypes.func.isRequired,
 	getMyRelevantAuditions: PropTypes.func.isRequired,
-	getMyAuditions:PropTypes.func.isRequired,
+	getMyAuditions: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-	
 	auth: state.auth,
 	actor: state.actor
 })
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, getActorInfo,getAuditionMetrics,getMyAuditions,getMyRelevantAuditions}
+	{ logoutUser, getActorInfo, getAuditionMetrics, getMyAuditions, getMyRelevantAuditions }
 )(withRouter(Dashboard))

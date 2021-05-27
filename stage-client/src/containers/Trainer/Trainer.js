@@ -6,7 +6,7 @@ import PracticeList from './PracticeList/PracticeList';
 function Trainer() {
 	return (
 		<DashboardLayout>
-			<PracticeList/>
+			<PracticeList />
 		</DashboardLayout>
 	)
 }

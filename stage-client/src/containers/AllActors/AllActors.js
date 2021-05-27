@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -8,9 +8,6 @@ import ActorList from './ActorsList/ActorsList'
 import Typecast from './Typecast/TypeCast'
 function AllActors(props) {
 	console.log("allactorscomp:", props)
-	useEffect(() => {
-		console.log(props)
-	}, [])
 
 	return (
 		<RecruiterLayout>

@@ -78,7 +78,6 @@ class Video extends Component {
             var postURL = response.data.postURL;
             var video = response.data.getURL;
             react_comp.setState({ videoURL: video })
-            console.log("can you see me", react_comp.state)
             delete axios.defaults.headers.common['Authorization']
             axios({
                 method: "put",
