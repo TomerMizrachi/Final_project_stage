@@ -17,10 +17,10 @@ function ActorList(props) {
 	return (
 		<div className="container">
 			{DMSucsess &&
-				<Alert onClose={() => {setDMSucsess(false)}} severity="success">This is a success — The Actor will get your message!</Alert>}
+				<Alert onClose={() => { setDMSucsess(false) }} severity="success">This is a success — The Actor will get your message!</Alert>}
 			<Box className="wrapper" py={8} mb={4}>
 				<Box className="header" mb={5}>
-					<Grid container justify="space-between" alignItems="flex-end" spacing={40}>
+					<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 						<Grid item>
 							<h3 className="title">Showing {props.recruiter.actors.length} actors matches to typecast</h3>
 						</Grid>

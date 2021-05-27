@@ -32,7 +32,7 @@ function Dashboard(props) {
 					<h1 className="title">Hi {props.auth.user.name}, it׳s great having you here.</h1>
 				</Grid>
 				<Grid>
-					<h3 className="dec">here are your recent practices and audition submissions:</h3>
+					<h3 className="dec">Here are your recent practices and audition submissions:</h3>
 				</Grid>
 			</Grid>
 			<DashboardTopCards stats={props.actor} />
