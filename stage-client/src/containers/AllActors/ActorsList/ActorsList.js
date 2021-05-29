@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Grid, Box } from '@material-ui/core'
 import SingleActor from './SingleActor/SingleActor'
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert'
+import { falseDM } from '@actions/recruiterActions';
+
 
 function ActorList(props) {
 	console.log(props)
@@ -14,10 +16,15 @@ function ActorList(props) {
 
 	}, [props.recruiter.DM])
 
+	const closeAlert = () => {
+		props.falseDM()
+		setDMSucsess(false)
+	}
+
 	return (
 		<div className="container">
 			{DMSucsess &&
-				<Alert onClose={() => { setDMSucsess(false) }} severity="success">This is a success — The Actor will get your message!</Alert>}
+				<Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Actor will get your message!</Alert>}
 			<Box className="wrapper" py={8} mb={4}>
 				<Box className="header" mb={5}>
 					<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
@@ -42,6 +49,7 @@ function ActorList(props) {
 
 
 ActorList.propTypes = {
+	falseDM: PropTypes.func.isRequired,
 	recruiter: PropTypes.object.isRequired
 }
 
@@ -50,5 +58,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(
-	mapStateToProps
+	mapStateToProps,
+	{ falseDM }
 )(withRouter(ActorList))

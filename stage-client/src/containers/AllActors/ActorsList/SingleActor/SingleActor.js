@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { sendDM } from '@actions/recruiterActions'
-import { toggleDM } from '@actions/recruiterActions';
 
 function SingleActor(props) {
     console.log(props)
@@ -28,14 +27,14 @@ function SingleActor(props) {
     return (
         <StyledFeaturedActor className={`featured-audtion-item ${props.className}`}>
             <Grid container direction="column">
-                <Grid item className="audition-name heading4" md>Name:{actor.name}</Grid>
+                <Grid item className="audition-name heading4" md>Name: {actor.user_info[0] && actor.user_info[0].full_name}</Grid>
                 <Grid container className="audition-details" alignItems="center">
                     <Grid item className="audition-content" md>
                         <div className="recruitment-details">Gender: {actor.gender}</div>
                         <div className="audition-name text-accent">Age: {actor.age}</div>
                     </Grid>
                     <Grid item className="audition-content" md>
-                        <Grid item className="recruitment-details" md>Body: {actor.bodyStructure}</Grid>
+                        <Grid item className="recruitment-details" md>Body: {actor.body_structure}</Grid>
                         <Grid item className="recruitment-details">Height: {actor.height}</Grid>
                     </Grid>
                     <Grid item className="audition-content" md>
@@ -76,7 +75,6 @@ function SingleActor(props) {
 
 SingleActor.propTypes = {
     sendDM: PropTypes.func.isRequired,
-    toggleDM: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     recruiter: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -90,5 +88,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { sendDM, toggleDM }
+    { sendDM }
 )(withRouter(SingleActor))

@@ -51,7 +51,10 @@ export const sendDM = (data) => dispatch => {
     axios
         .post("/actor-audition", data)
         .then(res => {
-            dispatch(toggleDMEvent())
+            dispatch({
+                type: SET_DM,
+                payload: true
+            })
         })
         .catch(err => {
             dispatch({
@@ -61,12 +64,7 @@ export const sendDM = (data) => dispatch => {
         })
 } 
 
-export const toggleDM = () => dispatch =>{
-    dispatch(toggleDMEvent())
-}
-
-export const toggleDMEvent = () => {
-    return {
-        type: SET_DM
-    }
+export const falseDM = () => dispatch =>{
+    dispatch({type: SET_DM,
+        payload: false})
 }
