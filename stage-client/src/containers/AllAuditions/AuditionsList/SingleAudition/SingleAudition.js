@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import StyledFeaturedActorAudition from './SingleAudition.styles';
 import { Button, LinkButton, IconButton } from '@components/uielements/Button/Button';
 import { registerToAudition } from '@actions/actorActions'
@@ -7,10 +7,16 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+function useToggle(initialState) {
+	const [value, setValue] = useState(initialState);
+	const toggle = () => { setValue(!value) };
 
+	return [value, toggle];
+};
 function SingleAudition(props) {
 	const { audition } = props;
-
+	const [modal, setModal] = useToggle(false);
+	const typecastArr = Object.values(audition.typecast)
 	const onClick = e => {
 		e.preventDefault()
 		props.registerToAudition(props.auth.user.actor_id, audition._id)
@@ -38,8 +44,12 @@ function SingleAudition(props) {
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
 					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
+					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
 
-
+					</Grid>
+					{modal ? (<Grid item className="audition-content" md>
+						<Grid item className="recruitment-details" style={{ display: "table-caption", textAlign: "center" }} md>{typecastArr.map(user => user + ',\n')}</Grid>
+					</Grid>) : (<Grid item className="recruitment-details subtitle" md> </Grid>)}
 				</Grid>
 			</Grid>
 		</StyledFeaturedActorAudition>

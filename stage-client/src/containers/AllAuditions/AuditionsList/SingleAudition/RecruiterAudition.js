@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import StyledRecruiterCards from './RecruiterAudition.styles';
 import { Button, LinkButton, IconButton } from '@components/uielements/Button/Button';
 // import { registerToAudition } from '@actions/actorActions'
@@ -41,10 +41,11 @@ function RecruiterAudition(props) {
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
 					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={setModal}>Show actor typecast</Button>
-						{modal && <Grid item className="audition-content" md>
-							<Grid item className="recruitment-details" style={{ display: "table-caption" }} md>{typecastArr.map(user => user + ',\n')}</Grid>
-						</Grid>}
+
 					</Grid>
+					{modal ? (<Grid item className="audition-content" md>
+						<Grid item className="recruitment-details" style={{ display: "table-caption", textAlign: "center" }} md>{typecastArr.map(user => user + ',\n')}</Grid>
+					</Grid>) : (<Grid item className="recruitment-details subtitle" md> </Grid>)}
 				</Grid>
 			</Grid>
 		</StyledRecruiterCards>

@@ -9,7 +9,7 @@ import { getMyRelevantAuditions } from '@actions/actorActions'
 
 function AuditionList(props) {
 	useEffect(() => {
-		console.log(props)
+		console.log("aaa", props.getMyRelevantAuditions)
 		const params = {}
 		props.getMyRelevantAuditions(props.auth.user.id, params)
 		console.log(props.actor.relevantauditions)
@@ -48,7 +48,7 @@ function AuditionList(props) {
 			<Box className="header" mb={5}>
 				<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 					<Grid item>
-						<h3 className="title">Showing {props.getMyRelevantAuditions} Relevant auditions</h3>
+						<h3 className="title">Showing {props.actor.relevantauditions.length} Relevant auditions</h3>
 					</Grid>
 					<FormControl variant="outlined" size="small">
 						<Select
