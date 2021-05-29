@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
 import DashboardTopCards from '@containers/Dashboard/DashboardTopCards/DashboardTopCards';
 import VacancyStats from '@containers/Dashboard/VacancyStats/VacancyStats'
@@ -10,6 +10,28 @@ import { Grid, Box } from '@material-ui/core';
 import { getActorInfo, getAuditionMetrics, getMyAuditions, getMyRelevantAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
+	const [invitedNum, setInvitedNum] = useState()
+	const [submitted, setSubmitted] = useState()
+	const calcInviteNum = () => {
+		let count = 0
+		props.actor.auditions.map((audition) => {
+			if (audition.DM)
+				count++
+		})
+		return count
+	}
+	const submittedAuditions = () => {
+		let count = 0
+		props.actor.auditions.map((audition) => {
+			if (audition.submitted)
+				count++
+		})
+		return count
+	}
+	useEffect(() => {
+		setInvitedNum(calcInviteNum())
+		setSubmitted(submittedAuditions())
+	}, [props.actor.auditions])
 	useEffect(() => {
 		props.getMyAuditions(props.auth.user.actor_id)
 		props.getAuditionMetrics(props.auth.user.actor_id)
@@ -17,6 +39,7 @@ function Dashboard(props) {
 		props.getMyRelevantAuditions(props.auth.user.actor_id)
 
 	}, [props.auth.user])
+
 	return (
 		<DashboardLayout user={props.auth.user}>
 			<Grid>
@@ -27,7 +50,7 @@ function Dashboard(props) {
 					<h3 className="dec">Here are your recent practices and audition submissions:</h3>
 				</Grid>
 			</Grid>
-			<DashboardTopCards stats={props.actor} />
+			<DashboardTopCards stats={props.actor} invitedNum={invitedNum} submitted={submitted} />
 		</DashboardLayout>
 	);
 }

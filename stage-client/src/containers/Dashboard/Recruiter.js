@@ -9,7 +9,6 @@ import { myAuditions } from '@actions/recruiterActions'
 import { withRouter } from 'react-router-dom'
 
 function Recruiter(props) {
-    console.log("propssss: ", props)
     useEffect(() => {
     }, [props.auth.user])
     return (

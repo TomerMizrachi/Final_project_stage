@@ -4,7 +4,7 @@ import { Grid, Box } from '@material-ui/core';
 import { IconButton } from '@components/uielements/Button/Button';
 
 export default function DashboardTopCards(props) {
-	console.log("tipe",props)
+	console.log("tipe", props)
 	return (
 		<Box mb={6}>
 			<StyledDashboardTopCards>
@@ -27,7 +27,7 @@ export default function DashboardTopCards(props) {
 										</Grid>
 									</Grid>
 								</Grid>
-								{/* <Grid item xs={6}>
+								<Grid item xs={6}>
 									<Grid container spacing={1} alignItems="center">
 										<Grid item>
 											<IconButton className="success">
@@ -35,11 +35,11 @@ export default function DashboardTopCards(props) {
 											</IconButton>
 										</Grid>
 										<Grid item>
-											<div className="heading2">4</div>
+											<div className="heading2">{props.invitedNum}</div>
 											<div className="desc">Invited auditions</div>
 										</Grid>
 									</Grid>
-								</Grid> */}
+								</Grid>
 							</Grid>
 						</div>
 					</Grid>
@@ -61,7 +61,7 @@ export default function DashboardTopCards(props) {
 										</Grid>
 									</Grid>
 								</Grid>
-								{/* <Grid item xs={6}>
+								<Grid item xs={6}>
 									<Grid container spacing={1} alignItems="center">
 										<Grid item>
 											<IconButton className="success">
@@ -69,11 +69,11 @@ export default function DashboardTopCards(props) {
 											</IconButton>
 										</Grid>
 										<Grid item>
-											<div className="heading2">4</div>
+											<div className="heading2">{props.submitted}</div>
 											<div className="desc">Audition Submitted</div>
 										</Grid>
 									</Grid>
-								</Grid> */}
+								</Grid>
 							</Grid>
 						</div>
 					</Grid>
