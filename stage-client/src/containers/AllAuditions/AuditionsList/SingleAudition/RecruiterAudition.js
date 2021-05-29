@@ -18,7 +18,6 @@ function RecruiterAudition(props) {
 	const { audition } = props;
 	const [modal, setModal] = useToggle(false);
 	const typecastArr = Object.values(audition.typecast)
-	console.log(typecastArr)
 	return (audition && (
 		<StyledRecruiterCards className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
@@ -55,19 +54,17 @@ function RecruiterAudition(props) {
 }
 
 RecruiterAudition.propTypes = {
-	auth: PropTypes.object.isRequired,
+	// auth: PropTypes.object.isRequired,
 	recruiter: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
-	// registerToAudition: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-	auth: state.auth,
+	// auth: state.auth,
 	errors: state.errors,
 	recruiter: state.recruiter
 })
 
 export default connect(
 	mapStateToProps,
-	// { registerToAudition }
 )(withRouter(RecruiterAudition))

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Grid, Box } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -9,13 +9,17 @@ import RecruiterAudition from '@containers/AllAuditions/AuditionsList/SingleAudi
 function RecruiterCards(props) {
     // const [auditions, setAuditions] = useState([]);
     const auditions = props.recruiter.auditions
-    console.log(auditions)
+    const [errors, setErrors] = useState()
+    const isFirstRun = useRef(true)
     useEffect(() => {
-        // myAuditions(props.auth.user.id)
-        // props.myAuditions(props.auth.user.id)
+        if (isFirstRun.current) {
+            isFirstRun.current = false
+            props.myAuditions(props.auth.user.id)
 
-        // setAuditions(props.actor.auditions)
-    }, [])
+            return;
+        }
+        setErrors({ errors: props.errors })
+    }, [props.errors])
     return (
         <div className="container">
             <Box className="wrapper" py={8} mb={4}>
@@ -41,7 +45,7 @@ function RecruiterCards(props) {
     )
 }
 RecruiterCards.propTypes = {
-    myAuditions: PropTypes.object.isRequired,
+    myAuditions: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     recruiter: PropTypes.object.isRequired
 }
