@@ -16,7 +16,7 @@ function PracticeList(props) {
 			setAuditions(props.actor.auditions)
 		}
 		fetchData()
-	}, [])
+	}, [props.errors])
 
 	return (
 		<div className="container">
