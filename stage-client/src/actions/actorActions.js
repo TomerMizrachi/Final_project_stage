@@ -55,6 +55,7 @@ export const getAuditionMetrics = (actor_id) => dispatch => {
     // let trainingsArr=getMyAuditions(actor_id)
     // console.log("efdsfsh",trainingsArr)
 }
+
 export const registerToAudition = (actor_id, audition_id) => dispatch => {
     axios({
         method: 'post',
@@ -83,7 +84,6 @@ export const getMyRelevantAuditions = (actor_id, params) => dispatch => {
     axios
         .get("audition/getRelevantAuditions")
         .then(res => {
-            // console.log("allAuditions", res)
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,
                 payload: res.data
