@@ -24,7 +24,7 @@ function SingleActor(props) {
         }
         props.sendDM(data)
     }
-   
+
     return (
         <StyledFeaturedActor className={`featured-audtion-item ${props.className}`}>
             <Grid container direction="column">

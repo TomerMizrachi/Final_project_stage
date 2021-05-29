@@ -10,15 +10,7 @@ import { Grid, Box } from '@material-ui/core';
 import { getActorInfo, getAuditionMetrics, getMyAuditions, getMyRelevantAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
-	console.log("props: ", props)
-
 	useEffect(() => {
-		const params = {
-			// gender:props.actor.profile.gender,
-			//	body_structure:props.actor.profile.body_structure,
-			eyes: "Blue",
-			// hair:props.actor.profile.hair
-		}
 		props.getMyAuditions(props.auth.user.actor_id)
 		props.getAuditionMetrics(props.auth.user.actor_id)
 		props.getActorInfo(props.auth.user.id)
