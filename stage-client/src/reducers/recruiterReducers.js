@@ -19,10 +19,9 @@ export default function recruiterReducer(state = initialState, action) {
                 auditions: action.payload
             }
         case SET_DM:
-            let DM = initialState.DM
             return {    
                 ...state,
-                DM: !DM
+                DM: action.payload
             }
         default:
             return state

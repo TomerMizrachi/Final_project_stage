@@ -170,7 +170,7 @@ function Typecast(props) {
                         </Grid>
                     </Grid>
                     <Grid item xs={8}>
-                        {errors && <Alert severity="error"> {JSON.stringify(errors)} </Alert>}
+                        {errors && <Alert onClose={() => { setErrors(false) }} severity="error"> {JSON.stringify(errors)} </Alert>}
                     </Grid>
                 </Grid>
             </form>
