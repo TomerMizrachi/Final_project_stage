@@ -93,7 +93,8 @@ const login = (req, res) => {
                     id: user._id,
                     name: user.full_name,
                     type: user.type,
-                    email: user.Email
+                    email: user.Email,
+                    actor_id: user.actor_collection_id
                 }
                 // Sign token
                 jwt.sign(

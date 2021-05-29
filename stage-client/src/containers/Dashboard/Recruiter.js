@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import RecruiterLayout from '@containers/DashboardLayout/RecruiterLayout'
 import PropTypes from 'prop-types'
+import RcruiterCards from './DashboardTopCards/RecruiterCards';
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
 import { Grid, Box } from '@material-ui/core';
@@ -8,10 +9,9 @@ import { myAuditions } from '@actions/recruiterActions'
 import { withRouter } from 'react-router-dom'
 
 function Recruiter(props) {
-    // console.log("propssss: ", props.auth.user.id)
+    console.log("propssss: ", props)
     useEffect(() => {
-        props.myAuditions(props.auth.user.id)
-    })
+    }, [props.auth.user])
     return (
         <RecruiterLayout>
             <Grid>
@@ -22,7 +22,7 @@ function Recruiter(props) {
                     <h3 className="dec">Here are your published auditions:</h3>
                 </Grid>
             </Grid>
-            {/* <DashboardTopCards stats={props.actor} /> */}
+            <RcruiterCards />
         </RecruiterLayout>
     );
 }

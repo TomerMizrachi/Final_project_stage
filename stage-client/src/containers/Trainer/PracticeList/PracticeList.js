@@ -15,7 +15,6 @@ function PracticeList(props) {
 			await props.getMyAuditions(props.auth.user.actor_id);
 			setAuditions(props.actor.auditions)
 		}
-		// console.log(props)
 		fetchData()
 	}, [])
 

@@ -77,11 +77,20 @@ const updateAA = (req, res) => {
         update.submitted = req.body.submitted
     if (req.body.score)
         update.score = req.body.score
-    if (req.body.video) 
-        update.video = req.body.video
+    // if (req.body.video) {
+    //     update.video = req.body.video
+    // }
+    req.body.video? (ActorAudition.findOneAndUpdate(filter, {
+        $push: {
+            video: { $each: req.body.video, $positioin: 0 }
+        }
+    })
+    .then(aa => res.json(aa))
+    .catch(err => res.status(400).json({ err: err }))
+    ) : (
     ActorAudition.findOneAndUpdate(filter, update)
         .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err }))
+        .catch(err => res.status(400).json({ err: err })))
 }
 
 const deleteAA = (req, res) => {

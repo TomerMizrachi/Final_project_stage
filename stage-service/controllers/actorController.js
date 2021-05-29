@@ -88,10 +88,11 @@ const actorProfile = (req, res) => {
                         personal_information: req.body.info
                     }
                     User.updateOne(filter, update)
-                        .then(user => res.json(user))
+                        .then(user => console.log("printing the actor", res.json(user))
+                        )
                         .catch(err => res.status(400).json({ error: err }))
                 }
-            }).catch(err=>res.status(400).json({ error: err }) )
+            }).catch(err => res.status(400).json({ error: err }))
         }
     })
 }
@@ -135,7 +136,7 @@ const uploadBook = (req, res) => {
 }
 
 const deletePic = (req, res) => {
-    
+
 }
 
 const uploadVideos = (req, res) => {
