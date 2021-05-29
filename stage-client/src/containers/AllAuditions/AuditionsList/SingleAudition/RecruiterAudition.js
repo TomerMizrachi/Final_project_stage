@@ -43,7 +43,7 @@ function RecruiterAudition(props) {
 					</Grid>
 					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={setModal}>Show actor typecast</Button>
 						{modal && <Grid item className="audition-content" md>
-							<Grid item className="recruitment-details" style={{ display: "table-caption" }} md>{typecastArr.map(user => user + '\n')}</Grid>
+							<Grid item className="recruitment-details" style={{ display: "table-caption" }} md>{typecastArr.map(user => user + ',\n')}</Grid>
 						</Grid>}
 					</Grid>
 				</Grid>
