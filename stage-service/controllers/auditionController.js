@@ -13,52 +13,58 @@ const getAuditions = async (req, res) => {
 }
 
 const getRelevantAuditions = (req, res) => {
-    console.log("PARAMS",req.query)
-    var dot = require('dot-object');
+    var dot = require('dot-object')
     let condition = {}
     let typecast = {}
     condition.typecast = typecast
-    // console.log(condition)
     if (req.query.age) {
-        let gt = Number(req.query.age) - 5
-        let lt = Number(req.query.age) + 5
-        condition = { $gt: gt, $lt: lt }
+        let ageStr = ''
+        let age = Number(req.query.age)
+        let i = 15
+        while (i < 95) {
+            if (age >= i && age < i + 6)
+                ageStr = '' + i + ' - ' + (i + 5) + ''
+            i = i + 5
+        }
+        condition.typecast.age = ageStr
     }
     if (req.query.height) {
-        let heightStr = req.query.height
-        let heightRange = heightStr.split(' - ')
-        condition.height = { $gte: Number(heightRange[0]), $lte: Number(heightRange[1]) }
+        let heightStr = ''
+        let height = Number(req.query.height)
+        if (height >= 150 && height <= 160)
+            heightStr = '150 - 160'
+        if (height > 160 && height <= 170)
+            heightStr = '160 - 170'
+        if (height > 170 && height <= 180)
+            heightStr = '170 - 180'
+        if (height > 180 && height <= 190)
+            heightStr = '180 - 190'
+        if (height > 190 && height <= 200)
+            heightStr = '190 - 200'
+        if (height > 200 && height <= 210)
+            heightStr = '200 - 210'
+        condition.typecast.height = heightStr
     }
     if (req.query.gender)
         condition.typecast.gender = req.query.gender
-
     if (req.query.body_structure)
-        condition.body_structure = req.query.body_structure
+        condition.typecast.body_structure = req.query.body_structure
     if (req.query.hair)
-        condition.hair = req.query.hair
+        condition.typecast.hair = req.query.hair
     if (req.query.eyes)
         condition.typecast.eyes = req.query.eyes
     if (req.query.skills)
-        condition.skills = { $all: req.query.skills }
+        condition.typecast.skills = { $all: req.query.skills }
     if (req.query.languages)
-        condition.languages = { $all: req.query.languages }
-    // console.log(condition)
+        condition.typecast.languages = { $all: req.query.languages }
 
-    //transform to dot notation, as specified in mongoDB documentation:
-    //https://docs.mongodb.com/manual/tutorial/query-embedded-documents/
-    if (typecast={})
-    {
-        Audition.find({})
-        .then(auditions => res.json(auditions))
-        .catch(err => res.status(400).json({ err: err }))
-}
-else{
-    var tgt = dot.dot(condition);
-    console.log(tgt)
+
+    dot.keepArray = true
+    var tgt = dot.dot({ typecast: condition.typecast })
     Audition.find(tgt)
         .then(auditions => res.json(auditions))
         .catch(err => res.status(400).json({ err: err }))
-}
+
 }
 
 const getAuditionById = async (req, res) => {

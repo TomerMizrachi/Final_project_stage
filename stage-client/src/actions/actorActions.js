@@ -79,10 +79,10 @@ export const registerToAudition = (actor_id, audition_id) => dispatch => {
         })
 }
 
-export const getMyRelevantAuditions = (actor_id, params) => dispatch => {
+export const getMyRelevantAuditions = (params) => dispatch => {
 
     axios
-        .get("audition/getRelevantAuditions")
+        .get("audition/getRelevantAuditions",{params: params})
         .then(res => {
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,

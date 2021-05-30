@@ -9,7 +9,7 @@ import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-
 import { Button } from '@components/uielements/Button/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions.js'
-import { typeOptions, publicOptions, heightOptions } from './recruiterOptions'
+import { typeOptions, publicOptions, heightOptions, ageOptions } from './recruiterOptions'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
@@ -107,9 +107,14 @@ function PublishForm(props) {
           <Grid item xs={6}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField type="number" label="Age in years" variant="outlined" fullWidth
-                  InputProps={{ inputProps: { min: 0, max: 120, onKeyDown: (event) => event.preventDefault() } }} value={age}
-                  onChange={e => setAge(e.target.value)} />
+                <TextField select label="Age in years" variant="outlined" fullWidth
+                  value={age} onChange={e => setAge(e.target.value)} >
+                  {ageOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={12}>
                 <TextField select label="Gender" variant="outlined" fullWidth

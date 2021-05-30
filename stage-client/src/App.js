@@ -30,7 +30,7 @@ if (localStorage.jwtToken) {
     }
 }
 
-const App = () => {
+const App = () => { 
     return (
         <Provider store={store}>
             <ThemeProvider theme={themeConfig}>

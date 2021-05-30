@@ -1,7 +1,7 @@
 import React from 'react';
-import StyledFeaturedActorAudition from './SingleAudition.styles';
-import { LinkButton, IconButton } from '@components/uielements/Button/Button';
-import { Grid } from '@material-ui/core';
+import StyledFeaturedActorAudition from './SingleAudition.styles'
+import { LinkButton, IconButton } from '@components/uielements/Button/Button'
+import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'

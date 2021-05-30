@@ -84,7 +84,7 @@ function Typecast(props) {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField id="outlined-number" type="number" label="Age in years" variant="outlined" fullWidth
-                                    InputProps={{ inputProps: { min: 0, max: 120, onKeyDown: (event) => event.preventDefault() } }} value={age}
+                                    InputProps={{ inputProps: { min: 15, max: 100, onKeyDown: (event) => event.preventDefault() } }} value={age}
                                     onChange={e => setAge(e.target.value)} />
                             </Grid>
                             <Grid item xs={12}>

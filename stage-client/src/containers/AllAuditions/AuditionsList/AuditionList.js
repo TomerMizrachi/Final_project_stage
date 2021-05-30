@@ -5,13 +5,9 @@ import { Select, MenuItem, FormControl, Button, Menu } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getMyRelevantAuditions } from '@actions/actorActions'
+import { getActorInfo, getMyRelevantAuditions } from '@actions/actorActions'
 
 function AuditionList(props) {
-	useEffect(() => {
-		const params = {}
-		props.getMyRelevantAuditions(props.auth.user.id, params)
-	}, [])
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [list, setList] = useState();
 	const [open, setOpen] = useState(false);
@@ -28,33 +24,6 @@ function AuditionList(props) {
 	const handleChange = (event) => {
 		setList(event.target.value);
 	};
-	//Mock data
-	// const featuredAuditions = [
-	// 	{
-	// 		'name': 'Beauty & the Beast',
-	// 		'role': 'The beast',
-	// 		'end_of_recruitment': '14/2/2021',
-	// 		'genere': 'comedy,genere',
-	// 	},
-	// 	{
-	// 		'name': 'Beauty & the Beast',
-	// 		'role': 'The beast',
-	// 		'end_of_recruitment': '14/2/2021',
-	// 		'genere': 'comedy,genere',
-	// 	},
-	// 	{
-	// 		'name': 'Beauty & the Beast',
-	// 		'role': 'The beast',
-	// 		'end_of_recruitment': '14/2/2021',
-	// 		'genere': 'comedy,genere',
-	// 	},
-	// 	{
-	// 		'name': 'Beauty & the Beast',
-	// 		'role': 'The beast',
-	// 		'end_of_recruitment': '14/2/2021',
-	// 		'genere': 'comedy,genere',
-	// 	},
-	// ];
 
 	return (
 
@@ -113,6 +82,7 @@ function AuditionList(props) {
 }
 
 AuditionList.propTypes = {
+	getActorInfo: PropTypes.func.isRequired,
 	getMyRelevantAuditions: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
@@ -125,5 +95,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ getMyRelevantAuditions }
+	{ getMyRelevantAuditions, getActorInfo }
 )(withRouter(AuditionList))

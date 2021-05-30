@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from './Banner/Banner';
 import SearchBar from './Banner/SearchBar/SearchBar';
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
@@ -11,6 +11,9 @@ import { getActorInfo } from '@actions/actorActions'
 
 function AllAuditions(props) {
 	console.log(props)
+	useEffect(() => {
+		props.getActorInfo(props.auth.user.id)
+	}, [])
 	return (
 		<DashboardLayout>
 			<Banner>

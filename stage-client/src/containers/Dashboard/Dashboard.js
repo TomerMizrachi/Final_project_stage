@@ -32,13 +32,27 @@ function Dashboard(props) {
 		setInvitedNum(calcInviteNum())
 		setSubmitted(submittedAuditions())
 	}, [props.actor.auditions])
+
 	useEffect(() => {
 		props.getMyAuditions(props.auth.user.actor_id)
 		props.getAuditionMetrics(props.auth.user.actor_id)
 		props.getActorInfo(props.auth.user.id)
-		props.getMyRelevantAuditions(props.auth.user.actor_id)
-
+		
 	}, [props.auth.user])
+
+	useEffect(() => {
+		console.log( props)
+
+		const params = {
+			age: props.actor.profile.age,
+			height: props.actor.profile.height,
+			gender: props.actor.profile.gender,
+			body_structure: props.actor.profile.body_structure,
+			hair: props.actor.profile.hair,
+			eyes: props.actor.profile.eyes,	
+		}
+		props.getMyRelevantAuditions(params)
+	}, [props.actor])
 
 	return (
 		<DashboardLayout user={props.auth.user}>
