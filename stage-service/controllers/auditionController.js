@@ -31,7 +31,9 @@ const getRelevantAuditions = (req, res) => {
     if (req.query.height) {
         let heightStr = ''
         let height = Number(req.query.height)
-        if (height >= 150 && height <= 160)
+        if (height >= 0 && height <= 150)
+            heightStr = '150 - 160'
+        if (height > 150 && height <= 160)
             heightStr = '150 - 160'
         if (height > 160 && height <= 170)
             heightStr = '160 - 170'

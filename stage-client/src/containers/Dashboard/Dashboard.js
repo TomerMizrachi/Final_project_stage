@@ -42,7 +42,6 @@ function Dashboard(props) {
 
 	useEffect(() => {
 		console.log( props)
-
 		const params = {
 			age: props.actor.profile.age,
 			height: props.actor.profile.height,
@@ -52,7 +51,7 @@ function Dashboard(props) {
 			eyes: props.actor.profile.eyes,	
 		}
 		props.getMyRelevantAuditions(params)
-	}, [props.actor])
+	}, [props.actor.profile])
 
 	return (
 		<DashboardLayout user={props.auth.user}>

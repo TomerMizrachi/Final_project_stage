@@ -51,7 +51,7 @@ const getActorByUserId = async (req, res) => {
         if (!docs) throw {
             message: 'no content'
         }
-        return res.status(200).json(docs[0])
+        return res.json(docs[0])
     } catch (err) {
         return res.status(400).json({ err: err })
     }

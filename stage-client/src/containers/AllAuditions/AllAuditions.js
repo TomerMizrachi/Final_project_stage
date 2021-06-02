@@ -14,6 +14,7 @@ function AllAuditions(props) {
 	useEffect(() => {
 		props.getActorInfo(props.auth.user.id)
 	}, [])
+	
 	return (
 		<DashboardLayout>
 			<Banner>

@@ -47,7 +47,7 @@ const getAAByActorId = async (req, res) => {
             message: 'no content'
         }
         res.status(200).json(docs)
-    } catch (err) {
+    } catch (err) { 
         res.status(400).send(err)
     }
 }

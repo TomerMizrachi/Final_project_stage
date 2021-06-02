@@ -8,20 +8,17 @@ import { withRouter } from 'react-router-dom'
 
 function SingleAudition(props) {
 	const { audition } = props;
-	// console.log("SingleAudition audition.auditionInfo.name", { ...audition.auditionInfo });
-	console.log("SingleAudition audition.auditionInfo.name", audition.auditionInfo);
 	const onClick = e => {
 		e.preventDefault()
-		// console.log("TESTNOW",props)
 		props.history.push({
 			pathname: '/trainer',
 			// search: '?query=abc',
 			state: { audition: audition }
-		})
+		})	
 	}
-
-	return (
-		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
+	console.log(audition)
+	return (audition.auditionInfo ?
+		(<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
 					<Grid item className="audition-content" md>
@@ -47,17 +44,19 @@ function SingleAudition(props) {
 					</Grid>
 				</Grid>
 			</Grid>
-		</StyledFeaturedActorAudition>
+		</StyledFeaturedActorAudition>):(null)
 	)
 }
 
 SingleAudition.propTypes = {
 	auth: PropTypes.object.isRequired,
+	actor: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
 	auth: state.auth,
+	actor: state.actor,
 	errors: state.errors
 })
 

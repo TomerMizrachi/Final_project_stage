@@ -24,7 +24,7 @@ export const getMyAuditions = (actor_id) => dispatch => {
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
         .then(res => res.data)
         .then(data => {
-            // console.log("dataTest",data)
+            console.log("dataTest",data)
             let auditions = data
             console.log("auditions", auditions)
             auditions.forEach(element => {
