@@ -46,6 +46,12 @@ function DashboardSidebar(props) {
 							<span>Trainer</span>
 						</NavLink>
 					</Grid>
+					<Grid item>
+						<NavLink to="/profile" exact activeClassName="active">
+							<i className="material-icons">person</i>
+							<span>Profile</span>
+						</NavLink>
+					</Grid>
 				</Grid>
 			</div>
 		</StyledDashboardSidebar>

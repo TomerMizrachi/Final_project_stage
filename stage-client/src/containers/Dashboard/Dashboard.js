@@ -54,7 +54,7 @@ function Dashboard(props) {
 	}, [props.actor.profile])
 
 	return (
-		<DashboardLayout user={props.auth.user}>
+		<DashboardLayout user={props.auth.user}>	
 			<Grid>
 				<Grid item xs={6}>
 					<h1 className="title">Hi {props.auth.user.name}, it׳s great having you here.</h1>
@@ -65,7 +65,7 @@ function Dashboard(props) {
 			</Grid>
 			<DashboardTopCards stats={props.actor} invitedNum={invitedNum} submitted={submitted} />
 		</DashboardLayout>
-	);
+	)
 }
 
 Dashboard.propTypes = {

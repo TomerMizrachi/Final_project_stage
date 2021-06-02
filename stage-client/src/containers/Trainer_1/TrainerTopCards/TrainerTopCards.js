@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import StyledDashboardTopCards from './TrainerTopCards.styles';
-import { Grid, Box, colors } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import { IconButton } from '@components/uielements/Button/Button';
 import Chart from 'react-apexcharts'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 class TrainerTopCards extends Component {

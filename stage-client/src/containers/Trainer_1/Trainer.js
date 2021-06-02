@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
 import TrainerTopCards from './TrainerTopCards/TrainerTopCards'
 import PracticeComp from './PracticeComp'
@@ -25,14 +25,12 @@ function Trainer(props) {
 
 Trainer.propTypes = {
     auth: PropTypes.object.isRequired,
-	actor: PropTypes.object.isRequired,
-	// audition: PropTypes.object.isRequired
+	actor: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
-	actor: state.actor,
-	// audition: state.location.state.audition
+	actor: state.actor
 })
 
 export default connect(

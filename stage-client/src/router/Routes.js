@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
 export const OpenRoutes = [
-	
+
 	{
 		path: '/case-studies',
 		exact: true,
@@ -52,6 +52,11 @@ export const PrivateRoutes = [
 		path: '/trainer',
 		exact: true,
 		component: lazy(() => import('@containers/Trainer_1/Trainer')),
+	},
+	{
+		path: '/profile',
+		exact: true,
+		component: lazy(() => import('@containers/ActorProfile/Profile')),
 	},
 	{
 		path: '/recruiter',

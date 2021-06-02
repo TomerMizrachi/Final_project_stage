@@ -25,7 +25,7 @@ function SignUpActor(props) {
 	const [languages, setLanguages] = useState({})
 	const [errors, setErrors] = useState()
 	const [email, setEmail] = useState('')
-	console.log("props: ", props,"emaiil",email)
+	console.log("props: ", props, "emaiil", email)
 
 
 	useEffect(() => {
@@ -162,7 +162,8 @@ function SignUpActor(props) {
 												label={option}
 											/>
 										))}
-									</FormGroup>								</Grid>
+									</FormGroup>
+								</Grid>
 								<Grid item xs={12}>
 									<Box display="flex" justifyContent="flex-end" pt={2}>
 										<Button type="submit" className="accent fullwidth1 bt-xl">Let's start</Button>
