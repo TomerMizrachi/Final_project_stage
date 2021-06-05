@@ -99,12 +99,10 @@ const actorProfile = (req, res) => {
 
 const updateActorProfile = (req, res) => {
     // filter by actor scheme id => _id (maybe should change to => user_id or Email)
-    const filter = { _id: req.params.id }
+    const filter = { _id: req.body.id }
     let update = {}
     if (req.body.age)
         update.age = req.body.age
-    if (req.body.genser)
-        update.genser = req.body.genser
     if (req.body.body_structure)
         update.body_structure = req.body.body_structure
     if (req.body.height)

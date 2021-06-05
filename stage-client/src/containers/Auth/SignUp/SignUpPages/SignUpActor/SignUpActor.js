@@ -51,7 +51,6 @@ function SignUpActor(props) {
 			if (obj[key] === true)
 				arr.push(key)
 		}
-		console.log(arr)
 		return arr
 	}
 	const handleSubmit = e => {

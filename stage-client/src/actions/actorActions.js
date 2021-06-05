@@ -18,15 +18,25 @@ export const getActorInfo = (user_id) => dispatch => {
         })
 }
 
+export const UpdateProfile = (actor) => dispatch => {
+    axios
+        .put("/actor", actor)
+        .then(res => {
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
 export const getMyAuditions = (actor_id) => dispatch => {
     console.log("actor_id", actor_id)
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
         .then(res => res.data)
         .then(data => {
-            console.log("dataTest",data)
             let auditions = data
-            console.log("auditions", auditions)
             auditions.forEach(element => {
                 axios
                     .get("/audition/actor", { params: { audition_id: element.audition_id } })
@@ -80,9 +90,8 @@ export const registerToAudition = (actor_id, audition_id) => dispatch => {
 }
 
 export const getMyRelevantAuditions = (params) => dispatch => {
-
     axios
-        .get("audition/getRelevantAuditions",{params: params})
+        .get("audition/getRelevantAuditions", { params: params })
         .then(res => {
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,
@@ -95,6 +104,4 @@ export const getMyRelevantAuditions = (params) => dispatch => {
                 payload: err.response.data
             })
         })
-
-
 }

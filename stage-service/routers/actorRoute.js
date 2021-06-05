@@ -9,7 +9,7 @@ router.get('/info', getActorByUserId)
 
 router.post('/', actorProfile)
 
-router.put('/:id', updateActorProfile)
+router.put('/', updateActorProfile)
 
 router.put('/pic/:id', uploadBook)
 

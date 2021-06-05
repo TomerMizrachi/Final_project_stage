@@ -20,11 +20,7 @@ function Profile(props) {
 }
 
 Profile.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
     getActorInfo: PropTypes.func.isRequired,
-    getAuditionMetrics: PropTypes.func.isRequired,
-    getMyRelevantAuditions: PropTypes.func.isRequired,
-    getMyAuditions: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     actor: PropTypes.object.isRequired,
 }
