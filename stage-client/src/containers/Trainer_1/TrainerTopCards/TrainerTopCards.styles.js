@@ -18,7 +18,10 @@ const StyledDashboardTopCards = styled.div`
 		position:relative;
 	}
 	.audition-in-progress {
-		border-right: 1px solid #FFFFFF;;
+		border-right: 1px solid #FFFFFF;
+	}
+	.audition-in-progress_ {
+		text-decoration: line-through;
 	}
 	.align{
 		flex-wrap: wrap;

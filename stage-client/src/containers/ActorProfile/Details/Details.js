@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Grid, TextField, MenuItem, FormGroup } from '@material-ui/core'
+import { Grid, TextField, MenuItem, FormGroup, Box } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -10,11 +10,13 @@ import PropTypes from 'prop-types'
 import StyledDashboardTopCards from '@containers/Trainer_1/TrainerTopCards/TrainerTopCards.styles';
 import { bodyOptions, skillsOptions, hairOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions'
 import { UpdateProfile, getActorInfo } from '@actions/actorActions'
+// import ShowReal from './ShowReal'
 function Details(props) {
     const isFirstRun = useRef(true)
     const [id, setId] = useState('')
     const [age, setAge] = useState('')
     const [bodyStructure, setBodyStructure] = useState('')
+    const [aboutMe, setAboutMe] = useState('')
     const [skills, setSkills] = useState({})
     const [height, setHeight] = useState('')
     const [hair, setHair] = useState('')
@@ -35,6 +37,7 @@ function Details(props) {
         setHeight(props.actor.profile.height)
         setHair(props.actor.profile.hair)
         setBodyStructure(props.actor.profile.body_structure)
+        setAboutMe(props.actor.profile.aboutMe)
     }, [props.actor])
 
     const SkillsChange = (event) => {
@@ -63,6 +66,7 @@ function Details(props) {
             height: height,
             hair: hair,
             skills: skillArr,
+            aboutMe: aboutMe,
             languages: languagesArr
         }
         props.UpdateProfile(actorProfile)
@@ -184,6 +188,31 @@ function Details(props) {
                                 </Grid>
                                 <Grid item xs={3}>
                                     <Button type="submit" className="default bt-xl">Update Profile</Button>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={3} className="align">
+                                <Grid item xs={3}>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <div className="heading4">ABOUT ME</div>
+                                    <div className="desc">Tell more about you</div>
+                                    <Grid item >
+                                        <TextField id="filled-basic" variant="filled" multiline fullWidth
+                                            value={aboutMe} onChange={e => setAboutMe(e.target.value)} >
+                                        </TextField>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid container spacing={3} className="align">
+                                <Grid item xs={3}>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <div className="heading4">SHOW REAL</div>
+                                    <Grid item >
+                                        <Box mb={6}>
+                                            {/* <ShowReal auditions={auditions} /> */}
+                                        </Box>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </div>
