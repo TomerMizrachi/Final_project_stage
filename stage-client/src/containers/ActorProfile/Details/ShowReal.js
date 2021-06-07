@@ -3,7 +3,7 @@ import StyledPracticeStep from './PracticeGrid.styles';
 import Audition from './PracticeSteps/Audition';
 import { Grid } from '@material-ui/core';
 
-export default function AuditionsGrid({ auditions }) {
+export default function ShowReal({ auditions }) {
     return (
         <StyledPracticeStep>
             <div className="grid-container">

@@ -162,10 +162,6 @@ const updateUser = (req, res) => {
         update.Email = req.body.email
     if (req.body.full_name)
         update.full_name = req.body.full_name
-    if (req.body.profile_picture)
-        update.profile_picture = req.body.profile_picture
-    if (req.body.personal_information)
-        update.personal_information = req.body.personal_information
     User.findOneAndUpdate(filter, update)
         .then(user => res.json(user))
         .catch(err => res.status(400).json({ err: err }))
