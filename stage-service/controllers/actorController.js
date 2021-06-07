@@ -115,6 +115,8 @@ const updateActorProfile = (req, res) => {
         update.skills = req.body.skills
     if (req.body.languages)
         update.languages = req.body.languages
+    if (req.body.aboutMe)
+        update.aboutMe = req.body.aboutMe
     Actor.findOneAndUpdate(filter, update)
         .then(data => {
             if (!data) {

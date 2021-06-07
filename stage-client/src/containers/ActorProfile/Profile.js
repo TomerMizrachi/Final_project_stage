@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import Details from './Details/Details'
 import { getActorInfo } from '@actions/actorActions'
+import ShowReal from './Details/ShowReal'
 
 
 function Profile(props) {
@@ -15,6 +16,7 @@ function Profile(props) {
     return (
         <DashboardLayout>
             <Details />
+            <ShowReal />
         </DashboardLayout>
     )
 }

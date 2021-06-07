@@ -11,8 +11,8 @@ const actor = {
     body_structure: String,
     height: Number,
     hair: String,
-    eyes: String,  
-    aboutMe: String, 
+    eyes: String,
+    aboutMe: String,
     skills: [String],
     languages: [String]
 }

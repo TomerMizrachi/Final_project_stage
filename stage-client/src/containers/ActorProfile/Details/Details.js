@@ -162,7 +162,7 @@ function Details(props) {
                                             <div className="heading4">Your skills:</div>
                                             {
                                                 props.actor.profile.skills &&
-                                                (props.actor.profile.skills.length > 0) ?
+                                                    (props.actor.profile.skills.length > 0) ?
                                                     (props.actor.profile.skills.map((option) =>
                                                         (<div key={option}>{option}</div>)))
                                                     : (<div>None</div>)
