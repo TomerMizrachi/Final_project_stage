@@ -7,10 +7,10 @@ import { Button } from '@components/uielements/Button/Button';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import StyledDashboardTopCards from '@containers/Trainer_1/TrainerTopCards/TrainerTopCards.styles';
+import StyledDashboardTopCards from '@containers/Trainer_1/TrainerTopCards/TrainerTopCards.styles'
 import { bodyOptions, skillsOptions, hairOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions'
 import { UpdateProfile, getActorInfo } from '@actions/actorActions'
-// import ShowReal from './ShowReal'
+
 function Details(props) {
     const isFirstRun = useRef(true)
     const [id, setId] = useState('')
@@ -49,7 +49,7 @@ function Details(props) {
         setLanguages({ ...languages, [event.target.name]: event.target.checked })
     }
     const mapObjToArr = (obj) => {
-        let arr = []
+        let arr = []    
         for (let key in obj) {
             if (obj[key] === true)
                 arr.push(key)
@@ -211,18 +211,6 @@ function Details(props) {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            {/* <Grid container spacing={3} className="align"> */}
-                            {/* <Grid item xs={3}>
-                                </Grid> */}
-                            {/* <Grid item xs={6}> */}
-                            {/* <div className="heading4">SHOW REAL</div> */}
-                            {/* <Grid item > */}
-                            {/* <Box mb={6}> */}
-                            {/* <ShowReal auditions={auditions} /> */}
-                            {/* </Box> */}
-                            {/* </Grid> */}
-                            {/* </Grid> */}
-                            {/* </Grid> */}
                         </div>
                         <Grid item xs={8}>
                             {errors && <Alert severity="error"> {JSON.stringify(errors)} </Alert>}

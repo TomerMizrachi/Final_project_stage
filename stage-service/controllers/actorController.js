@@ -142,6 +142,7 @@ const uploadBook = (req, res) => {
 }
 
 const deletePic = (req, res) => {
+    const filter = { _id: req.params.id }
 
 }
 
