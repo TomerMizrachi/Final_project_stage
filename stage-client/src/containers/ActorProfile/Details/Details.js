@@ -32,6 +32,7 @@ function Details(props) {
     }, [props.errors])
 
     useEffect(() => {
+        console.log(props)
         setId(props.actor.profile._id)
         setAge(props.actor.profile.age)
         setHeight(props.actor.profile.height)
@@ -71,7 +72,6 @@ function Details(props) {
         }
         props.UpdateProfile(actorProfile)
         props.getActorInfo(props.auth.user.id)
-
     }
 
 
@@ -153,11 +153,19 @@ function Details(props) {
                                         <Grid item className="audition-info">
                                             <div className="heading4">Your languges:</div>
                                             {
-                                                props.actor.profile.languages && props.actor.profile.languages.map((option) => (<div key={option}>{option}</div>))
+                                                props.actor.profile.languages &&
+                                                    (props.actor.profile.languages.length > 0) ?
+                                                    (props.actor.profile.languages.map((option) =>
+                                                        (<div key={option}>{option}</div>)))
+                                                    : (<div>None</div>)
                                             }
                                             <div className="heading4">Your skills:</div>
                                             {
-                                                props.actor.profile.skills && props.actor.profile.skills.map((option) => (<div key={option}>{option}</div>))
+                                                props.actor.profile.skills &&
+                                                    (props.actor.profile.skills.length > 0) ?
+                                                    (props.actor.profile.skills.map((option) =>
+                                                        (<div key={option}>{option}</div>)))
+                                                    : (<div>None</div>)
                                             }
                                             <div className="heading3">To update</div>
                                             <div className="heading3">check the relevants</div>
@@ -195,7 +203,7 @@ function Details(props) {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <div className="heading4">ABOUT ME</div>
-                                    <div className="desc">Tell more about you</div>
+                                    <div className="desc">Tell more about yourself</div>
                                     <Grid item >
                                         <TextField id="filled-basic" variant="filled" multiline fullWidth
                                             value={aboutMe} onChange={e => setAboutMe(e.target.value)} >

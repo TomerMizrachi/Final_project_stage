@@ -109,6 +109,8 @@ const updateActorProfile = (req, res) => {
         update.height = req.body.height
     if (req.body.hair)
         update.hair = req.body.hair
+    if (req.body.aboutMe)
+        update.aboutMe = req.body.aboutMe
     if (req.body.skills)
         update.skills = req.body.skills
     if (req.body.languages)
@@ -116,7 +118,13 @@ const updateActorProfile = (req, res) => {
     if (req.body.aboutMe)
         update.aboutMe = req.body.aboutMe
     Actor.findOneAndUpdate(filter, update)
-        .then(user => res.json(user))
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot update Actor profile with id=${req.body.id}`
+                });
+            } else res.send({ message: "Actor was updated successfully." });
+        })
         .catch(err => res.status(400).json({ err: err }))
 }
 

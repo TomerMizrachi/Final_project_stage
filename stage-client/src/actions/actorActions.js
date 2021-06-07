@@ -21,8 +21,6 @@ export const getActorInfo = (user_id) => dispatch => {
 export const UpdateProfile = (actor) => dispatch => {
     axios
         .put("/actor", actor)
-        .then(res => {
-        })
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
