@@ -12,6 +12,7 @@ const actor = {
     height: Number,
     hair: String,
     eyes: String,
+    aboutMe: String,
     skills: [String],
     languages: [String]
 }
