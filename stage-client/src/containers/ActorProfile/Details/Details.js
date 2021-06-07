@@ -203,18 +203,6 @@ function Details(props) {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid container spacing={3} className="align">
-                                <Grid item xs={3}>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <div className="heading4">SHOW REAL</div>
-                                    <Grid item >
-                                        <Box mb={6}>
-                                            {/* <ShowReal auditions={auditions} /> */}
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
                         </div>
                         <Grid item xs={8}>
                             {errors && <Alert severity="error"> {JSON.stringify(errors)} </Alert>}
