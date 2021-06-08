@@ -3,6 +3,8 @@ import User from '../models/user.js'
 import ActorAudition from '../models/actoraudition.js'
 import { USER_TYPE, GENDER_TYPE, BODY_TYPE, HAIR_TYPE, EYES_TYPE, SKILL_TYPE, LANGUAGE_TYPE, HEIGHT_RANGE, TYPECAST_OBJ } from '../config/types.js'
 import { validateActorInput } from '../validation/actorValidation.js'
+import s3 from '../config/S3connection.js'
+import { v4 as uuid } from 'uuid'
 
 const getActors = (req, res) => {
     let condition = {}
@@ -115,8 +117,6 @@ const updateActorProfile = (req, res) => {
         update.skills = req.body.skills
     if (req.body.languages)
         update.languages = req.body.languages
-    if (req.body.aboutMe)
-        update.aboutMe = req.body.aboutMe
     Actor.findOneAndUpdate(filter, update)
         .then(data => {
             if (!data) {
@@ -128,8 +128,10 @@ const updateActorProfile = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-const uploadBook = (req, res) => {
-    const filter = { _id: req.params.id }
+
+
+const uploadPics = (req, res) => {
+    const filter = { _id: req.body.id }
     if (req.body.pictures) {
         Actor.findOneAndUpdate(filter, {
             $push: {
@@ -137,19 +139,23 @@ const uploadBook = (req, res) => {
             }
         })
             .then(user => res.json(user))
-            .catch(err => res.status(400).json({ err: err }))
+            .catch(err => res.status(400).json({ error: err }))
     } else {
         res.status(400).json("there is no body pictures req")
     }
 }
 
 const deletePic = (req, res) => {
-    const filter = { _id: req.params.id }
-
+    const filter = { _id: req.body.id }
+    Actor.findOneAndUpdate(filter, {
+        $pull: { pictures: req.body.urlPic }
+    })
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(400).json({ error: err }))
 }
 
 const uploadVideos = (req, res) => {
-    const filter = { _id: req.params.id }
+    const filter = { _id: req.body.id }
     if (req.body.videos) {
         Actor.findOneAndUpdate(filter, {
             $push: {
@@ -163,6 +169,15 @@ const uploadVideos = (req, res) => {
     }
 }
 
+const deleteVideo = (req, res) => {
+    const filter = { _id: req.body.id }
+    Actor.findOneAndUpdate(filter, {
+        $pull: { videos: req.body.urlVideo }
+    })
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(400).json({ error: err }))
+}
+
 const deleteActor = (req, res) => {
     Actor.findOneAndDelete({ _id: req.params.id })
         .then(actor => {
@@ -172,4 +187,28 @@ const deleteActor = (req, res) => {
         .catch(err => res.status(400).json({ err: err }))
 }
 
-export { getActors, getActorByUserId, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor }
+const createS3Url = async (req, res) => {
+    try {
+        await s3.getSignedUrl('putObject', {
+            Bucket: 'stage-videos',
+            Key: uuid(),
+            Expires: 300,
+            ACL: 'public-read',
+            ContentType: 'video/*'
+        }, function (err, signedURL) {
+            if (err) {
+                console.log(err)
+                return res.send(err)
+            }
+            else {
+                return res.json({
+                    postURL: signedURL,
+                    getURL: signedURL.split("?")[0]
+                })
+            }
+        });
+    } catch (err) {
+        res.send("err");
+    }
+}
+export { createS3Url, getActors, getActorByUserId, actorProfile, updateActorProfile, uploadPics, uploadVideos, deleteActor, deletePic, deleteVideo }

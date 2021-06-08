@@ -2,7 +2,6 @@ import ActorAudition from '../models/actoraudition.js'
 import s3 from '../config/S3connection.js'
 import config from '../config/env.js'
 import { v4 as uuid } from 'uuid'
-
 import { validateAAInput } from '../validation/aaValidation.js'
 
 const { S3_BUCKET } = config

@@ -1,5 +1,9 @@
 import express from 'express'
-import { getActors, getActorByUserId, actorProfile, updateActorProfile, uploadBook, uploadVideos, deleteActor } from '../controllers/actorController.js'
+import {
+    getActors, getActorByUserId, actorProfile, updateActorProfile,
+    uploadPics, uploadVideos, deleteActor, deletePic, deleteVideo, 
+    createS3Url
+} from '../controllers/actorController.js'
 
 const router = express.Router()
 
@@ -11,12 +15,16 @@ router.post('/', actorProfile)
 
 router.put('/', updateActorProfile)
 
-router.put('/pic/:id', uploadBook)
+router.put('/uploadPics/', uploadPics)
 
-router.put('/video/:id', uploadVideos)
+router.put('/uploadVideos', uploadVideos)
 
-router.delete('/video/')
+router.put('/deletePic', deletePic)
+
+router.put('/deletevideo', deleteVideo)
 
 router.delete('/:id', deleteActor)
+
+router.get('/get_signed_url', createS3Url)
 
 export default router;

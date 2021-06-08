@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import Details from './Details/Details'
 import { getActorInfo } from '@actions/actorActions'
-import ShowReal from './Details/ShowReal'
-
+import ShowReal from './ShowReal/ShowReal'
+import Gallery from "./Gallery/Gallery";
 
 function Profile(props) {
     useEffect(() => {
@@ -16,6 +16,7 @@ function Profile(props) {
     return (
         <DashboardLayout>
             <Details />
+            <Gallery />
             <ShowReal />
         </DashboardLayout>
     )

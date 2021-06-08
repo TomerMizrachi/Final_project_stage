@@ -15,7 +15,6 @@ router.put('/:id', updateAA)
 
 router.delete('/:id', deleteAA)
 
-// router.post('/video', saveVideo)
 router.get('/get_signed_url', createS3Url)
 
 export default router;

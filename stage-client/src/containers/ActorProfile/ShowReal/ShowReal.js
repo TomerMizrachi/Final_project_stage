@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
-import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeGrid.styles';
-import UploadedVideo from './UploadedVideo';
-import { Grid, Box } from '@material-ui/core';
+import React, { useState, useEffect } from 'react'
+import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeGrid.styles'
+import VideoBox from './VideoBox'
+import { Grid, Box } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { LinkButton } from '@components/uielements/Button/Button';
+import { LinkButton } from '@components/uielements/Button/Button'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { getActorInfo } from '@actions/actorActions'
-import { useDropzone } from 'react-dropzone';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { DropzoneDialogBase } from 'material-ui-dropzone';
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import { DropzoneDialogBase } from 'material-ui-dropzone'
+import axios from 'axios'
 
 function ShowReal(props) {
     const [videos, setVideos] = useState([])
@@ -19,8 +18,8 @@ function ShowReal(props) {
         setVideos(props.actor.profile.videos)
     }, [props.actor])
 
-    const [open, setOpen] = React.useState(false);
-    const [fileObjects, setFileObjects] = React.useState([]);
+    const [open, setOpen] = useState(false)
+    const [fileObjects, setFileObjects] = useState([])
 
     const dialogTitle = () => (
         <>
@@ -34,34 +33,32 @@ function ShowReal(props) {
     );
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
-
-
-            // axios({
-            //     method: "get",
-            //     url: "http://localhost:8001/actor-audition/get_signed_url",
-            // }).then(function (response) {
-            //     var postURL = response.data.postURL;
-            //     var getURL = response.data.getURL;
-            //     delete axios.defaults.headers.common['Authorization']
-            //     axios({
-            //         method: "put",
-            //         url: postURL,
-            //         data: formData.get('file'),
-            //         headers: {
-            //             'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
-            //         }
-            //     }).then(res => {
-            //         console.log("Response from s3")
-            //         // this.setState({ success: true });
-            //     }).catch(error => {
-            //         console.log(error);
-            //     })
-            //     console.log(getURL, postURL);
-            // }).catch(function (error) {
-            //     console.log(error);
-            // })
+            axios({
+                method: "get",
+                url: "http://localhost:8001/actor/get_signed_url",
+            }).then(function (response) {
+                var postURL = response.data.postURL;
+                var getURL = response.data.getURL;
+                delete axios.defaults.headers.common['Authorization']
+                axios({
+                    method: "put",
+                    url: postURL,
+                    data: fileObject.data,
+                    headers: {
+                        'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                    }
+                }).then(res => {
+                    console.log("Response from s3", res)
+                    // this.setState({ success: true });
+                }).catch(error => {
+                    console.log(error);
+                })
+                console.log(getURL, postURL);
+            }).catch(function (error) {
+                console.log(error);
+            })
         })
-        console.log("upload video")
+        console.log("upload video", fileObjects)
     }
 
     return (
@@ -86,7 +83,7 @@ function ShowReal(props) {
                                 fileObjects={fileObjects}
                                 cancelButtonText={"cancel"}
                                 submitButtonText={"submit"}
-                                maxFileSize={5000000}
+                                maxFileSize={10000000}
                                 open={open}
                                 onAdd={newFileObjs => {
                                     console.log('onAdd', newFileObjs);
@@ -109,8 +106,8 @@ function ShowReal(props) {
                             <div className="wrapper">
                                 <Grid container spacing={4}>
                                     {videos && videos.map((video, index) => (
-                                        <Grid item key={index} xs={3}>
-                                            <UploadedVideo video={video} />
+                                        <Grid item key={index} xs={6}>
+                                            <VideoBox video={video} />
                                         </Grid>
                                     ))}
                                 </Grid>
