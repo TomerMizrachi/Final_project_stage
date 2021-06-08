@@ -42,7 +42,6 @@ function ShowReal(props) {
                                 </Grid>
                             </div>
                         </div>
-
                     </Box>
                 </Grid>
             </Grid>
