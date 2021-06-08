@@ -33,6 +33,8 @@ function ShowReal(props) {
     );
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
+            let formData = new FormData()
+            formData.append('file', fileObject)
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor/get_signed_url",
@@ -43,7 +45,7 @@ function ShowReal(props) {
                 axios({
                     method: "put",
                     url: postURL,
-                    data: fileObject.data,
+                    data: formData.get('file'),
                     headers: {
                         'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }

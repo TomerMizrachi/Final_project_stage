@@ -5,14 +5,12 @@ import { LinkButton } from '@components/uielements/Button/Button'
 import VideoPlayer from "react-happy-video"
 
 export default function VideoBox({ video }) {
+    
     return (
         <StyledPracticeStep>
             <div className="header">
                 <Grid item>
-                    {/* <Box display="flex" alignItems="center" justifyContent="space-evenly" flex={1}> */}
-                    {/* <div className="heading4">{video}</div> */}
                     <VideoPlayer width="100%" color="#3b3346" source={video} />
-                    {/* </Box> */}
                 </Grid>
             </div>
             <Box display="flex" alignItems="center" justifyContent="space-evenly">
