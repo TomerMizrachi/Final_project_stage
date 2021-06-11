@@ -45,7 +45,7 @@ function ActorList(props) {
 			</Box>
 		</div>
 	)
-}
+}	
 
 
 ActorList.propTypes = {

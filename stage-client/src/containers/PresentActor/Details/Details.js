@@ -3,13 +3,12 @@ import StyledFeaturedActor from '@containers/AllAuditions/AuditionsList/SingleAu
 import { Button, IconButton } from '@components/uielements/Button/Button'
 import { Grid } from '@material-ui/core'
 import { TextField, MenuItem } from '@material-ui/core'
-import Icon from '@material-ui/core/Icon'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { sendDM } from '@actions/recruiterActions'
 
-function SingleActor(props) {
+function Details(props) {
     console.log(props)
     const { actor } = props
     const [auditionID, setAuditionID] = useState('')
@@ -25,15 +24,6 @@ function SingleActor(props) {
         props.sendDM(data)
     }
 
-    const actorProfile = e => {
-        console.log("profileClice", e)
-        e.preventDefault()
-        props.history.push({
-			pathname: '/present',
-			// search: '?query=abc',
-			state: { actor: actor }})
-    }
-
     return (
         <StyledFeaturedActor className={`featured-audtion-item`}>
             <Grid container direction="column">
@@ -41,7 +31,7 @@ function SingleActor(props) {
                 <Grid container className="audition-details" alignItems="center">
                     <Grid item className="audition-content" md>
                         <div className="recruitment-details">Gender: {actor.gender}</div>
-                        <div className="audition-name text-accent">Age: {actor.age}</div>
+                        <div className="audition-name">Age: {actor.age}</div>
                     </Grid>
                     <Grid item className="audition-content" md>
                         <Grid item className="recruitment-details" md>Body: {actor.body_structure}</Grid>
@@ -68,13 +58,6 @@ function SingleActor(props) {
                             : null}
                     </Grid>
                     <Grid item className="audition-content" md>
-                        <IconButton onClick={actorProfile} className="success static offset-right-sm">
-                            <Icon className="material-icons">person</Icon>
-                        </IconButton>
-                        <Grid item className="audition-name heading4" md>Actor</Grid>
-                        <Grid item className="audition-name heading4" md>Profile</Grid>
-                    </Grid>
-                    <Grid item className="audition-content" md>
                         <TextField select helperText="Choose audition" label="Audition" variant="outlined" size="small" fullWidth
                             value={auditionID} onChange={e => setAuditionID(e.target.value)}>
                             {recruiterAudition ? (
@@ -90,7 +73,7 @@ function SingleActor(props) {
     )
 }
 
-SingleActor.propTypes = {
+Details.propTypes = {
     sendDM: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     recruiter: PropTypes.object.isRequired,
@@ -106,4 +89,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { sendDM }
-)(withRouter(SingleActor))
+)(withRouter(Details))
