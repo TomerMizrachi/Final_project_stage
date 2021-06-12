@@ -18,6 +18,7 @@ function SingleAudition(props) {
 	const typecastArr = Object.values(audition.typecast)
 	const onClick = e => {
 		e.preventDefault()
+		console.log("ac",props.auth.user.actor_id)
 		props.registerToAudition(props.auth.user.actor_id, audition._id)
 	}
 	return (audition && (

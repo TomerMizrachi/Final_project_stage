@@ -14,6 +14,7 @@ const getAuditions = async (req, res) => {
 
 const getRelevantAuditions = (req, res) => {
     var dot = require('dot-object')
+    console.log("res",req)
     let condition = {}
     let typecast = {}
     condition.typecast = typecast
@@ -63,6 +64,8 @@ const getRelevantAuditions = (req, res) => {
 
     dot.keepArray = true
     var tgt = dot.dot({ typecast: condition.typecast })
+    //used for testing- DELETE BEFORE DEPLOY
+    tgt={}
     Audition.find(tgt)
         .then(auditions => res.json(auditions))
         .catch(err => res.status(400).json({ err: err }))

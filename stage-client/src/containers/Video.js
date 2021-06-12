@@ -20,7 +20,7 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-        console.log(this)
+        console.log("VIDEO",props.data.audition.auditionInfo.text_file)
         this.state = {
             actor_id: props.data.actor_id,
             auto_record_active: false,
@@ -52,15 +52,20 @@ class Video extends Component {
         })
         return JSON.stringify(finalScore)
     }
-    readText() {
-        fetch(auditionText)
-            .then((r) => r.text())
-            .then(text => {
-                this.setState({
-                    entireText: text.split("\n")
-                })
-            })
+
+    readText(){
+        
+        this.props.data.audition.auditionInfo.text_file.split("\n")
     }
+    // readText() {
+    //     fetch(auditionText)
+    //         .then((r) => r.text())
+    //         .then(text => {
+    //             this.setState({
+    //                 entireText: text.split("\n")
+    //             })
+    //         })
+    // }
 
     saveToS3() {
         var react_comp = this
@@ -225,11 +230,11 @@ class Video extends Component {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    react_comp.state.auto_record_active = false
+                    // react_comp.state.auto_record_active = false
                     console.log(res)
                     let resultTranscript = res.data.transcript
-                    let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
-                    this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
+                    let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '');
+                    this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator],auto_record_active:false})
                     axios({
                         method: "get",
                         url: "http://127.0.0.1:12345/compare",
@@ -238,33 +243,31 @@ class Video extends Component {
                             expectedText: expectedText
                         }
                     }).then(res => {
-                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
-                        react_comp.state.auto_record_active = true
                         console.log("video reached")
+                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
                         axios.get("http://127.0.0.1:5000/textToSpeech", {
                             params: {
                                 textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
                             }
                         }).then(res => {
                             if (this.state.currentLineIterator < this.state.entireText.length) {
+                                console.log("reached")
                                 console.log(res.data.data)
                                 var base64string = res.data.data
                                 var snd = new Audio("data:audio/wav;base64," + base64string);
                                 snd.play()
-                                this.setState({ currentLineIterator: this.state.currentLineIterator + 1 })
+                                this.setState({auto_record_active:false,currentLineIterator: this.state.currentLineIterator + 1,auto_record_active:true})
                                 if (this.state.currentLineIterator == this.state.entireText.length) {
                                     console.log("test")
                                     this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
                                     this.saveToS3(() => {}).then(res=>{this.setState({videoURL:res,finishedText: true, finalScore: this.calculateTotalScore() })
                                     })
-                                    react_comp.state.auto_record_active = false
                                 }
                                 else {
                                     this.saveToS3(() => {}).then(res=>{this.setState({videoURL:res,finishedText: true, finalScore: this.calculateTotalScore() })
                                 })
                                     console.log("No more texts to read")
                                     this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-                                    react_comp.state.auto_record_active = false
                                     console.log(this.state.finalScore)
                                 }
 

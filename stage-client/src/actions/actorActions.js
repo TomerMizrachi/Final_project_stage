@@ -65,6 +65,7 @@ export const getAuditionMetrics = (actor_id) => dispatch => {
 }
 
 export const registerToAudition = (actor_id, audition_id) => dispatch => {
+    console.log("reg",actor_id)
     axios({
         method: 'post',
         url: '/actor-audition',
@@ -91,6 +92,7 @@ export const getMyRelevantAuditions = (params) => dispatch => {
     axios
         .get("audition/getRelevantAuditions", { params: params })
         .then(res => {
+            console.log("re",res)
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,
                 payload: res.data
