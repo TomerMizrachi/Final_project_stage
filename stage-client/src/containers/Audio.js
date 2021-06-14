@@ -18,17 +18,19 @@ export default class Aud extends Component {
             finalScore: {},
             roleSpeaking: "NONE",
             auto_record_active: false,
-            conversation_start:false
+            conversationStarted: false,
+            errorMessage: "",
+
         }
 
     }
 
     controlAudio(status) {
         this.setState({
-            status: status, auto_record_active: !this._record_active,
-            conversation_start: true
+            status: status,
+            auto_record_active: true,
+            conversationStarted: true,
         })
-        
     }
 
     calculateTotalScore() {
@@ -59,52 +61,49 @@ export default class Aud extends Component {
         this.readText()
         this.speaking = false;
         this.speech_timeout = 0;
+        this.speech_loop_counter_timeout = 0;
         var react_comp = this
         navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function (camera) {
             var speechEvents = hark(camera, {});
             speechEvents.on('speaking', function () {
-                if (react_comp.state.auto_record_active == false) return;
+                if (react_comp.state.auto_record_active !== true) {
+                    return;
+                }
                 if (react_comp.state.status !== 'recording') {
                     react_comp.setState({ status: "recording" })
                 };
-                console.log("react_comp.state.status", react_comp.state.status)
-                // if (!react_comp.recording) {
-                //     console.log('Toggle record one', react_comp.videoPlayer)
-                //     //react_comp.videoPlayer.recordToggle.handleClick()
-
-                // }
-                // if(react_comp.speaking == false){
-                //     react_comp.startSpeechTimestamp = new Date().getTime();
-                // }
+                if (react_comp.speaking == false) {
+                    react_comp.startSpeechTimestamp = new Date().getTime();
+                }
                 react_comp.speaking = true;
                 console.log('started speaking!');
-                //clearTimeout(react_comp.speech_timeout);
-
+                react_comp.setState({ errorMessage: ' ' })
+                clearTimeout(react_comp.speech_timeout);
+                clearTimeout(react_comp.speech_loop_counter_timeout);
             });
             speechEvents.on('stopped_speaking', function () {
-                console.log(react_comp.state)
-                // if (react_comp.speaking == false) return;
-                react_comp.setState({ status: "inactive", auto_record_active: "false" })
-
+                if (react_comp.speaking === false) {
+                    return;
+                }
+                console.log('Stopped speaking. State:', react_comp.state)
+                let silence_timeout = 3
                 react_comp.speech_timeout = setTimeout(function () {
                     react_comp.speaking = false;
+                    react_comp.setState({ status: "inactive", auto_record_active: false })
                     console.log('Stopped speaking')
-                }, 3 * 1000);
+                }, silence_timeout * 1000);
 
                 // logging  
-                var seconds = 3;
+                var seconds = silence_timeout;
                 (function looper() {
                     console.log('Recording is going to be stopped in ' + seconds + ' seconds.');
                     seconds--;
                     if (seconds <= 0) {
                         return;
                     }
-                    setTimeout(looper, 1000);
+                    react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000);
                 })();
-
-            }
-
-            );
+            });
         });
     }
 
@@ -117,10 +116,7 @@ export default class Aud extends Component {
     }
 
     render() {
-        // this.readText()
-        // console.log(this.state.entireText)
         const isFinishedText = this.state.finishedText;
-        // console.log(this.state)
         const { status, audioSrc } = this.state; // audioType is also available
         const audioProps = {
             audioType: "audio/wav",
@@ -143,12 +139,11 @@ export default class Aud extends Component {
                 formData.append("file", e);
                 console.log("succ stop", e)
                 if (this.state.currentLineIterator < this.state.entireText.length) {
-
+                    this.setState({ status: "inactive", auto_record_active: false })
                     axios.post("http://127.0.0.1:5000/speechToTextAudio", formData)
                         .then(res => {
-                            this.setState({ status: "inactive", auto_record_active: "false" })
                             let resultTranscript = res.data.transcript
-                            console.log(resultTranscript)
+                            console.log('Result transcript', resultTranscript)
                             let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
                             this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
                             axios.get("http://127.0.0.1:12345/compare", {
@@ -164,23 +159,28 @@ export default class Aud extends Component {
                                     }
                                 }).then(res => {
                                     if (this.state.currentLineIterator < this.state.entireText.length) {
-                                        // console.log(res.data.data)
                                         var base64string = res.data.data
                                         var snd = new Audio("data:audio/wav;base64," + base64string);
                                         snd.play()
-                                        this.setState({ currentLineIterator: this.state.currentLineIterator + 1 })
-                                        if (this.state.currentLineIterator == this.state.entireText.length) {
-                                            this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-
+                                        snd.onended = () => {
+                                            snd.currentTime = 0
+                                            console.log('Trainer finished')
+                                            if (this.state.currentLineIterator + 1 == this.state.entireText.length) {
+                                                this.setState({ finishedText: true, finalScore: this.calculateTotalScore(), auto_record_active: false })
+                                            } else {
+                                                this.setState({
+                                                    currentLineIterator: this.state.currentLineIterator + 1,
+                                                    status: "active",
+                                                    auto_record_active: true
+                                                })
+                                            }
                                         }
-
                                     }
 
 
                                     else {
                                         console.log("No more texts to read")
-                                        this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-                                        // console.log(this.state.finalScore)
+                                        this.setState({ finishedText: true, finalScore: this.calculateTotalScore(), auto_record_active: false })
                                     }
                                 })
                             })
@@ -188,7 +188,12 @@ export default class Aud extends Component {
                                     console.log(err)
                                 })
 
+                        }).catch(err => {
+                            console.log('Got error from speechToTextAudio api')
+                            this.setState({ errorMessage: "We could not hear you. Please try again", status: "active", auto_record_active: true })
                         })
+
+
                 }
                 else {
                     console.log("no more text to read")
@@ -210,8 +215,11 @@ export default class Aud extends Component {
                         <p>{this.state.entireText[this.state.currentLineIterator]}</p>
                         <AudioAnalyser {...audioProps}>
                             <div className="btn-box">
-                                {this.state.conversation_start == false &&
+                                {this.state.conversationStarted == false &&
                                     <button onClick={() => this.controlAudio("recording")}>record</button>
+                                }
+                                {this.state.errorMessage != "" &&
+                                    <p>{this.state.errorMessage}</p>
                                 }
                             </div>
                         </AudioAnalyser>

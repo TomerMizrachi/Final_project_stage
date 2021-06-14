@@ -66,6 +66,7 @@ export const getAuditionMetrics = (actor_id) => dispatch => {
 }
 
 export const registerToAudition = (actor_id, audition_id) => dispatch => {
+    console.log("reg",actor_id)
     axios({
         method: 'post',
         url: '/actor-audition',

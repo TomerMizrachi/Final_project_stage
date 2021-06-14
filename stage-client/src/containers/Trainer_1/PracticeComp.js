@@ -163,7 +163,7 @@ import { withRouter } from 'react-router-dom'
 													</div>
 												</div>
 												<div className="audioWrapper">
-													<Filming actor_id={audition.actor_id}></Filming>
+													<Filming audition={audition}></Filming>
 												</div>
 											</DialogContentText>
 										</DialogContent>

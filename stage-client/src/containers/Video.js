@@ -20,7 +20,7 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-        console.log(this)
+        console.log("VIDEO", props.data.audition.auditionInfo.text_file)
         this.state = {
             actor_id: props.data.actor_id,
             auto_record_active: false,
@@ -52,14 +52,10 @@ class Video extends Component {
         })
         return JSON.stringify(finalScore)
     }
+
     readText() {
-        fetch(auditionText)
-            .then((r) => r.text())
-            .then(text => {
-                this.setState({
-                    entireText: text.split("\n")
-                })
-            })
+
+        this.props.data.audition.auditionInfo.text_file.split("\n")
     }
 
     saveToS3() {
@@ -129,6 +125,7 @@ class Video extends Component {
         // Allows start/stop recording
         this.videoPlayer.deviceButton.handleClick();
         this.speach_timeout = 0;
+        this.speech_loop_counter_timeout = 0;
         this.speaking = false;
         this.recording = false
         this.state.auto_record_active = false;
@@ -145,45 +142,43 @@ class Video extends Component {
 
         navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function (camera) {
             var speechEvents = hark(camera, {});
-            console.log(react_comp.videoPlayer)
             speechEvents.on('speaking', function () {
-                console.log('[speaking] Auto record active =', react_comp.state.auto_record_active);
-                if (react_comp.state.auto_record_active == false) return;
-                if (!react_comp.recording) {
-                    console.log('Toggle record one', react_comp.videoPlayer)
-                    //react_comp.videoPlayer.recordToggle.handleClick()
-
+                if (react_comp.state.auto_record_active !== true) {
+                    return;
                 }
-                if(react_comp.speaking == false){
+                if (react_comp.state.status !== 'recording') {
+                    react_comp.setState({ status: "recording" })
+                };
+                if (react_comp.speaking == false) {
                     react_comp.startSpeechTimestamp = new Date().getTime();
                 }
                 react_comp.speaking = true;
                 console.log('started speaking!');
-                clearTimeout(react_comp.speach_timeout);
-
+                react_comp.videoPlayer.recordToggle.handleClick()
+                react_comp.setState({ errorMessage: ' ' })
+                clearTimeout(react_comp.speech_timeout);
+                clearTimeout(react_comp.speech_loop_counter_timeout);
             });
             speechEvents.on('stopped_speaking', function () {
-                if (react_comp.speaking == false) return;
-
-                this.speach_timeout = setTimeout(function () {
-                    console.log(react_comp.recording)
-                    if (react_comp.recording) {
-                        //react_comp.videoPlayer.recordToggle.handleClick()
-                    }
+                if (react_comp.speaking === false) return
+                console.log('Stopped speaking. State:', react_comp.state)
+                let silence_timeout = 3
+                react_comp.speech_timeout = setTimeout(function () {
                     react_comp.speaking = false;
-                    react_comp.need_s2t = true;
+                    react_comp.setState({ status: "inactive", auto_record_active: false })
                     console.log('Stopped speaking')
-                }, 1 * 1000);
+                    react_comp.videoPlayer.recordToggle.handleClick()
+                }, silence_timeout * 1000);
 
                 // logging  
-                var seconds = 3;
+                var seconds = silence_timeout;
                 (function looper() {
                     console.log('Recording is going to be stopped in ' + seconds + ' seconds.');
                     seconds--;
                     if (seconds <= 0) {
                         return;
                     }
-                    setTimeout(looper, 1000);
+                    react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000);
                 })();
             });
         });
@@ -192,19 +187,6 @@ class Video extends Component {
             react_comp.recording = true
             console.log('started recording!');
             react_comp.state.auto_record_active = true;
-        });
-
-        this.videoPlayer.on('timestamp', (timestamp, timestamps) => {
-            console.log('in timestamp need s2t', react_comp.need_s2t)
-            if(react_comp.need_s2t){
-                console.log('timestamps',timestamps)
-                console.log('timestamp',timestamp)
-                react_comp.need_s2t = false;
-                var duration_ms = (react_comp.startSpeechTimestamp - react_comp.startRecordTimestamp);
-                if(duration_ms < 0) duration_ms = 0;
-
-                react_comp.sendSpeech2Text(new Blob(react_comp.videoPlayer.recordedData), duration_ms)
-            }
         });
 
         this.videoPlayer.on('finishRecord', () => {
@@ -225,11 +207,10 @@ class Video extends Component {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    react_comp.state.auto_record_active = false
                     console.log(res)
                     let resultTranscript = res.data.transcript
-                    let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
-                    this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
+                    let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '');
+                    this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator], auto_record_active: false })
                     axios({
                         method: "get",
                         url: "http://127.0.0.1:12345/compare",
@@ -238,33 +219,33 @@ class Video extends Component {
                             expectedText: expectedText
                         }
                     }).then(res => {
-                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
-                        react_comp.state.auto_record_active = true
                         console.log("video reached")
+                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
                         axios.get("http://127.0.0.1:5000/textToSpeech", {
                             params: {
                                 textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
                             }
                         }).then(res => {
                             if (this.state.currentLineIterator < this.state.entireText.length) {
+                                console.log("reached")
                                 console.log(res.data.data)
                                 var base64string = res.data.data
                                 var snd = new Audio("data:audio/wav;base64," + base64string);
                                 snd.play()
-                                this.setState({ currentLineIterator: this.state.currentLineIterator + 1 })
+                                this.setState({ auto_record_active: false, currentLineIterator: this.state.currentLineIterator + 1, auto_record_active: true })
                                 if (this.state.currentLineIterator == this.state.entireText.length) {
                                     console.log("test")
                                     this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-                                    this.saveToS3(() => {}).then(res=>{this.setState({videoURL:res,finishedText: true, finalScore: this.calculateTotalScore() })
+                                    this.saveToS3(() => { }).then(res => {
+                                        this.setState({ videoURL: res, finishedText: true, finalScore: this.calculateTotalScore() })
                                     })
-                                    react_comp.state.auto_record_active = false
                                 }
                                 else {
-                                    this.saveToS3(() => {}).then(res=>{this.setState({videoURL:res,finishedText: true, finalScore: this.calculateTotalScore() })
-                                })
+                                    this.saveToS3(() => { }).then(res => {
+                                        this.setState({ videoURL: res, finishedText: true, finalScore: this.calculateTotalScore() })
+                                    })
                                     console.log("No more texts to read")
                                     this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-                                    react_comp.state.auto_record_active = false
                                     console.log(this.state.finalScore)
                                 }
 
@@ -280,8 +261,9 @@ class Video extends Component {
             }
             else {
                 this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
-                this.saveToS3(() => {}).then(res=>{this.setState({videoURL:res,finishedText: true, finalScore: this.calculateTotalScore() })
-            })
+                this.saveToS3(() => { }).then(res => {
+                    this.setState({ videoURL: res, finishedText: true, finalScore: this.calculateTotalScore() })
+                })
                 console.log("no more text to read")
                 this.setState({ finishedText: true, finalScore: this.calculateTotalScore() })
                 react_comp.state.auto_record_active = false
@@ -312,7 +294,7 @@ class Video extends Component {
         if (this.audioPlayer) this.audioPlayer.dispose();
     }
 
-    sendSpeech2Text(blob, startDurationMS){
+    sendSpeech2Text(blob, startDurationMS) {
         console.log('Sending blob to Speech2Text')
         var formData = new FormData();
         formData.append('file', blob)
@@ -348,7 +330,7 @@ class Video extends Component {
         })
     }
 
-    sendRecording(blob){
+    sendRecording(blob) {
         var formData = new FormData()
         formData.append('file', blob)
 
@@ -368,24 +350,24 @@ class Video extends Component {
                 }
             }).then(res => {
 
-                var data = JSON.stringify({"video":"https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a"});
+                var data = JSON.stringify({ "video": "https://stage-video.s3.amazonaws.com/bc710352-3922-493d-b2e7-d6d47d27cb2a" });
 
                 var config = {
-                  method: 'put',
-                  url: 'http://localhost:8001/actor-audition/6084204bdb649568101fede1',
-                  headers: { 
-                    'Content-Type': 'application/json'
-                  },
-                  data : data
+                    method: 'put',
+                    url: 'http://localhost:8001/actor-audition/6084204bdb649568101fede1',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
                 };
-                
+
                 axios(config)
-                .then(function (response) {
-                  console.log(JSON.stringify(response.data));
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+                    .then(function (response) {
+                        console.log(JSON.stringify(response.data));
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }).catch(error => {
                 console.log(error);
             })
@@ -396,32 +378,17 @@ class Video extends Component {
     }
 
     toggleAutoRecord() {
-        console.log("this is", this)
-        console.log("Toggling recording from", this.state.auto_record_active)
-        if (!this.state.auto_record_active) {
-            // Meaning we will now turn it on
-            this.currSessionBlobs = [];
-            this.startRecordTimestamp = new Date().getTime();
-        }else if(!this.speaking){
-            // About to turn off
-            this.sendRecording(new Blob(this.currSessionBlobs))
-        }
-        var react_comp = this
-        this.state.auto_record_active = true
         this.setState(state => {
-            if (react_comp.state.auto_record_active && !react_comp.videoPlayer.paused()) {
-                react_comp.videoPlayer.recordToggle.handleClick()
-            }
             return { auto_record_active: !state.auto_record_active }
         });
     }
+
     render() {
         const isFinishedText = this.state.finishedText;
         if (!this.state.finishedText) {
             return (
-
                 <div>
-                    <button onClick={this.toggleAutoRecord}>{this.state.auto_record_active ? "Stop" : "Start"}</button>
+                    <button onClick={this.toggleAutoRecord} hidden={this.state.auto_record_active}>{this.state.auto_record_active ? "Stop" : "Start"}</button>
                     <div data-vjs-player>
                         <video id="myVideo" ref={node => this.videoNode = node} className="video-js vjs-default-skin" playsInline></video>
                     </div>
@@ -431,27 +398,27 @@ class Video extends Component {
             );
         }
         else {
-            if (this.state.videoURL){
-            console.log(this.state.videoURL)
-            return (
-                <div>
-                    <p>{(this.state.finalScore)}</p>
-                    <p>Want to watch your audition?</p>
+            if (this.state.videoURL) {
+                console.log(this.state.videoURL)
+                return (
+                    <div>
+                        <p>{(this.state.finalScore)}</p>
+                        <p>Want to watch your audition?</p>
 
-                    <video controls>
-                        <source src={(this.state.videoURL)} type="video/mp4" />
+                        <video controls>
+                            <source src={(this.state.videoURL)} type="video/mp4" />
                              Your browser does not support the <code>video</code> element.
                             </video>
-                        </div>
-            )
+                    </div>
+                )
             }
 
-            else{
-                return(<p></p>)
+            else {
+                return (<p></p>)
             }
         }
-        }
     }
+}
 
 
 export default Video;

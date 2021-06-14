@@ -50,7 +50,7 @@ const Filming = (props) => {
     return (
         <div>
             <div style={video}>
-                <Video style={video}{...videoJsOptions} data={actor_id}></Video>
+                <Video style={video}{...videoJsOptions} data={props}></Video>
             </div>
         </div>
     )
