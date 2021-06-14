@@ -35,14 +35,14 @@ const getActors = (req, res) => {
         { $match: condition },
         {
             $lookup: {
-                from: "user",
+                from: "user",   
                 localField: "user_id",
                 foreignField: "_id",
                 as: "user_info"
             }
         }])
         .then(actors => res.json(actors))
-        .catch(err => res.status(400).json({ err: err }))
+        .catch(err => res.status(400).json({ error: err }))
 }
 
 const getActorByUserId = async (req, res) => {

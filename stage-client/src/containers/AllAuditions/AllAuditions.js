@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Banner from './Banner/Banner';
-import SearchBar from './Banner/SearchBar/SearchBar';
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -17,10 +16,8 @@ function AllAuditions(props) {
 	
 	return (
 		<DashboardLayout>
-			<Banner>
-				<SearchBar />
-			</Banner>
-			{props.actor ? <AuditionList /> : null}
+			<Banner/>
+			<AuditionList /> 
 		</DashboardLayout>
 	)
 }

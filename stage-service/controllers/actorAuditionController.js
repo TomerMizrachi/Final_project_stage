@@ -3,14 +3,15 @@ import s3 from '../config/S3connection.js'
 import config from '../config/env.js'
 import { v4 as uuid } from 'uuid'
 import { validateAAInput } from '../validation/aaValidation.js'
+import mongoose from 'mongoose'
 
 const { S3_BUCKET } = config
 
 const getAllAA = async (req, res) => {
     try {
-        if (req.query.DM){
+        if (req.query.DM) {
             console.log("dM")
-            const docs = await ActorAudition.find({"DM":req.query.DM})
+            const docs = await ActorAudition.find({ "DM": req.query.DM })
             return res.json(docs)
         }
 
@@ -36,19 +37,36 @@ const getAAById = async (req, res) => {
     }
 }
 
+// const getAAByActorId = async (req, res) => {
+//     console.log("actor id is reached")
+//     try {
+//         const docs = await ActorAudition.find({ actor_id: req.query.actor_id }, (err) => {
+//             if (err) throw err
+//         })
+//         if (!docs) throw {
+//             message: 'no content'
+//         }
+//         res.status(200).json(docs)
+//     } catch (err) {
+//         res.status(400).send(err)
+//     }
+// }
+
 const getAAByActorId = async (req, res) => {
-    console.log("actor id is reached")
-    try {
-        const docs = await ActorAudition.find({ actor_id: req.query.actor_id }, (err) => {
-            if (err) throw err
+    ActorAudition.aggregate([
+        { $match: { actor_id: mongoose.Types.ObjectId(req.query.actor_id) } },
+        {
+            $lookup: {
+                from: "audition",
+                localField: "audition_id",
+                foreignField: "_id",
+                as: "auditionInfo"
+            }
+        }])
+        .then(auditions => {
+            res.json(auditions)
         })
-        if (!docs) throw {
-            message: 'no content'
-        }
-        res.status(200).json(docs)
-    } catch (err) { 
-        res.status(400).send(err)
-    }
+        .catch(err => res.status(400).json({ error: err }))
 }
 
 const createAA = (req, res) => {
@@ -57,16 +75,29 @@ const createAA = (req, res) => {
     if (!isValid) {
         return res.status(400).json(errors)
     }
-    const newAA = new ActorAudition({
+    ActorAudition.findOne({
         audition_id: req.body.audition_id,
         actor_id: req.body.actor_id,
-        submitted: false,
-        score: "0",
         DM: req.body.DM
-    })
-    ActorAudition.create(newAA)
-        .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err }))
+    }).then(AA => {
+        if (AA) {
+            return res.status(400).json({
+                errors: "You already sent to this actor invataition to this audition",
+                actor: "This audition already added to trainer"
+            })
+        } else {
+            const newAA = new ActorAudition({
+                audition_id: req.body.audition_id,
+                actor_id: req.body.actor_id,
+                submitted: false,
+                score: "0",
+                DM: req.body.DM
+            })
+            ActorAudition.create(newAA)
+                .then(aa => res.json(aa))
+                .catch(err => res.status(400).json({ err: err }))
+        }
+    }).catch(err => res.status(400).json({ errors: err }))
 }
 
 const updateAA = (req, res) => {
@@ -79,17 +110,17 @@ const updateAA = (req, res) => {
     // if (req.body.video) {
     //     update.video = req.body.video
     // }
-    req.body.video? (ActorAudition.findOneAndUpdate(filter, {
+    req.body.video ? (ActorAudition.findOneAndUpdate(filter, {
         $push: {
             video: { $each: req.body.video, $positioin: 0 }
         }
     })
-    .then(aa => res.json(aa))
-    .catch(err => res.status(400).json({ err: err }))
-    ) : (
-    ActorAudition.findOneAndUpdate(filter, update)
         .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err })))
+        .catch(err => res.status(400).json({ err: err }))
+    ) : (
+            ActorAudition.findOneAndUpdate(filter, update)
+                .then(aa => res.json(aa))
+                .catch(err => res.status(400).json({ err: err })))
 }
 
 const deleteAA = (req, res) => {
@@ -107,7 +138,7 @@ const createS3Url = async (req, res) => {
             Expires: 300,
             ACL: 'public-read',
             ContentType: 'video/mp4'
-            
+
             // ContentType: 'video/x-matroska'
         }, function (err, signedURL) {
             if (err) {

@@ -30,25 +30,26 @@ export const UpdateProfile = (actor) => dispatch => {
 }
 export const getMyAuditions = (actor_id) => dispatch => {
     console.log("actor_id", actor_id)
+    let auditions
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
-        .then(res => res.data)
-        .then(data => {
-            let auditions = data
-            auditions.forEach(element => {
-                axios
-                    .get("/audition/actor", { params: { audition_id: element.audition_id } })
-                    .then(res => {
-                        element.auditionInfo = res.data
-                    })
-                    .then(res => {
-                        dispatch({
-                            type: SET_AUDITIONS,
-                            payload: auditions
-                        })
-                    })
+        // .then(res => res.data)
+        // .then(data => {
+        //     auditions = data
+        //     auditions.forEach(element => {
+        //         axios
+        //             .get("/audition/actor", { params: { audition_id: element.audition_id } })
+        //             .then(res => {
+        //                 element.auditionInfo = res.data
+        //             })
+        //     })
+        // })
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: SET_AUDITIONS,
+                payload: res.data
             })
-
         })
         .catch(err => {
             dispatch({
@@ -91,6 +92,7 @@ export const getMyRelevantAuditions = (params) => dispatch => {
     axios
         .get("audition/getRelevantAuditions", { params: params })
         .then(res => {
+            console.log(res.data)
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,
                 payload: res.data

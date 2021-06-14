@@ -63,11 +63,63 @@ const getRelevantAuditions = (req, res) => {
 
     dot.keepArray = true
     var tgt = dot.dot({ typecast: condition.typecast })
+    console.log(tgt)
     Audition.find(tgt)
         .then(auditions => res.json(auditions))
         .catch(err => res.status(400).json({ err: err }))
 
 }
+
+// const getRelevantAuditions = (req, res) => {
+//     let typecast = {}
+//     if (req.query.age) {
+//         let ageStr = ''
+//         let age = Number(req.query.age)
+//         let i = 15
+//         while (i < 95) {
+//             if (age >= i && age < i + 6)
+//                 ageStr = '' + i + ' - ' + (i + 5) + ''
+//             i = i + 5
+//         }
+//         typecast.age = ageStr
+//     }
+//     if (req.query.height) {
+//         let heightStr = ''
+//         let height = Number(req.query.height)
+//         if (height >= 0 && height <= 150)
+//             heightStr = '150 - 160'
+//         if (height > 150 && height <= 160)
+//             heightStr = '150 - 160'
+//         if (height > 160 && height <= 170)
+//             heightStr = '160 - 170'
+//         if (height > 170 && height <= 180)
+//             heightStr = '170 - 180'
+//         if (height > 180 && height <= 190)
+//             heightStr = '180 - 190'
+//         if (height > 190 && height <= 200)
+//             heightStr = '190 - 200'
+//         if (height > 200 && height <= 210)
+//             heightStr = '200 - 210'
+//         typecast.height = heightStr
+//     }
+//     if (req.query.gender)
+//         typecast.gender = req.query.gender
+//     if (req.query.body_structure)
+//         typecast.body_structure = req.query.body_structure
+//     if (req.query.hair)
+//         typecast.hair = req.query.hair
+//     if (req.query.eyes)
+//         typecast.eyes = req.query.eyes
+//     if (req.query.skills)
+//         typecast.skills = { $all: req.query.skills }
+//     if (req.query.languages)
+//         typecast.languages = { $all: req.query.languages }
+
+//     Audition.find({ typecast: typecast })
+//         .then(auditions => res.json(auditions))
+//         .catch(err => res.status(400).json({ err: err }))
+
+// }
 
 const getAuditionById = async (req, res) => {
     console.log("audition id has reached")

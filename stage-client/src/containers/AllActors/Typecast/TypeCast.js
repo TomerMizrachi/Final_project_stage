@@ -32,7 +32,6 @@ function Typecast(props) {
         if (isFirstRun.current) {
             isFirstRun.current = false
             props.myAuditions(props.auth.user.id)
-
             return;
         }
         setErrors({ errors: props.errors })

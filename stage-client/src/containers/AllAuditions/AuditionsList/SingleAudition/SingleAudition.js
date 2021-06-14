@@ -42,8 +42,8 @@ function SingleAudition(props) {
 						<Grid item className="recruitment-details" md>{audition.type}</Grid>
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
+					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
+					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
 
 					</Grid>
 					{modal ? (<Grid item className="audition-content" md>

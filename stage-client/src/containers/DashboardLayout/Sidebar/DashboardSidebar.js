@@ -22,7 +22,7 @@ function DashboardSidebar(props) {
 				<div className="user-details">
 					<div className="name">{props.auth.user.name}</div>
 					<div className="role">Actor</div>
-					<NavLink to="/" onClick={onClick} size xs>Logout</NavLink>
+					<NavLink to="/" onClick={onClick}>Logout</NavLink>
 				</div>
 				</Box>
 

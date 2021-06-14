@@ -26,11 +26,9 @@ function SingleActor(props) {
     }
 
     const actorProfile = e => {
-        console.log("profileClice", e)
         e.preventDefault()
         props.history.push({
 			pathname: '/present',
-			// search: '?query=abc',
 			state: { actor: actor }})
     }
 

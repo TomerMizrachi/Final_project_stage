@@ -12,7 +12,7 @@ function Banner() {
 						<h2 className="title">
 							<span>Find your dream auditions</span>
 							<span className="text-accent">through Stage</span>
-							<SearchBar></SearchBar>
+							{/* <SearchBar></SearchBar> */}
 
 						</h2>
 					</div>

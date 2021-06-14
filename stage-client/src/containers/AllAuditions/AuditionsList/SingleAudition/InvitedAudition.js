@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import StyledFeaturedActorAudition from './SingleAudition.styles';
-import { Button, LinkButton, IconButton } from '@components/uielements/Button/Button';
+import { Button, IconButton } from '@components/uielements/Button/Button';
 import { registerToAudition } from '@actions/actorActions'
 import { Grid } from '@material-ui/core';
 import { withRouter } from 'react-router-dom'
@@ -14,9 +14,10 @@ function useToggle(initialState) {
 	return [value, toggle];
 };
 function SingleAudition(props) {
+	console.log(props)
 	const { audition } = props;
 	const [modal, setModal] = useToggle(false);
-	const typecastArr = Object.values(audition.auditionInfo.typecast)
+	const typecastArr = Object.values(audition.auditionInfo[0].typecast)
 	const onClick = e => {
 		e.preventDefault()
 		props.history.push("/dashboard/trainer")
@@ -26,25 +27,25 @@ function SingleAudition(props) {
 			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
 					<Grid item className="audition-content" md>
-						<div className="audition-name heading4">{audition.auditionInfo.name}</div>
-						<div className="audition-name text-accent">{audition.auditionInfo.role}</div>
+						<div className="audition-name heading4">{audition.auditionInfo[0].name}</div>
+						<div className="audition-name text-accent">{audition.auditionInfo[0].role}</div>
 					</Grid>
 					<IconButton className="success static offset-right-sm">
 						<i className="material-icons">event</i>
 					</IconButton>
 					<Grid item className="audition-content" md>
-						<Grid item className="recruitment-details" md>{audition.auditionInfo.due_date}</Grid>
+						<Grid item className="recruitment-details" md>{audition.auditionInfo[0].due_date}</Grid>
 						<Grid item className="recruitment-details subtitle">End of recruitment</Grid>
 					</Grid>
 					<IconButton className="orange static offset-right-sm">
 						<i className="material-icons">description</i>
 					</IconButton>
 					<Grid item className="audition-content" md>
-						<Grid item className="recruitment-details" md>{audition.auditionInfo.type}</Grid>
+						<Grid item className="recruitment-details" md>{audition.auditionInfo[0].type}</Grid>
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Go to trainer</Button></Grid>
-					<Grid item className="ctas" rtl><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
+					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Go to trainer</Button></Grid>
+					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
 
 					</Grid>
 					{modal ? (<Grid item className="audition-content" md>

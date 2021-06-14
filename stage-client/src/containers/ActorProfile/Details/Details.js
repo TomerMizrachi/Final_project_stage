@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Grid, TextField, MenuItem, FormGroup, Box } from '@material-ui/core'
+import { Grid, TextField, MenuItem, FormGroup } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -32,7 +32,6 @@ function Details(props) {
     }, [props.errors])
 
     useEffect(() => {
-        console.log(props)
         setId(props.actor.profile._id)
         setAge(props.actor.profile.age)
         setHeight(props.actor.profile.height)
