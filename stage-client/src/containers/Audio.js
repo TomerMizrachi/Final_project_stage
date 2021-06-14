@@ -212,14 +212,14 @@ export default class Aud extends Component {
             if (!this.state.finishedText) {
                 return (
                     <div>
-                        <p>{this.state.entireText[this.state.currentLineIterator]}</p>
+                        <span style={{ display: "block" }}>{this.state.entireText[this.state.currentLineIterator]}</span>
                         <AudioAnalyser {...audioProps}>
                             <div className="btn-box">
                                 {this.state.conversationStarted == false &&
                                     <button onClick={() => this.controlAudio("recording")}>record</button>
                                 }
                                 {this.state.errorMessage != "" &&
-                                    <p>{this.state.errorMessage}</p>
+                                    <span style={{ display: "block" }}>{this.state.errorMessage}</span>
                                 }
                             </div>
                         </AudioAnalyser>
