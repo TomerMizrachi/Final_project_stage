@@ -44,13 +44,14 @@ function AuditionList(props) {
 			body_structure: props.actor.profile.body_structure,
 			hair: props.actor.profile.hair,
 			eyes: props.actor.profile.eyes,
+			skills: props.actor.profile.skills,
+			languages: props.actor.profile.languages
 		}
 		console.log(params)
 		props.getMyRelevantAuditions(params)
 	}, [props.actor.profile])
 
 	return (
-
 		<div className="container">
 			<Box className="header" mb={5}>
 				<Grid container justify="space-between" alignItems="flex-end" spacing={4}>

@@ -90,10 +90,11 @@ export const registerToAudition = (actor_id, audition_id) => dispatch => {
 }
 
 export const getMyRelevantAuditions = (params) => dispatch => {
+    console.log(params)
+
     axios
         .get("audition/getRelevantAuditions", { params: params })
         .then(res => {
-            console.log(res.data)
             dispatch({
                 type: GET_RELEVANT_AUDITIONS,
                 payload: res.data

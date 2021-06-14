@@ -12,68 +12,12 @@ const getAuditions = async (req, res) => {
     }
 }
 
-const getRelevantAuditions = (req, res) => {
-    var dot = require('dot-object')
-    console.log("res",req)
-    let condition = {}
-    let typecast = {}
-    condition.typecast = typecast
-    if (req.query.age) {
-        let ageStr = ''
-        let age = Number(req.query.age)
-        let i = 15
-        while (i < 95) {
-            if (age >= i && age < i + 6)
-                ageStr = '' + i + ' - ' + (i + 5) + ''
-            i = i + 5
-        }
-        condition.typecast.age = ageStr
-    }
-    if (req.query.height) {
-        let heightStr = ''
-        let height = Number(req.query.height)
-        if (height >= 0 && height <= 150)
-            heightStr = '150 - 160'
-        if (height > 150 && height <= 160)
-            heightStr = '150 - 160'
-        if (height > 160 && height <= 170)
-            heightStr = '160 - 170'
-        if (height > 170 && height <= 180)
-            heightStr = '170 - 180'
-        if (height > 180 && height <= 190)
-            heightStr = '180 - 190'
-        if (height > 190 && height <= 200)
-            heightStr = '190 - 200'
-        if (height > 200 && height <= 210)
-            heightStr = '200 - 210'
-        condition.typecast.height = heightStr
-    }
-    if (req.query.gender)
-        condition.typecast.gender = req.query.gender
-    if (req.query.body_structure)
-        condition.typecast.body_structure = req.query.body_structure
-    if (req.query.hair)
-        condition.typecast.hair = req.query.hair
-    if (req.query.eyes)
-        condition.typecast.eyes = req.query.eyes
-    if (req.query.skills)
-        condition.typecast.skills = { $all: req.query.skills }
-    if (req.query.languages)
-        condition.typecast.languages = { $all: req.query.languages }
-
-
-    dot.keepArray = true
-    var tgt = dot.dot({ typecast: condition.typecast })
-    //used for testing- DELETE BEFORE DEPLOY
-    tgt={}
-    Audition.find(tgt)
-        .then(auditions => res.json(auditions))
-        .catch(err => res.status(400).json({ err: err }))
-
-}
-
 // const getRelevantAuditions = (req, res) => {
+//     var dot = require('dot-object')
+//     console.log("res",req)
+//     let condition = {}
 //     let typecast = {}
+//     condition.typecast = typecast
 //     if (req.query.age) {
 //         let ageStr = ''
 //         let age = Number(req.query.age)
@@ -83,7 +27,7 @@ const getRelevantAuditions = (req, res) => {
 //                 ageStr = '' + i + ' - ' + (i + 5) + ''
 //             i = i + 5
 //         }
-//         typecast.age = ageStr
+//         condition.typecast.age = ageStr
 //     }
 //     if (req.query.height) {
 //         let heightStr = ''
@@ -102,26 +46,131 @@ const getRelevantAuditions = (req, res) => {
 //             heightStr = '190 - 200'
 //         if (height > 200 && height <= 210)
 //             heightStr = '200 - 210'
-//         typecast.height = heightStr
+//         condition.typecast.height = heightStr
 //     }
 //     if (req.query.gender)
-//         typecast.gender = req.query.gender
+//         condition.typecast.gender = req.query.gender
 //     if (req.query.body_structure)
-//         typecast.body_structure = req.query.body_structure
+//         condition.typecast.body_structure = req.query.body_structure
 //     if (req.query.hair)
-//         typecast.hair = req.query.hair
+//         condition.typecast.hair = req.query.hair
 //     if (req.query.eyes)
-//         typecast.eyes = req.query.eyes
+//         condition.typecast.eyes = req.query.eyes
 //     if (req.query.skills)
-//         typecast.skills = { $all: req.query.skills }
+//         condition.typecast.skills = { $all: req.query.skills }
 //     if (req.query.languages)
-//         typecast.languages = { $all: req.query.languages }
+//         condition.typecast.languages = { $all: req.query.languages }
 
-//     Audition.find({ typecast: typecast })
+//     dot.keepArray = true
+//     var tgt = dot.dot({ typecast: condition.typecast })
+//     //used for testing- DELETE BEFORE DEPLOY
+//     tgt={}
+//     Audition.find(tgt)
 //         .then(auditions => res.json(auditions))
 //         .catch(err => res.status(400).json({ err: err }))
-
 // }
+
+
+const getRelevantAuditions = (req, res) => {
+    let relevant = []
+    let typecast = {}
+    if (req.query.age) {
+        let ageStr = ''
+        let age = Number(req.query.age)
+        let i = 15
+        while (i < 95) {
+            if (age >= i && age < i + 6)
+                ageStr = '' + i + ' - ' + (i + 5) + ''
+            i = i + 5
+        }
+        typecast.age = ageStr
+    }
+    if (req.query.height) {
+        let heightStr = ''
+        let height = Number(req.query.height)
+        if (height >= 0 && height <= 150)
+            heightStr = '150 - 160'
+        if (height > 150 && height <= 160)
+            heightStr = '150 - 160'
+        if (height > 160 && height <= 170)
+            heightStr = '160 - 170'
+        if (height > 170 && height <= 180)
+            heightStr = '170 - 180'
+        if (height > 180 && height <= 190)
+            heightStr = '180 - 190'
+        if (height > 190 && height <= 200)
+            heightStr = '190 - 200'
+        if (height > 200 && height <= 210)
+            heightStr = '200 - 210'
+        typecast.height = heightStr
+    }
+    if (req.query.gender)
+        typecast.gender = req.query.gender
+    if (req.query.body_structure)
+        typecast.body_structure = req.query.body_structure
+    if (req.query.hair)
+        typecast.hair = req.query.hair
+    if (req.query.eyes)
+        typecast.eyes = req.query.eyes
+    if (req.query.skills)
+        typecast.skills = req.query.skills
+    if (req.query.languages)
+        typecast.languages = req.query.languages
+    Audition.find({})
+        .then(auditions => {
+            let matchScore = 0
+            let audFieldLength = 0
+            let matchField = 0
+            auditions.map((audition) => {
+                if (audition.name == "The root") {
+                    console.log(audition)
+                }
+                matchScore = 0
+                if (audition.typecast.age == typecast.age)
+                    matchScore += 1
+                if (audition.typecast.height == typecast.height)
+                    matchScore += 1
+                if (audition.typecast.gender == typecast.gender) {
+                    matchScore += 1
+                } else { matchScore -= 3 }
+                if (audition.typecast.body_structure == typecast.body_structure)
+                    matchScore += 1
+                if (audition.typecast.hair == typecast.hair)
+                    matchScore += 1
+                if (audition.typecast.eyes == typecast.eyes)
+                    matchScore += 1
+                if (typecast.skills && audition.typecast.skills) {
+                    audFieldLength = audition.typecast.skills.length
+                    matchField = 0
+                    typecast.skills.map(item => {
+                        if (audition.typecast.skills.includes(item))
+                            matchField += 1
+                    })
+                    if (matchField / audFieldLength > 0.3)
+                        matchScore += 1
+                }
+                if (typecast.languages && audition.typecast.languages) {
+                    audFieldLength = audition.typecast.languages.length
+                    matchField = 0
+                    typecast.languages.map(item => {
+                        if (audition.typecast.languages.includes(item))
+                            matchField += 1
+                    })
+                    if (matchField / audFieldLength > 0.3)
+                        matchScore += 1
+                }
+                console.log(audition.name, matchScore)
+                if (matchScore > 4) {
+                    relevant.push(audition)
+                }
+            })
+            res.json(relevant)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json({ error: err })
+        })
+}
 
 const getAuditionById = async (req, res) => {
     console.log("audition id has reached")
