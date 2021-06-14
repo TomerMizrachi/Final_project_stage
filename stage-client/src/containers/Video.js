@@ -18,9 +18,8 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-        console.log(this)
         this.state = {
-            actor_id: props.data.actor_id,
+            actor_id: props.data.audition.actor_id,
             auto_record_active: false,
             status: "",
             entireText: "",
@@ -265,10 +264,10 @@ class Video extends Component {
                 react_comp.setState((state) => {
                     return { finishedText: true }
                 });
-                var data = JSON.stringify({ "video": `https://stage-video.s3.amazonaws.com/${react_comp.actor_id}` });
+                var data = JSON.stringify({ "video": react_comp.state.videoURL });
                 var config = {
                     method: 'put',
-                    url: `http://localhost:8001/actor-audition/${react_comp.actor_id}`,
+                    url: `http://localhost:8001/actor-audition/${react_comp.state.actor_id}`,
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -343,8 +342,8 @@ class Video extends Component {
                 console.log(this.state.videoURL)
                 return (
                     <div>
-                        <p>{(this.state.finalScore)}</p>
-                        <p>Want to watch your audition?</p>
+                        <span style={{ display: "block" }}>{(this.state.finalScore)}</span>
+                        <span style={{ display: "block" }}>Want to watch your audition?</span>
 
                         <video controls>
                             <source src={(this.state.videoURL)} type="video/mp4" />
@@ -355,7 +354,7 @@ class Video extends Component {
             }
 
             else {
-                return (<p></p>)
+                return (<span></span>)
             }
         }
     }
