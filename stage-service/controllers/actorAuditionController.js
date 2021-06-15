@@ -90,7 +90,7 @@ const createAA = (req, res) => {
                 audition_id: req.body.audition_id,
                 actor_id: req.body.actor_id,
                 submitted: false,
-                score: "0",
+                score: 0,
                 DM: req.body.DM
             })
             ActorAudition.create(newAA)
@@ -107,20 +107,21 @@ const updateAA = (req, res) => {
         update.submitted = req.body.submitted
     if (req.body.score)
         update.score = req.body.score
-    // if (req.body.video) {
-    //     update.video = req.body.video
-    // }
-    req.body.video ? (ActorAudition.findOneAndUpdate(filter, {
-        $push: {
-            video: { $each: req.body.video, $positioin: 0 }
-        }
-    })
-        .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err }))
-    ) : (
-            ActorAudition.findOneAndUpdate(filter, update)
-                .then(aa => res.json(aa))
-                .catch(err => res.status(400).json({ err: err })))
+    if (req.body.video) {
+        ActorAudition.findOneAndUpdate(filter, {
+            $push: {
+                videos: req.body.video
+            }
+        }, {
+            new: true // return the object after the update
+        })
+            .then(aa => res.json(aa))
+            .catch(err => res.status(400).json({ error: err }))    // }
+    } else {
+        ActorAudition.findOneAndUpdate(filter, update)
+            .then(aa => res.json(aa))
+            .catch(err => res.status(400).json({ error: err }))
+    }
 }
 
 const deleteAA = (req, res) => {
