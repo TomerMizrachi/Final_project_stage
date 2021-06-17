@@ -12,63 +12,6 @@ const getAuditions = async (req, res) => {
     }
 }
 
-// const getRelevantAuditions = (req, res) => {
-//     var dot = require('dot-object')
-//     console.log("res",req)
-//     let condition = {}
-//     let typecast = {}
-//     condition.typecast = typecast
-//     if (req.query.age) {
-//         let ageStr = ''
-//         let age = Number(req.query.age)
-//         let i = 15
-//         while (i < 95) {
-//             if (age >= i && age < i + 6)
-//                 ageStr = '' + i + ' - ' + (i + 5) + ''
-//             i = i + 5
-//         }
-//         condition.typecast.age = ageStr
-//     }
-//     if (req.query.height) {
-//         let heightStr = ''
-//         let height = Number(req.query.height)
-//         if (height >= 0 && height <= 150)
-//             heightStr = '150 - 160'
-//         if (height > 150 && height <= 160)
-//             heightStr = '150 - 160'
-//         if (height > 160 && height <= 170)
-//             heightStr = '160 - 170'
-//         if (height > 170 && height <= 180)
-//             heightStr = '170 - 180'
-//         if (height > 180 && height <= 190)
-//             heightStr = '180 - 190'
-//         if (height > 190 && height <= 200)
-//             heightStr = '190 - 200'
-//         if (height > 200 && height <= 210)
-//             heightStr = '200 - 210'
-//         condition.typecast.height = heightStr
-//     }
-//     if (req.query.gender)
-//         condition.typecast.gender = req.query.gender
-//     if (req.query.body_structure)
-//         condition.typecast.body_structure = req.query.body_structure
-//     if (req.query.hair)
-//         condition.typecast.hair = req.query.hair
-//     if (req.query.eyes)
-//         condition.typecast.eyes = req.query.eyes
-//     if (req.query.skills)
-//         condition.typecast.skills = { $all: req.query.skills }
-//     if (req.query.languages)
-//         condition.typecast.languages = { $all: req.query.languages }
-
-//     dot.keepArray = true
-//     var tgt = dot.dot({ typecast: condition.typecast })
-//     //used for testing- DELETE BEFORE DEPLOY
-//     tgt={}
-//     Audition.find(tgt)
-//         .then(auditions => res.json(auditions))
-//         .catch(err => res.status(400).json({ err: err }))
-// }
 
 
 const getRelevantAuditions = (req, res) => {

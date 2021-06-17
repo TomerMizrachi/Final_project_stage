@@ -1,6 +1,15 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose;
 
+const video = new Schema({
+    videoUrl: String,
+    similarity: Number,
+    exact: Number
+},
+    { timestamps: true }
+)
+// explanation on timesatmps
+//  https://masteringjs.io/tutorials/mongoose/timestamps
 
 const actor_audition = {
     audition_id: Schema.Types.ObjectId,
