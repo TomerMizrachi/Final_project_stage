@@ -110,17 +110,20 @@ const updateAA = (req, res) => {
     // if (req.body.video) {
     //     update.video = req.body.video
     // }
-    req.body.video ? (ActorAudition.findOneAndUpdate(filter, {
-        $push: {
-            video: { $each: req.body.video, $positioin: 0 }
-        }
-    })
-        .then(aa => res.json(aa))
-        .catch(err => res.status(400).json({ err: err }))
-    ) : (
-            ActorAudition.findOneAndUpdate(filter, update)
-                .then(aa => res.json(aa))
-                .catch(err => res.status(400).json({ err: err })))
+    if (req.body.video) {
+        console.log(req.body)
+        ActorAudition.findOneAndUpdate(filter, {
+            $push: {
+                videos: { $each: req.body.video, $positioin: 0 }
+            }
+        })
+            .then(aa => res.json(aa))
+            .catch(err => res.status(400).json({ err: err }))
+    } else {
+        ActorAudition.findOneAndUpdate(filter, update)
+            .then(aa => res.json(aa))
+            .catch(err => res.status(400).json({ err: err }))
+    }
 }
 
 const deleteAA = (req, res) => {

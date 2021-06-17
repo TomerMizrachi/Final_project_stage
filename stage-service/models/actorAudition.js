@@ -6,8 +6,9 @@ const actor_audition = {
     audition_id: Schema.Types.ObjectId,
     actor_id: Schema.Types.ObjectId,
     submitted: Boolean,
+    submittedVideo: String,
     score: String,
-    video: [String], // s3 link
+    videos: [String], // s3 link
     DM: Boolean // Direct Message 
 }
 
