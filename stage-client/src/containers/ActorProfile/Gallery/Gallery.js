@@ -21,6 +21,7 @@ function Gallery(props) {
 
     const [open, setOpen] = useState(false)
     const [fileObjects, setFileObjects] = useState([])
+    const [deleteFileObj, setDeleteFileObj] = useState([])
 
     const dialogTitle = () => (
         <>
@@ -32,31 +33,8 @@ function Gallery(props) {
             </IconButton>
         </>
     );
-    const deletePicture = (deleteFileObj) => {
-        console.log(deleteFileObj)
-        delete axios.defaults.headers.common['Authorization']
-        axios({
-            method: "delete",
-            url: "http://localhost:8001/actor/deleteFromS3",
-            data: JSON.stringify({ "picture": deleteFileObj })
-        }).then(function (response) {
-            var data = JSON.stringify({ "urlPic": deleteFileObj, "id": props.auth.user.actor_id });
-            axios({
-                method: "put",
-                url: "http://localhost:8001/actor/deletePic",
-                data: data,
-            }).then(res => {
-                console.log("image was deteled");
-            }).catch(error => {
-                console.log(error);
-            })
-        }).catch(function (error) {
-            console.log(error);
-        })
-        console.log("delete video", deleteFileObj)
-    }
 
-    const uploadVideo = (fileObjects) => {
+    const uploadImage = (fileObjects) => {
         fileObjects.map((fileObject) => {
             const formData = new FormData();
             formData.append("file", fileObject.file);
@@ -100,7 +78,7 @@ function Gallery(props) {
                 console.log(error);
             })
         })
-        console.log("upload video", fileObjects)
+        console.log("upload image", fileObjects)
     }
 
     return (
@@ -121,8 +99,8 @@ function Gallery(props) {
                             <DropzoneDialogBase
                                 dialogTitle={dialogTitle()}
                                 acceptedFiles={['image/*']}
-                                // acceptedFiles={['video/*']}
                                 fileObjects={fileObjects}
+                                deleteFileObj={deleteFileObj}
                                 cancelButtonText={"cancel"}
                                 submitButtonText={"submit"}
                                 maxFileSize={5000000}
@@ -131,14 +109,13 @@ function Gallery(props) {
                                     console.log('onAdd', newFileObjs);
                                     setFileObjects([].concat(fileObjects, newFileObjs));
                                 }}
-                                onDelete={deleteFileObj => {
-                                    deletePicture(deleteFileObj)
+                                onDelete={() => {
                                     console.log('onDelete', deleteFileObj);
                                 }}
                                 onClose={() => setOpen(false)}
                                 onSave={() => {
                                     console.log('onSave', fileObjects);
-                                    uploadVideo(fileObjects)
+                                    uploadImage(fileObjects)
                                     setOpen(false);
                                 }}
                                 showPreviews={true}
@@ -150,7 +127,7 @@ function Gallery(props) {
                                 <Grid container spacing={4}>
                                     {pictures ? (pictures.map((picture, index) => (
                                         <Grid item key={index} xs={3}>
-                                            <PicBox picture={picture} />
+                                            <PicBox picture={picture} actor_id={props.auth.user.actor_id} />
                                         </Grid>
                                     ))) : (<Grid item className="align">
                                         <div className="heading4">You uploaded no pictures</div>

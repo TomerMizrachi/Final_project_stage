@@ -124,7 +124,7 @@ function ShowReal(props) {
                                 <Grid container spacing={4}>
                                     {videos && videos.map((video, index) => (
                                         <Grid item key={index} xs={6}>
-                                            <VideoBox video={video} />
+                                            <VideoBox video={video} actor_id={props.auth.user.actor_id} />
                                         </Grid>
                                     ))}
                                 </Grid>
