@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { DropzoneDialogBase } from 'material-ui-dropzone'
 import axios from 'axios'
+import fs from 'fs'
 
 function Gallery(props) {
     const [pictures, setPictures] = useState([])
@@ -33,6 +34,9 @@ function Gallery(props) {
     );
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
+            const formData = new FormData();
+            formData.append("file", fileObject.file);
+            console.log(formData.get("file"))
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor/get_signed_url",
@@ -43,9 +47,9 @@ function Gallery(props) {
                 axios({
                     method: "put",
                     url: postURL,
-                    data: fileObject.data,
+                    data: formData.get("file"),
                     headers: {
-                        'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                        'Content-Type': 'image/png', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
                     console.log("Response from s3", res)
