@@ -33,11 +33,11 @@ function ShowReal(props) {
     );
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
-            let formData = new FormData()
-            formData.append('file', fileObject)
+            const formData = new FormData();
+            formData.append("file", fileObject.file);
             axios({
                 method: "get",
-                url: "http://localhost:8001/actor/get_signed_url",
+                url: "http://localhost:8001/actor-audition/get_signed_url",
             }).then(function (response) {
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
@@ -47,7 +47,7 @@ function ShowReal(props) {
                     url: postURL,
                     data: formData.get('file'),
                     headers: {
-                        'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                        'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
                     console.log("Response from s3", res)
