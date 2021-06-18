@@ -20,7 +20,6 @@ function ShowReal(props) {
 
     const [open, setOpen] = useState(false)
     const [fileObjects, setFileObjects] = useState([])
-    console.log(props)
     const dialogTitle = () => (
         <>
             <span>Upload file</span>

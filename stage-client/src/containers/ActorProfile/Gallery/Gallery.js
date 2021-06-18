@@ -32,6 +32,30 @@ function Gallery(props) {
             </IconButton>
         </>
     );
+    const deletePicture = (deleteFileObj) => {
+        console.log(deleteFileObj)
+        delete axios.defaults.headers.common['Authorization']
+        axios({
+            method: "delete",
+            url: "http://localhost:8001/actor/deleteFromS3",
+            data: JSON.stringify({ "picture": deleteFileObj })
+        }).then(function (response) {
+            var data = JSON.stringify({ "urlPic": deleteFileObj, "id": props.auth.user.actor_id });
+            axios({
+                method: "put",
+                url: "http://localhost:8001/actor/deletePic",
+                data: data,
+            }).then(res => {
+                console.log("image was deteled");
+            }).catch(error => {
+                console.log(error);
+            })
+        }).catch(function (error) {
+            console.log(error);
+        })
+        console.log("delete video", deleteFileObj)
+    }
+
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
             const formData = new FormData();
@@ -108,6 +132,7 @@ function Gallery(props) {
                                     setFileObjects([].concat(fileObjects, newFileObjs));
                                 }}
                                 onDelete={deleteFileObj => {
+                                    deletePicture(deleteFileObj)
                                     console.log('onDelete', deleteFileObj);
                                 }}
                                 onClose={() => setOpen(false)}
