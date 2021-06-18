@@ -36,7 +36,6 @@ function Gallery(props) {
         fileObjects.map((fileObject) => {
             const formData = new FormData();
             formData.append("file", fileObject.file);
-            console.log(formData.get("file"))
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor/get_signed_url",
@@ -52,7 +51,22 @@ function Gallery(props) {
                         'Content-Type': 'image/png', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    console.log("Response from s3", res)
+                    var data = JSON.stringify({ "pictures": getURL, "id": props.auth.user.actor_id });
+                    var config = {
+                        method: 'put',
+                        url: "http://localhost:8001/actor/uploadPics",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                     // this.setState({ success: true });
                 }).catch(error => {
                     console.log(error);

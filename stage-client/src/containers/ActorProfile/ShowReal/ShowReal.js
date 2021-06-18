@@ -20,7 +20,7 @@ function ShowReal(props) {
 
     const [open, setOpen] = useState(false)
     const [fileObjects, setFileObjects] = useState([])
-
+    console.log(props)
     const dialogTitle = () => (
         <>
             <span>Upload file</span>
@@ -50,7 +50,23 @@ function ShowReal(props) {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    console.log("Response from s3", res)
+                    var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id });
+                    console.log(props.auth.user.actor_id, "klkk")
+                    var config = {
+                        method: 'put',
+                        url: "http://localhost:8001/actor/uploadVideos",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                     // this.setState({ success: true });
                 }).catch(error => {
                     console.log(error);
