@@ -4,6 +4,7 @@ import config from '../config/env.js'
 import { v4 as uuid } from 'uuid'
 import { validateAAInput } from '../validation/aaValidation.js'
 import mongoose from 'mongoose'
+import Audition from '../models/audition.js'
 
 const { S3_BUCKET } = config
 
@@ -35,6 +36,44 @@ const getAAById = async (req, res) => {
     } catch (err) {
         res.status(400).send(err)
     }
+}
+
+const getSubmmited = async (req, res) => {
+    Audition.aggregate([
+        { $match: { recruiter_id: mongoose.Types.ObjectId(req.query.id) } },
+        {
+            $lookup: {
+                from: "actor_audition",
+                let: { audition_id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $and: [{ $eq: ["$audition_id", "$$audition_id"] },
+                            { $eq: ["$submitted", true] }]
+                        }
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "actor",
+                        localField: "actor_id",
+                        foreignField: "_id",
+                        as: "actorInfo"
+                    }
+                }
+                ],
+                as: "actor_audition"
+            },
+        }])
+        .then(submitted => {
+            let result = []
+                submitted.map((audition)=>{
+                    if(audition.actor_audition.length > 0){
+                        result.push(audition)
+                    }
+                })
+            res.json(result)})
+        .catch(err => res.status(400).json({ error: err }))
 }
 
 // const getAAByActorId = async (req, res) => {
@@ -158,4 +197,4 @@ const createS3Url = async (req, res) => {
     }
 }
 
-export { getAllAA, getAAById, getAAByActorId, createAA, updateAA, deleteAA, createS3Url }
+export { getAllAA, getAAById, getSubmmited, getAAByActorId, createAA, updateAA, deleteAA, createS3Url }

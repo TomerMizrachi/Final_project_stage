@@ -18,7 +18,6 @@ function AuditionList(props) {
 		setList(event.target.value)
 	}
 	useEffect(() => {
-		console.log("what happend")
 		props.getMyAuditions(props.auth.user.actor_id)
 	}, [])
 
@@ -33,7 +32,6 @@ function AuditionList(props) {
 	useEffect(() => {
 		console.log(props)
 		if (isFirstRun.current) {
-			console.log("first time")
 			isFirstRun.current = false;
 			return;
 		}
@@ -78,11 +76,14 @@ function AuditionList(props) {
 						<SingleAudition audition={audition} />
 					</Grid>
 				)) :
-					props.actor.auditions.map((audition, index) => (
-						<Grid item key={index} className="featured-audition" xs={12}>
-							<InvitedAudition audition={audition} />
-						</Grid>
-					))}
+					props.actor.auditions.map((audition, index) => {
+						if (audition.DM) {
+							return (<Grid item key={index} className="featured-audition" xs={12}>
+								<InvitedAudition audition={audition} />
+							</Grid>
+							)
+						}
+					})}
 			</Grid>
 		</div>
 	)

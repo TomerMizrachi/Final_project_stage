@@ -45,6 +45,12 @@ function RecruiterSidebar(props) {
 							<span>Publish Audition</span>
 						</NavLink>
 					</Grid>
+					<Grid item>
+						<NavLink to="/submitted" exact activeClassName="active">
+							<i className="material-icons">tv</i>
+							<span>Submitted Auditions</span>
+						</NavLink>
+					</Grid>
 				</Grid>
 			</div>
 		</StyledDashboardSidebar>

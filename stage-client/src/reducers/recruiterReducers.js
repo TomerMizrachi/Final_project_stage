@@ -1,8 +1,9 @@
-import { SET_ACTORS, SET_REC_AUDITIONS, SET_DM } from '../actions/types'
+import { SET_ACTORS, SET_REC_AUDITIONS, SET_DM, SET_SUBMITTED } from '../actions/types'
 
 const initialState = {
     actors: [],
     auditions: [],
+    submitted: [],
     DM: false
 }
 
@@ -22,6 +23,11 @@ export default function recruiterReducer(state = initialState, action) {
             return {    
                 ...state,
                 DM: action.payload
+            }
+        case SET_SUBMITTED:
+            return{
+                ...state,
+                submitted: action.payload
             }
         default:
             return state

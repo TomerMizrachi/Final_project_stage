@@ -82,6 +82,11 @@ export const PrivateRoutes = [
 		path: '/allactors',
 		exact: true,
 		component: lazy(() => import('@containers/AllActors/AllActors'))
+	},
+	{
+		path: '/submitted',
+		exact: true,
+		component: lazy(() => import('@containers/Submitted/Submitted')),
 	}
 ];
 

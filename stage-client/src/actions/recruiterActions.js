@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ERRORS, SET_ACTORS, SET_REC_AUDITIONS, SET_DM } from './types'
+import { GET_ERRORS, SET_ACTORS, SET_REC_AUDITIONS, SET_DM, SET_SUBMITTED } from './types'
 
 export const publishAudition = (audData, history) => dispatch => {
     axios
@@ -36,6 +36,25 @@ export const myAuditions = (id) => dispatch => {
         .then(res => {
             dispatch({
                 type: SET_REC_AUDITIONS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
+export const mySubmitted = (id) => dispatch => {
+
+    axios
+        .get("/actor-audition/submitted", { params: { id: id } })
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: SET_SUBMITTED,
                 payload: res.data
             })
         })

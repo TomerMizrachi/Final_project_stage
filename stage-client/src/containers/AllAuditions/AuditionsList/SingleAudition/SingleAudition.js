@@ -15,19 +15,32 @@ function useToggle(initialState) {
 function SingleAudition(props) {
 	const { audition } = props;
 	const [modal, setModal] = useToggle(false);
-	const typecastArr = Object.values(audition.typecast)
+
+	const obj = audition.typecast
+	const str = Object
+		.entries(obj)
+		.reduce((a, e) => {
+			if (typeof e[1] != "function") {
+				a += `${e[0]} : ${e[1]} | `
+			}
+			return a;
+		}, "`")
+		.slice(1, -2) + ""
+
+
 	const onClick = e => {
 		e.preventDefault()
-		console.log("ac",props.auth.user.actor_id)
+		console.log("ac", props.auth.user.actor_id)
 		props.registerToAudition(props.auth.user.actor_id, audition._id)
 	}
+
 	return (audition && (
 		<StyledFeaturedActorAudition className={`featured-audtion-item ${props.className}`}>
 			<Grid container direction="column">
 				<Grid container className="audition-details" alignItems="center">
 					<Grid item className="audition-content" md>
-						<div className="audition-name heading4">{audition.name}</div>
-						<div className="audition-name text-accent">{audition.role}</div>
+						<div className="audition-name heading4">Name: {audition.name}</div>
+						<div className="audition-name text-accent">Rool: {audition.role}</div>
 					</Grid>
 					<IconButton className="success static offset-right-sm">
 						<i className="material-icons">event</i>
@@ -44,18 +57,15 @@ function SingleAudition(props) {
 						<Grid item className="recruitment-details subtitle" md>Audition genere</Grid>
 					</Grid>
 					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={onClick}>Add to trainer</Button></Grid>
-					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={setModal}>More details</Button>
+					<Grid item className="ctas" ><Button className="default round active text-accent offset-left-sm" onClick={setModal}>Typecast requirements</Button>
 
 					</Grid>
-					{modal ? (<Grid item className="audition-content" md>
-						<Grid item className="recruitment-details" style={{ display: "table-caption", textAlign: "center" }} md>{typecastArr.map(user => user + ',\n')}</Grid>
-					</Grid>) : (<Grid item className="recruitment-details subtitle" md> </Grid>)}
 				</Grid>
+				{modal ? (<Grid item className="audition-content" md>
+					<Grid item className="recruitment-details" md>{str}</Grid>
+				</Grid>) : (<Grid item className="recruitment-details subtitle" md> </Grid>)}
 			</Grid>
-		</StyledFeaturedActorAudition>
-
-	)
-	)
+		</StyledFeaturedActorAudition>))
 }
 
 SingleAudition.propTypes = {
