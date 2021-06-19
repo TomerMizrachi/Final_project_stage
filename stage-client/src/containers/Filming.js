@@ -17,7 +17,7 @@ const videoJsOptions = {
             maxLength: 60000,
             debug: true,
             // convertEngine: 'ffmpeg.js',
-            
+
             // convertWorkerURL: 'ffmpeg.js/ffmpeg-worker-mp4.js',
             // // convert recorded data to MP4 (and copy over audio data without encoding)
             // // convertOptions: ['-f', 'mp3', '-codec:a', 'libmp3lame', '-qscale:a', '2'],
@@ -39,14 +39,9 @@ const header = {
 
 const video = {
     position: 'relative',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)'
 }
 
 const Filming = (props) => {
-    const actor_id = props
-    console.log("actor_id", actor_id)
     return (
         <div>
             <div style={video}>

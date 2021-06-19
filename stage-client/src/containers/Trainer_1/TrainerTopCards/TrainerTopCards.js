@@ -9,7 +9,7 @@ class TrainerTopCards extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			audition: props.data.location.state.audition,
+			audition: props.data.history.location.state.audition,
 			options: {
 				colors: ['#FBA556', '#2BC155'],
 				labels: ['Similarity Score', 'Exact Score'],
@@ -46,7 +46,7 @@ class TrainerTopCards extends Component {
 				}],
 			},
 			labels: ['Similarity Score', 'Exact Score'],
-			series: [props.data.location.state.audition.score, props.data.location.state.audition.score]
+			series: [props.data.history.location.state.audition.videos[0] ? props.data.history.location.state.audition.videos[0].similarity : 0, props.data.history.location.state.audition.videos[0] ? props.data.history.location.state.audition.videos[0].exact : 0]
 		}
 	}
 	render() {

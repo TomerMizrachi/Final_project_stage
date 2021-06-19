@@ -27,7 +27,7 @@ class Video extends Component {
             currentLineIterator: 0,
             lineToRead: "",
             finishedText: false,
-            sumSimilariyScore: 0,
+            sumSimilarityScore: 0,
             sumExactScore: 0,
             finalScore: {},
             roleSpeaking: "NONE",
@@ -41,8 +41,8 @@ class Video extends Component {
         // this.sendRecording = this.sendRecording.bind(this);
     }
     calculateTotalScore() {
-        //avg of sumSimilarty and sumExcat divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
-        var similarityScore = this.state.sumSimilariyScore / (this.state.entireText.length / 2)
+        //avg of sumSimilarty and sumExact divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
+        var similarityScore = this.state.sumSimilarityScore / (this.state.entireText.length / 2)
         var exactScore = this.state.sumExactScore / (this.state.entireText.length / 2)
         var finalScore = {
             "similarityScore": similarityScore,
@@ -121,7 +121,7 @@ class Video extends Component {
                 let silence_timeout = 3
                 react_comp.speech_timeout = setTimeout(function () {
                     if (react_comp.state.auto_record_active) {
-                        react_comp.videoPlayer.pause()
+                        react_comp.videoPlayer.recordToggle.handleClick()
                     }
                     react_comp.speaking = false;
                     react_comp.setState({ status: "inactive", auto_record_active: false })
@@ -158,7 +158,6 @@ class Video extends Component {
             // singleFormData
             react_comp.currSessionBlobs.push(this.videoPlayer.recordedData);
             formData.append('file', this.videoPlayer.recordedData)
-            console.log(formData.get('file'))
             if (this.state.currentLineIterator < this.state.entireText.length) {
                 this.setState({ status: "inactive", auto_record_active: false })
                 axios({
@@ -179,7 +178,7 @@ class Video extends Component {
                             expectedText: expectedText
                         }
                     }).then(res => {
-                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
+                        this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilarityScore: parseFloat(this.state.sumSimilarityScore) + parseFloat(res.data.similarityScore) })
                         axios.get("http://127.0.0.1:5000/textToSpeech", {
                             params: {
                                 textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
@@ -262,10 +261,19 @@ class Video extends Component {
                     'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                 }
             }).then(res => {
+                console.log(res)
                 react_comp.setState((state) => {
                     return { finishedText: true }
                 });
-                var data = JSON.stringify({ "video": react_comp.state.videoURL });
+                var parse = JSON.parse(react_comp.state.finalScore)
+                var data = JSON.stringify({
+                    "video": {
+                        "videoUrl": react_comp.state.videoURL,
+                        "similarity": parse.similarityScore,
+                        "exact": parse.exactScore
+                    }
+                });
+                console.log("handleClick", data)
                 var config = {
                     method: 'put',
                     url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
@@ -282,11 +290,11 @@ class Video extends Component {
                     .catch(error => {
                         console.log(error);
                     })
+                console.log(video, postURL);
+                return video;
             }).catch(error => {
                 console.log(error);
             })
-            console.log(video, postURL);
-            return video;
         }).catch(function (error) {
             console.log(error);
         })

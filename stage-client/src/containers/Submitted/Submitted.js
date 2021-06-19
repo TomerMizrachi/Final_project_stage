@@ -9,7 +9,6 @@ import { withRouter } from 'react-router-dom'
 import SubmittedCards from './SubmittedCards/SubmittedCards';
 
 function Submitted(props) {
-    console.log(props)
     useEffect(() => {
     }, [props.auth.user])
     return (
@@ -19,7 +18,7 @@ function Submitted(props) {
                     <h1 className="title">Hi {props.auth.user.name}.</h1>
                 </Grid>
                 <Grid>
-                    <h3 className="dec">Here are all the submitted auditions :</h3>
+                    <h3 className="dec">Here are all the submitted auditions:</h3>
                 </Grid>
             </Grid>
             <SubmittedCards />

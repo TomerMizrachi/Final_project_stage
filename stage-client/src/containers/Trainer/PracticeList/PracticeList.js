@@ -8,7 +8,6 @@ import { getMyAuditions } from '@actions/actorActions'
 
 
 function PracticeList(props) {
-	console.log(props)
 	return (
 		<div className="container">
 			<Box className="wrapper" py={8} mb={4}>

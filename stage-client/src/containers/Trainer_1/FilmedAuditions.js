@@ -6,27 +6,12 @@ import PracticeGrid from './PracticeGrid/AuditionGrid';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { logoutUser } from '@actions/authActions'
 
 function FilmedAuditions(props) {
-	const audition = props.history.location.state.audition.video
-	console.log("this is me- props", audition)
+	const videos = props.history.location.state.audition.videos
 	useEffect(() => {
-		// props.getMyAuditions(props.auth.user.id)
-	}, [])
-	const auditions = [
-		{
-			date: '11/10/2020',
-			rate: '#',
-		},
-		{
-			date: '12/10/2020',
-			rate: '#',
-		},
-		{
-			date: '13/10/2020',
-			rate: '#',
-		}
-	];
+	}, [props.auth.user])
 
 	return (
 		<Box mb={6}>
@@ -34,14 +19,14 @@ function FilmedAuditions(props) {
 				<Box display="flex" alignItems="center">
 					<div className="heading4">My Filmed Auditions</div>
 				</Box>
-				<LinkButton href="#" className="accent round bt-sm outline">View More</LinkButton>
 			</Box>
 
-			<PracticeGrid auditions={auditions} />
+			<PracticeGrid videos={videos} />
 		</Box>
 	)
 }
 FilmedAuditions.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
 }
@@ -53,4 +38,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
+	{ logoutUser }
 )(withRouter(FilmedAuditions))

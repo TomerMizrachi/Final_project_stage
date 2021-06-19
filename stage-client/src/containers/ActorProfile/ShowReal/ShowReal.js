@@ -50,7 +50,6 @@ function ShowReal(props) {
                     }
                 }).then(res => {
                     var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id });
-                    console.log(props.auth.user.actor_id, "klkk")
                     var config = {
                         method: 'put',
                         url: "http://localhost:8001/actor/uploadVideos",

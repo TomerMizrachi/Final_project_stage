@@ -6,17 +6,15 @@ import FilmedAuditions from './FilmedAuditions'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
+import { logoutUser } from '@actions/authActions'
 
 function Trainer(props) {
-	const data=props
+	const data = props
 	useEffect(() => {
-		console.log("trainerData",data)
-		 //console.log("hii", props.location.state.audition)
-		// props.getMyAudition(props.location.state.audition)
 	}, [])
 	return (
 		<DashboardLayout>
-			<TrainerTopCards data={data}/>
+			<TrainerTopCards data={data} />
 			<PracticeComp />
 			<FilmedAuditions />
 		</DashboardLayout>
@@ -24,15 +22,17 @@ function Trainer(props) {
 }
 
 Trainer.propTypes = {
-    auth: PropTypes.object.isRequired,
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth,
+	auth: state.auth,
 	actor: state.actor
 })
 
 export default connect(
-    mapStateToProps,
+	mapStateToProps,
+	{ logoutUser }
 )(withRouter(Trainer))

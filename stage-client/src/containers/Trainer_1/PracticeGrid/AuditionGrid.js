@@ -3,15 +3,15 @@ import StyledPracticeStep from './PracticeGrid.styles';
 import Audition from './PracticeSteps/Audition';
 import { Grid } from '@material-ui/core';
 
-export default function AuditionsGrid({ auditions }) {
+export default function AuditionsGrid({ videos }) {
 	return (
 		<StyledPracticeStep>
 			<div className="grid-container">
 				<div className="wrapper">
 					<Grid container spacing={4}>
-						{auditions.map((audition, index) => (
+						{videos.map((video, index) => (
 							<Grid item key={index} xs={3}>
-								<Audition audition={audition} />
+								<Audition video={video} />
 							</Grid>
 						))}
 					</Grid>

@@ -8,8 +8,7 @@ import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
 
 function DashboardSidebar(props) {
-	console.log("propsdside",props)
-	const onClick = e =>{
+	const onClick = e => {
 		e.preventDefault()
 		props.logoutUser()
 	}
@@ -24,7 +23,7 @@ function DashboardSidebar(props) {
 					<div className="role">Actor</div>
 					<NavLink to="/" onClick={onClick}>Logout</NavLink>
 				</div>
-				</Box>
+			</Box>
 
 			<div className="navigation">
 				<Grid container direction="column">
@@ -59,15 +58,15 @@ function DashboardSidebar(props) {
 }
 
 DashboardSidebar.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+	auth: state.auth
 })
 
 export default connect(
-    mapStateToProps,
-    { logoutUser }
+	mapStateToProps,
+	{ logoutUser }
 )(DashboardSidebar)
