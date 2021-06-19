@@ -18,8 +18,9 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
-            actor_id: props.data.audition.actor_id,
+            _id: props.data.audition._id,
             auto_record_active: false,
             status: "",
             entireText: "",
@@ -75,7 +76,7 @@ class Video extends Component {
                 ' and recordrtc ' + RecordRTC.version;
             videojs.log(version_info);
         });
-
+        console.log(this.videoPlayer)
         // Allows start/stop recording
         this.videoPlayer.deviceButton.handleClick();
         this.speach_timeout = 0;
@@ -120,7 +121,7 @@ class Video extends Component {
                 let silence_timeout = 3
                 react_comp.speech_timeout = setTimeout(function () {
                     if (react_comp.state.auto_record_active) {
-                        react_comp.videoPlayer.recordToggle.handleClick()
+                        react_comp.videoPlayer.pause()
                     }
                     react_comp.speaking = false;
                     react_comp.setState({ status: "inactive", auto_record_active: false })
@@ -267,7 +268,7 @@ class Video extends Component {
                 var data = JSON.stringify({ "video": react_comp.state.videoURL });
                 var config = {
                     method: 'put',
-                    url: `http://localhost:8001/actor-audition/${react_comp.state.actor_id}`,
+                    url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
                     headers: {
                         'Content-Type': 'application/json'
                     },

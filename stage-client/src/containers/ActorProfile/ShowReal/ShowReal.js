@@ -20,7 +20,6 @@ function ShowReal(props) {
 
     const [open, setOpen] = useState(false)
     const [fileObjects, setFileObjects] = useState([])
-
     const dialogTitle = () => (
         <>
             <span>Upload file</span>
@@ -33,11 +32,11 @@ function ShowReal(props) {
     );
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
-            let formData = new FormData()
-            formData.append('file', fileObject)
+            const formData = new FormData();
+            formData.append("file", fileObject.file);
             axios({
                 method: "get",
-                url: "http://localhost:8001/actor/get_signed_url",
+                url: "http://localhost:8001/actor-audition/get_signed_url",
             }).then(function (response) {
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
@@ -47,10 +46,26 @@ function ShowReal(props) {
                     url: postURL,
                     data: formData.get('file'),
                     headers: {
-                        'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                        'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    console.log("Response from s3", res)
+                    var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id });
+                    console.log(props.auth.user.actor_id, "klkk")
+                    var config = {
+                        method: 'put',
+                        url: "http://localhost:8001/actor/uploadVideos",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                     // this.setState({ success: true });
                 }).catch(error => {
                     console.log(error);
@@ -109,7 +124,7 @@ function ShowReal(props) {
                                 <Grid container spacing={4}>
                                     {videos && videos.map((video, index) => (
                                         <Grid item key={index} xs={6}>
-                                            <VideoBox video={video} />
+                                            <VideoBox video={video} actor_id={props.auth.user.actor_id} />
                                         </Grid>
                                     ))}
                                 </Grid>

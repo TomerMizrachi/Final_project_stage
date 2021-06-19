@@ -9,7 +9,7 @@ class TrainerTopCards extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			audition:props.data.location.state.audition,
+			audition: props.data.location.state.audition,
 			options: {
 				colors: ['#FBA556', '#2BC155'],
 				labels: ['Similarity Score', 'Exact Score'],
@@ -55,7 +55,7 @@ class TrainerTopCards extends Component {
 				<StyledDashboardTopCards>
 					<Box display="flex" justifyContent="normal" alignItems="center" mb={4}>
 						<Link to="/Dashboard/trainer">Trainer {'> '}</Link>
-						<Link to="/Trainer">{this.state.audition.auditionInfo.name}</Link>
+						<span >{this.state.audition.auditionInfo[0].name}</span>
 						{/* <div target="_blank" onClick={this.trainerPage} >Trainer {'> '} </div>
 						<div onClick={this.currPage}>Cinderalla</div> */}
 
@@ -68,7 +68,7 @@ class TrainerTopCards extends Component {
 									<Grid item className="recent-audition" xs={5}>
 										<Grid container spacing={1} >
 											<Grid item className="audition-info">
-												<div className="heading2">{this.state.audition.auditionInfo.name}</div>
+												<div className="heading2">{this.state.audition.auditionInfo[0].name}</div>
 											</Grid>
 										</Grid>
 									</Grid>
@@ -80,7 +80,7 @@ class TrainerTopCards extends Component {
 												</IconButton>
 											</Grid>
 											<Grid item >
-												<div className="heading3">{this.state.audition.auditionInfo.due_date}</div>
+												<div className="heading3">{this.state.audition.auditionInfo[0].due_date}</div>
 												<div className="desc">End Of Recruitment</div>
 											</Grid>
 										</Grid>
@@ -93,7 +93,7 @@ class TrainerTopCards extends Component {
 												</IconButton>
 											</Grid>
 											<Grid item>
-												<div className="heading3">{this.state.audition.auditionInfo.type}</div>
+												<div className="heading3">{this.state.audition.auditionInfo[0].type}</div>
 												<div className="desc">Genere</div>
 											</Grid>
 										</Grid>

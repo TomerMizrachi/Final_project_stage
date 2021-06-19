@@ -5,6 +5,7 @@ import { USER_TYPE, GENDER_TYPE, BODY_TYPE, HAIR_TYPE, EYES_TYPE, SKILL_TYPE, LA
 import { validateActorInput } from '../validation/actorValidation.js'
 import s3 from '../config/S3connection.js'
 import { v4 as uuid } from 'uuid'
+import { json } from 'express'
 
 const getActors = (req, res) => {
     let condition = {}
@@ -35,7 +36,7 @@ const getActors = (req, res) => {
         { $match: condition },
         {
             $lookup: {
-                from: "user",   
+                from: "user",
                 localField: "user_id",
                 foreignField: "_id",
                 as: "user_info"
@@ -135,7 +136,7 @@ const uploadPics = (req, res) => {
     if (req.body.pictures) {
         Actor.findOneAndUpdate(filter, {
             $push: {
-                pictures: { $each: req.body.pictures, $positioin: 0 }
+                pictures: { $each: [req.body.pictures], $position: 0 }
             }
         })
             .then(user => res.json(user))
@@ -146,6 +147,7 @@ const uploadPics = (req, res) => {
 }
 
 const deletePic = (req, res) => {
+    console.log("test", req.body)
     const filter = { _id: req.body.id }
     Actor.findOneAndUpdate(filter, {
         $pull: { pictures: req.body.urlPic }
@@ -155,14 +157,15 @@ const deletePic = (req, res) => {
 }
 
 const uploadVideos = (req, res) => {
+    console.log(req.body)
     const filter = { _id: req.body.id }
     if (req.body.videos) {
         Actor.findOneAndUpdate(filter, {
             $push: {
-                videos: { $each: req.body.videos, $positioin: 0 }
+                videos: { $each: [req.body.videos], $position: 0 }
             }
         })
-            .then(user => res.json(user))
+            .then(user => res.status(200).json(user))
             .catch(err => res.status(400).json({ err: err }))
     } else {
         res.status(400).json("there is no body videos req")
@@ -191,10 +194,10 @@ const createS3Url = async (req, res) => {
     try {
         await s3.getSignedUrl('putObject', {
             Bucket: 'stage-videos',
-            Key: uuid(),
+            Key: `${uuid()}.png`,
             Expires: 300,
             ACL: 'public-read',
-            ContentType: 'video/*'
+            ContentType: 'image/png'
         }, function (err, signedURL) {
             if (err) {
                 console.log(err)
@@ -211,4 +214,25 @@ const createS3Url = async (req, res) => {
         res.send("err");
     }
 }
-export { createS3Url, getActors, getActorByUserId, actorProfile, updateActorProfile, uploadPics, uploadVideos, deleteActor, deletePic, deleteVideo }
+const deleteFromS3 = async (req, res) => {
+    console.log(req.body)
+    try {
+        const params = {
+            Bucket: 'stage-videos',
+            Key: req.body.fileName,
+        };
+
+        await s3.deleteObject(params, function (err, data) {
+            if (err) {
+                console.log(err, err.stack);  // error
+                return res.status(400).json({ err: err })
+            }
+            else {
+                return res.status(200).json({ data: "deteled from s3" })
+            }
+        });
+    } catch (err) {
+        res.send(err);
+    }
+}
+export { deleteFromS3, createS3Url, getActors, getActorByUserId, actorProfile, updateActorProfile, uploadPics, uploadVideos, deleteActor, deletePic, deleteVideo }

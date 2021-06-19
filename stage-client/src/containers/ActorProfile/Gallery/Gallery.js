@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { DropzoneDialogBase } from 'material-ui-dropzone'
 import axios from 'axios'
+import fs from 'fs'
 
 function Gallery(props) {
     const [pictures, setPictures] = useState([])
@@ -20,6 +21,7 @@ function Gallery(props) {
 
     const [open, setOpen] = useState(false)
     const [fileObjects, setFileObjects] = useState([])
+    const [deleteFileObj, setDeleteFileObj] = useState([])
 
     const dialogTitle = () => (
         <>
@@ -31,8 +33,11 @@ function Gallery(props) {
             </IconButton>
         </>
     );
-    const uploadVideo = (fileObjects) => {
+
+    const uploadImage = (fileObjects) => {
         fileObjects.map((fileObject) => {
+            const formData = new FormData();
+            formData.append("file", fileObject.file);
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor/get_signed_url",
@@ -43,12 +48,27 @@ function Gallery(props) {
                 axios({
                     method: "put",
                     url: postURL,
-                    data: fileObject.data,
+                    data: formData.get("file"),
                     headers: {
-                        'Content-Type': 'video/*', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+                        'Content-Type': 'image/png', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    console.log("Response from s3", res)
+                    var data = JSON.stringify({ "pictures": getURL, "id": props.auth.user.actor_id });
+                    var config = {
+                        method: 'put',
+                        url: "http://localhost:8001/actor/uploadPics",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
                     // this.setState({ success: true });
                 }).catch(error => {
                     console.log(error);
@@ -58,7 +78,7 @@ function Gallery(props) {
                 console.log(error);
             })
         })
-        console.log("upload video", fileObjects)
+        console.log("upload image", fileObjects)
     }
 
     return (
@@ -79,8 +99,8 @@ function Gallery(props) {
                             <DropzoneDialogBase
                                 dialogTitle={dialogTitle()}
                                 acceptedFiles={['image/*']}
-                                // acceptedFiles={['video/*']}
                                 fileObjects={fileObjects}
+                                deleteFileObj={deleteFileObj}
                                 cancelButtonText={"cancel"}
                                 submitButtonText={"submit"}
                                 maxFileSize={5000000}
@@ -89,13 +109,13 @@ function Gallery(props) {
                                     console.log('onAdd', newFileObjs);
                                     setFileObjects([].concat(fileObjects, newFileObjs));
                                 }}
-                                onDelete={deleteFileObj => {
+                                onDelete={() => {
                                     console.log('onDelete', deleteFileObj);
                                 }}
                                 onClose={() => setOpen(false)}
                                 onSave={() => {
                                     console.log('onSave', fileObjects);
-                                    uploadVideo(fileObjects)
+                                    uploadImage(fileObjects)
                                     setOpen(false);
                                 }}
                                 showPreviews={true}
@@ -107,7 +127,7 @@ function Gallery(props) {
                                 <Grid container spacing={4}>
                                     {pictures ? (pictures.map((picture, index) => (
                                         <Grid item key={index} xs={3}>
-                                            <PicBox picture={picture} />
+                                            <PicBox picture={picture} actor_id={props.auth.user.actor_id} />
                                         </Grid>
                                     ))) : (<Grid item className="align">
                                         <div className="heading4">You uploaded no pictures</div>
