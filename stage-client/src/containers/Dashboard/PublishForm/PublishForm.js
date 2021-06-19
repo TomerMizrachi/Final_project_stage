@@ -9,7 +9,7 @@ import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-
 import { Button } from '@components/uielements/Button/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions.js'
-import { typeOptions, publicOptions, heightOptions, ageOptions } from './recruiterOptions'
+import { textExample, typeOptions, publicOptions, heightOptions, ageOptions } from './recruiterOptions'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
@@ -28,7 +28,7 @@ function PublishForm(props) {
   const [role, setRole] = useState('')
   const [type, setType] = useState('')
   const [open, setOpen] = useState('')
-  const [text, setText] = useState()
+  const [text, setText] = useState(textExample)
   const [age, setAge] = useState('')
   const [gender, setGender] = useState('')
   const [bodyStructure, setBodyStructure] = useState('')
@@ -171,12 +171,13 @@ function PublishForm(props) {
                 </TextField>
               </Grid>
               <Grid item xs={12}>
-                <TextField placeholder="Audition text" variant="outlined" multiline
-                  rows={5}
+                <TextField label="Audition text" variant="outlined" multiline
+                  rows={20}
                   fullWidth
                   value={text}
                   onChange={e => setText(e.target.value)}
                   inputProps={{ className: classes.textarea }}
+                  helperText="Audition Text: this is the place for youe audition text" 
                 />
               </Grid>
             </Grid>

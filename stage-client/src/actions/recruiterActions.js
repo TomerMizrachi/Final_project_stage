@@ -16,7 +16,6 @@ export const publishAudition = (audData, history) => dispatch => {
 export const updateAudition = (params) => dispatch => {
     axios
         .put("/audition", params)
-        .then(res => console.log("result:", res.data))
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,

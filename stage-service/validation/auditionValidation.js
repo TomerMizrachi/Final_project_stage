@@ -14,7 +14,7 @@ const validateAuditionInput = (data) => {
     data.open_to_all = !isEmpty(data.open_to_all) ? data.open_to_all : ""
     let typecast = !isEmpty(data.typecast) ? JSON.stringify(data.typecast) : ""
     data.is_active = !isEmpty(data.is_active) ? data.is_active : ""
-    // Password checks
+
     if (Validator.isEmpty(data.recruiter_id)) {
         errors.recruiter_id = "recruiter_id field is required"
     }
@@ -28,7 +28,7 @@ const validateAuditionInput = (data) => {
         errors.role = "role field is required"
     }
     if (Validator.isEmpty(data.text_file)) {
-        errors.text_file = "text_file field is required"
+        errors.text_file = "Audition text field is required"
     }
     if (Validator.isEmpty(data.due_date)) {
         errors.due_date = "due_date field is required"
@@ -44,6 +44,11 @@ const validateAuditionInput = (data) => {
     }
     if (Validator.isEmpty(data.is_active)) {
         errors.is_active = "is_active field is required"
+    }
+    if(data.text_file){
+        console.log(typeof(data.text_file))
+        const lines = data.text_file.split('\n')
+        console.log(lines)
     }
     return {
         errors,
