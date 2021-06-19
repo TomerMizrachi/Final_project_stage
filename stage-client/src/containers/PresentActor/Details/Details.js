@@ -12,7 +12,7 @@ import { Alert } from '@material-ui/lab'
 function Details(props) {
     console.log(props)
     const isFirstRun = useRef(true)
-    const { actor } = props
+    const { actor, invite } = props
     const [auditionID, setAuditionID] = useState('')
     const [errors, setErrors] = useState()
     const recruiterAudition = props.recruiter.auditions
@@ -72,6 +72,7 @@ function Details(props) {
                                 ))
                                 : null}
                         </Grid>
+                        {!invite &&
                         <Grid item className="audition-content" md>
                             <TextField select helperText="Choose audition" label="Audition" variant="outlined" size="small" fullWidth
                                 value={auditionID} onChange={e => setAuditionID(e.target.value)}>
@@ -81,7 +82,7 @@ function Details(props) {
                                     (< MenuItem value="No auditions">No auditions</MenuItem>)}
                             </TextField>
                             <Button onClick={inviteClick} className="default round fullwidth active text-accent">Invaite Actor</Button>
-                        </Grid>
+                        </Grid>}
                     </Grid>
                 </Grid>
             </StyledFeaturedActor >

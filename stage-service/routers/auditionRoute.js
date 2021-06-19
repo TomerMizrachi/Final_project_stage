@@ -9,7 +9,7 @@ router.get('/actor', getAuditionById)
 
 router.post('/', createAudition)
 
-router.put('/:id', updateAudition)
+router.put('/', updateAudition)
 
 router.get('/rec', recruiterAudition)
 

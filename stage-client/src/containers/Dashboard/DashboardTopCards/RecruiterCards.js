@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import RecruiterAudition from '@containers/AllAuditions/AuditionsList/SingleAudition/RecruiterAudition'
 
 function RecruiterCards(props) {
-    // const [auditions, setAuditions] = useState([]);
     const auditions = props.recruiter.auditions
     const [errors, setErrors] = useState()
     const isFirstRun = useRef(true)

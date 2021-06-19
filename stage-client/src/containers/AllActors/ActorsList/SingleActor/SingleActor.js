@@ -28,8 +28,9 @@ function SingleActor(props) {
     const actorProfile = e => {
         e.preventDefault()
         props.history.push({
-			pathname: '/present',
-			state: { actor: actor }})
+            pathname: '/present',
+            state: { actor: actor, invite: false }
+        })
     }
 
     return (

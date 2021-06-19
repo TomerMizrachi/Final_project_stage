@@ -56,8 +56,22 @@ const getSubmmited = async (req, res) => {
                 {
                     $lookup: {
                         from: "actor",
-                        localField: "actor_id",
-                        foreignField: "_id",
+                        let: { actor_id: "$actor_id" },
+                        pipeline: [{
+                            $match: {
+                                $expr: {
+                                    $eq: ["$_id", "$$actor_id"]
+                                }
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: "user",
+                                localField: "_id",
+                                foreignField: "actor_collection_id",
+                                as: "user_info"
+                            }
+                        }],
                         as: "actorInfo"
                     }
                 }
@@ -67,12 +81,13 @@ const getSubmmited = async (req, res) => {
         }])
         .then(submitted => {
             let result = []
-                submitted.map((audition)=>{
-                    if(audition.actor_audition.length > 0){
-                        result.push(audition)
-                    }
-                })
-            res.json(result)})
+            submitted.map((audition) => {
+                if (audition.actor_audition.length > 0) {
+                    result.push(audition)
+                }
+            })
+            res.json(result)
+        })
         .catch(err => res.status(400).json({ error: err }))
 }
 

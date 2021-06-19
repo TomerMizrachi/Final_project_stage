@@ -29,21 +29,8 @@ export const UpdateProfile = (actor) => dispatch => {
         })
 }
 export const getMyAuditions = (actor_id) => dispatch => {
-    console.log("actor_id", actor_id)
-    let auditions
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
-        // .then(res => res.data)
-        // .then(data => {
-        //     auditions = data
-        //     auditions.forEach(element => {
-        //         axios
-        //             .get("/audition/actor", { params: { audition_id: element.audition_id } })
-        //             .then(res => {
-        //                 element.auditionInfo = res.data
-        //             })
-        //     })
-        // })
         .then(res => {
             console.log(res.data)
             dispatch({

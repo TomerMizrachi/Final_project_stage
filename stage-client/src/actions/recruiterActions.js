@@ -13,6 +13,18 @@ export const publishAudition = (audData, history) => dispatch => {
         })
 }
 
+export const updateAudition = (params) => dispatch => {
+    axios
+        .put("/audition", params)
+        .then(res => console.log("result:", res.data))
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
 export const searchActors = (typecast) => dispatch => {
     axios
         .get("/actor", { params: typecast })
@@ -52,7 +64,6 @@ export const mySubmitted = (id) => dispatch => {
     axios
         .get("/actor-audition/submitted", { params: { id: id } })
         .then(res => {
-            console.log(res.data)
             dispatch({
                 type: SET_SUBMITTED,
                 payload: res.data
@@ -81,9 +92,11 @@ export const sendDM = (data) => dispatch => {
                 payload: err.response.data
             })
         })
-} 
+}
 
-export const falseDM = () => dispatch =>{
-    dispatch({type: SET_DM,
-        payload: false})
+export const falseDM = () => dispatch => {
+    dispatch({
+        type: SET_DM,
+        payload: false
+    })
 }

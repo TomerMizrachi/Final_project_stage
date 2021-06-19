@@ -155,7 +155,8 @@ const createAudition = (req, res) => {
 }
 
 const updateAudition = (req, res) => {
-    const filter = { _id: req.params.id }
+    console.log(req.body)
+    const filter = { _id: req.body.id }
     let update = {}
     if (req.body.name)
         update.name = req.body.name
@@ -173,10 +174,12 @@ const updateAudition = (req, res) => {
         update.open_to_all = req.body.open_to_all
     if (req.body.typecast)
         update.typecast = req.body.typecast
-    if (req.body.is_active)
+    if (req.body.is_active === false ||req.body.is_active === true )
         update.is_active = req.body.is_active
-    Audition.findOneAndUpdate(filter, update)
-        .then(user => res.json(user))
+    Audition.findOneAndUpdate(filter, update, {
+        new: true // return the object after the update
+    })
+        .then(user => res.status(200).json(user))
         .catch(err => res.status(400).json({ err: err }))
 }
 

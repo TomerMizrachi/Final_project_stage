@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import RecruiterLayout from '@containers/DashboardLayout/RecruiterLayout'
 import PropTypes from 'prop-types'
-import RcruiterCards from './DashboardTopCards/RecruiterCards';
+import RcruiterCards from './DashboardTopCards/RecruiterCards'
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 import { myAuditions } from '@actions/recruiterActions'
 import { withRouter } from 'react-router-dom'
 
