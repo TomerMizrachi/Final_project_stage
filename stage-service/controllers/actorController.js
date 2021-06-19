@@ -1,11 +1,9 @@
 import Actor from '../models/actor.js'
 import User from '../models/user.js'
 import ActorAudition from '../models/actoraudition.js'
-import { USER_TYPE, GENDER_TYPE, BODY_TYPE, HAIR_TYPE, EYES_TYPE, SKILL_TYPE, LANGUAGE_TYPE, HEIGHT_RANGE, TYPECAST_OBJ } from '../config/types.js'
 import { validateActorInput } from '../validation/actorValidation.js'
 import s3 from '../config/S3connection.js'
 import { v4 as uuid } from 'uuid'
-import { json } from 'express'
 
 const getActors = (req, res) => {
     let condition = {}
