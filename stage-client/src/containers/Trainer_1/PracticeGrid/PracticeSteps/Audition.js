@@ -7,35 +7,20 @@ import VideoPlayer from "react-happy-video"
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { SubmitVideo } from '@actions/actorActions'
 
 function Audition(props) {
 	const video = props.video
 	const _id = props.history.location.state.audition._id
 	const submitted = props.history.location.state.audition.submitted
-	const send = () => {
+	const send = e => {
+		e.preventDefault()
 		if (!submitted) {
-			var axios = require('axios');
 			var data = JSON.stringify({
 				"submitted": true,
-				"submittedVideo": `https://stage-videos.s3.amazonaws.com/${_id}`
+				"submittedVideo": video.videoUrl
 			});
-
-			var config = {
-				method: 'put',
-				url: 'http://localhost:8001/actor-audition/60af754d258d034a70793c4c',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				data: data
-			};
-
-			axios(config)
-				.then(function (response) {
-					console.log(JSON.stringify(response.data));
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
+			props.SubmitVideo(_id, data)
 		}
 		else {
 			console.log("video was already submitted")
@@ -74,7 +59,8 @@ function Audition(props) {
 Audition.propTypes = {
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired,
+	SubmitVideo: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -84,4 +70,5 @@ const mapStateToProps = state => ({
 })
 export default connect(
 	mapStateToProps,
+	{ SubmitVideo }
 )(withRouter(Audition))

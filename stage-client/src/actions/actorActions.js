@@ -18,6 +18,24 @@ export const getActorInfo = (user_id) => dispatch => {
         })
 }
 
+export const SubmitVideo = (_id, data) => dispatch => {
+    var config = {
+        method: 'put',
+        url: `http://localhost:8001/actor-audition/${_id}`,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    axios(config)
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+
+}
 export const UpdateProfile = (actor) => dispatch => {
     axios
         .put("/actor", actor)

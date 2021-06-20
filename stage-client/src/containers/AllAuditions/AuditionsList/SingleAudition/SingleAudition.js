@@ -30,7 +30,6 @@ function SingleAudition(props) {
 
 	const onClick = e => {
 		e.preventDefault()
-		console.log("ac", props.auth.user.actor_id)
 		props.registerToAudition(props.auth.user.actor_id, audition._id)
 	}
 
