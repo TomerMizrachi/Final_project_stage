@@ -157,8 +157,10 @@ const createAA = (req, res) => {
 const updateAA = (req, res) => {
     const filter = { _id: req.params.id }
     let update = {}
-    if (req.body.submitted)
+    if (req.body.submitted) {
         update.submitted = req.body.submitted
+        update.submittedVideo = req.body.submittedVideo
+    }
     if (req.body.score)
         update.score = req.body.score
     if (req.body.video) {
