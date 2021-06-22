@@ -167,11 +167,12 @@ const updateAA = (req, res) => {
                 videos: req.body.video
             }
         }, {
-            new: true // return the object after the update
+            //new: true // return the object after the update
         })
             .then(aa => res.json(aa))
             .catch(err => res.status(400).json({ error: err }))    // }
-    } else {
+    } 
+    else {
         ActorAudition.findOneAndUpdate(filter, update)
             .then(aa => res.json(aa))
             .catch(err => res.status(400).json({ error: err }))
