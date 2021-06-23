@@ -19,10 +19,10 @@ const validateAuditionInput = (data) => {
         errors.recruiter_id = "recruiter_id field is required"
     }
     if (Validator.isEmpty(data.name)) {
-        errors.name = "name field is required";
+        errors.audition_name = "audition name field is required";
     }
     if (Validator.isEmpty(data.type)) {
-        errors.type = "type field is required";
+        errors.audition_type = "audition type field is required";
     }
     if (Validator.isEmpty(data.role)) {
         errors.role = "role field is required"
@@ -45,10 +45,16 @@ const validateAuditionInput = (data) => {
     if (Validator.isEmpty(data.is_active)) {
         errors.is_active = "is_active field is required"
     }
-    if(data.text_file){
-        console.log(typeof(data.text_file))
+    if (data.text_file) {
+        let err = false
         const lines = data.text_file.split('\n')
-        console.log(lines)
+        lines.map((line, index) => {
+            if ((line.substring(0, 6) !== "actor:" && line.substring(0, 12) !== "other actor:") && !err) {
+                errors.text = "Audition Text Error, line " + (index + 1) + ": `" + line +
+                    "` do not begins in appropriate way it has to begins with `actor:` or `other actor:` "
+                err = true
+            }
+        })
     }
     return {
         errors,
