@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { SET_ACTOR, SET_AUDITIONS, GET_RELEVANT_AUDITIONS, GET_ERRORS, REGISTER_TO_AUDITION, SET_SUBMITTED } from './types'
+import Audition from '../containers/Trainer_1/PracticeGrid/PracticeSteps/Audition'
+import { SET_ACTOR, SET_AUDITIONS, GET_RELEVANT_AUDITIONS, GET_ERRORS, REGISTER_TO_AUDITION, SET_ACT_AUDITION } from './types'
 
 export const getActorInfo = (user_id) => dispatch => {
     axios
@@ -75,8 +76,6 @@ export const registerToAudition = (actor_id, audition_id) => dispatch => {
 }
 
 export const getMyRelevantAuditions = (params) => dispatch => {
-    console.log(params)
-
     axios
         .get("audition/getRelevantAuditions", { params: params })
         .then(res => {
@@ -91,4 +90,12 @@ export const getMyRelevantAuditions = (params) => dispatch => {
                 payload: err.response.data
             })
         })
+}
+
+export const setTrainerAudition = (audition) => dispatch => {
+    localStorage.setItem("trainerAudition", JSON.stringify(audition))
+    dispatch({
+        type: SET_ACT_AUDITION,
+        payload: audition
+    })
 }

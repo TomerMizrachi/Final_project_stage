@@ -12,8 +12,8 @@ import Alert from '@material-ui/lab/Alert'
 
 function Audition(props) {
 	const video = props.video
-	const _id = props.history.location.state.audition._id
-	const submitted = props.history.location.state.audition.submitted
+	const _id = props.actor.trainerAudition._id
+	const submitted = props.actor.trainerAudition.submitted
 	const [SubSucsess, setSubSucsess] = useState(false)
 	const [isSubmitted, setIsSubmitted] = useState(false)
 	// useEffect(() => {

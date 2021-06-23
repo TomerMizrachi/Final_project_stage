@@ -9,9 +9,11 @@ import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
 
 function FilmedAuditions(props) {
-	const videos = props.history.location.state.audition.videos
+	// const videos = props.actor.trainerAudition.videos
+	const [videos, setVideos] = useState()
 	useEffect(() => {
-	}, [props.auth.user])
+		setVideos(props.actor.trainerAudition.videos)
+	}, [props.actor.trainerAudition])
 
 	return (
 		<Box mb={6}>
@@ -21,7 +23,7 @@ function FilmedAuditions(props) {
 				</Box>
 			</Box>
 
-			<PracticeGrid videos={videos} />
+			{videos && <PracticeGrid videos={videos} />}
 		</Box>
 	)
 }

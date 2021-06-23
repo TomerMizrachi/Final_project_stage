@@ -1,9 +1,10 @@
-import { SET_AUDITIONS, GET_RELEVANT_AUDITIONS, SET_ACTOR } from '../actions/types'
+import { SET_AUDITIONS, GET_RELEVANT_AUDITIONS, SET_ACTOR, SET_ACT_AUDITION } from '../actions/types'
 
 const initialState = {
     auditions: [],
     relevantauditions: [],
-    profile: {}
+    profile: {},
+    trainerAudition: {}
 }
 
 export default function actorReducer(state = initialState, action) {
@@ -25,6 +26,13 @@ export default function actorReducer(state = initialState, action) {
                 profile: action.payload
             }
         }
+        case SET_ACT_AUDITION: {
+            return {
+                ...state,
+                trainerAudition: action.payload
+            }
+        }
+
         default:
             return state
     }

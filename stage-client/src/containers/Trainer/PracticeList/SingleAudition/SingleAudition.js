@@ -5,14 +5,17 @@ import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import { setTrainerAudition } from '@actions/actorActions';
 
 function SingleAudition(props) {
 	const { audition } = props
 	const onClick = e => {
 		e.preventDefault()
+		props.setTrainerAudition(audition)
 		props.history.push({
 			pathname: '/trainer',
-			state: { audition: audition }
+
+			// state: { audition: audition }
 		})
 	}
 	return (
@@ -50,7 +53,8 @@ function SingleAudition(props) {
 SingleAudition.propTypes = {
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired,
+	setTrainerAudition: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -61,4 +65,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
+	{ setTrainerAudition }
 )(withRouter(SingleAudition))
