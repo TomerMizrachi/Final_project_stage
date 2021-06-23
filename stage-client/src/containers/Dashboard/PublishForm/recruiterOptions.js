@@ -9,12 +9,13 @@ export const textExample = "###\n This is explanation for you.\n" +
     " The audition text have to be exactly like the example below.\n"+
     " Before each line of the audition roll character please write: \n   actor:\n"+
     " Before each line of others audition characters please write: \n   other actor:\n"+
-    " Press ENTER for a new line,\n after each character sentence and *only* then.\n" +
-    " The text below is an example\n"+
-    "Please delete this explantion and write your audition text instead.\n"+
-    "It is recomended to copy this explenation "+
-    "to another document for reference\n###\n\n" +
+    " Please do not write the chracteres names.\n" +
+    " Press ENTER for a new line, after each character sentence\n and *only* then.\n" +
+    " The text below is an example,\n"+
+    " Please delete this explantion and write your audition text instead.\n"+
+    " It is recomended to copy this explenation "+
+    " to another document\n for a reference.\n###\n\n" +
     " actor: Hello my name is Tom, what are yours?\n" + 
     " other actor: Hi I'm Jon\n" + 
     " other actor: My name is Sara\n" +
-    " actor: Ok it is very nice to meet you\n"
+    " actor: Ok it is very nice to meet you"

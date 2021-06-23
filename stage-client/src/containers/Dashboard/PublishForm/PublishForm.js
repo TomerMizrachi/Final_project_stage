@@ -152,6 +152,7 @@ function PublishForm(props) {
               </Box>
               <Grid item xs={12}>
                 <TextField label="Due Date" variant="outlined" fullWidth
+                  helperText="Due Date: the last day to submmit the filmed audition"
                   value={dueDate}
                   onChange={e => setDueDate(e.target.value)} />
               </Grid>
@@ -177,7 +178,7 @@ function PublishForm(props) {
                   value={text}
                   onChange={e => setText(e.target.value)}
                   inputProps={{ className: classes.textarea }}
-                  helperText="Audition Text: this is the place for youe audition text" 
+                  helperText="Audition Text: this is the place for youe audition text"
                 />
               </Grid>
             </Grid>
@@ -227,6 +228,7 @@ function PublishForm(props) {
               </Grid>
               <Grid item xs={12}>
                 <TextField label="Availability Date" variant="outlined" fullWidth
+                  helperText="Availability Date: the re-call day"
                   value={availability}
                   onChange={e => setAvailability(e.target.value)} />
               </Grid>
@@ -255,7 +257,9 @@ function PublishForm(props) {
           </Grid>
 
           <Grid item xs={8}>
-            {errors && <Alert severity="error"> {JSON.stringify(errors)} </Alert>}
+            {errors && <Alert severity="error"> <Grid item>There is a problem with your form</Grid>{
+              Object.keys(errors.errors).map((error) => <Grid item> {error}: {errors.errors[error]}</Grid>)
+            }<Grid item>Please try again</Grid> </Alert>}
           </Grid>
         </Grid>
       </form>
