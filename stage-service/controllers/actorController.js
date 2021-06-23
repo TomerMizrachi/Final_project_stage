@@ -145,7 +145,6 @@ const uploadPics = (req, res) => {
 }
 
 const deletePic = (req, res) => {
-    console.log("test", req.body)
     const filter = { _id: req.body.id }
     Actor.findOneAndUpdate(filter, {
         $pull: { pictures: req.body.urlPic }
@@ -155,7 +154,6 @@ const deletePic = (req, res) => {
 }
 
 const uploadVideos = (req, res) => {
-    console.log(req.body)
     const filter = { _id: req.body.id }
     if (req.body.videos) {
         Actor.findOneAndUpdate(filter, {
@@ -198,7 +196,6 @@ const createS3Url = async (req, res) => {
             ContentType: 'image/png'
         }, function (err, signedURL) {
             if (err) {
-                console.log(err)
                 return res.send(err)
             }
             else {
@@ -213,16 +210,13 @@ const createS3Url = async (req, res) => {
     }
 }
 const deleteFromS3 = async (req, res) => {
-    console.log(req.body)
     try {
         const params = {
             Bucket: 'stage-videos',
             Key: req.body.fileName,
-        };
-
+        }
         await s3.deleteObject(params, function (err, data) {
             if (err) {
-                console.log(err, err.stack);  // error
                 return res.status(400).json({ err: err })
             }
             else {

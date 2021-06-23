@@ -1,54 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import SiteConfig from '@config/site.config';
-import { Grid, Box } from '@material-ui/core';
-import StyledAuditionStep from './PracticeComp.styles';
-import { IconButton, LinkButton } from '@components/uielements/Button/Button';
+import { Grid, Box } from '@material-ui/core'
+import StyledAuditionStep from './PracticeComp.styles'
+import { IconButton, LinkButton } from '@components/uielements/Button/Button'
 import Filming from '../Filming'
-import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 import Audio from '../Audio'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 function PracticeComp(props) {
-	console.log("aaa", props)
 	const [audition, setAudition] = useState()
 	useEffect(() => {
-		// props.getMyAuditions(props.auth.user.id)
-		console.log(JSON.parse(localStorage.getItem('trainerAudition')))
-
 		setAudition(JSON.parse(localStorage.getItem('trainerAudition')))
 	}, [props.actor.trainerAudition])
 
-	const [openAudio, setAudioOpen] = useState(false);
-	const [openVideo, setVidioOpen] = useState(false);
-	const [openText, setTextOpen] = useState(false);
+	const [openAudio, setAudioOpen] = useState(false)
+	const [openVideo, setVidioOpen] = useState(false)
+	const [openText, setTextOpen] = useState(false)
 	const theme = useTheme();
-	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 	const handleAudioClickOpen = () => {
-		setAudioOpen(true);
-	};
+		setAudioOpen(true)
+	}
 	const handleVideoClickOpen = () => {
-		setVidioOpen(true);
-	};
+		setVidioOpen(true)
+	}
 	const handleTextClickOpen = () => {
-		setTextOpen(true);
-	};
+		setTextOpen(true)
+	}
 	const handleClose = () => {
-		setAudioOpen(false);
-	};
+		setAudioOpen(false)
+	}
 	const handleVideoClose = () => {
-		setVidioOpen(false);
-	};
+		setVidioOpen(false)
+	}
 	const handleTextClose = () => {
-		setTextOpen(false);
-	};
+		setTextOpen(false)
+	}
 
 	return (
 		<Box mb={6} >
@@ -83,14 +77,10 @@ function PracticeComp(props) {
 														</div>
 													</div>
 													<DialogContentText>
-														{audition && audition.auditionInfo.text_file}
+														{audition && audition.auditionInfo[0].text_file}
 													</DialogContentText>
 												</DialogContentText>
 											</DialogContent>
-											{/* <DialogActions>
-											<Button autoFocus onClick={handleClose} color="primary">Disagree</Button>
-											<Button onClick={handleClose} color="primary" autoFocus>Agree</Button>
-										</DialogActions> */}
 										</Dialog>
 									</Box>
 								</Grid>
@@ -130,10 +120,6 @@ function PracticeComp(props) {
 													</div>
 												</DialogContentText>
 											</DialogContent>
-											{/* <DialogActions>
-											<Button autoFocus onClick={handleClose} color="primary">Disagree</Button>
-											<Button onClick={handleClose} color="primary" autoFocus>Agree</Button>
-										</DialogActions> */}
 										</Dialog>
 									</Box>
 								</Grid>

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import AudioAnalyser from "react-audio-analyser"
-import auditionText from './textForAudition.txt';
+import auditionText from './textForAudition.txt'
 import axios from 'axios'
-import hark from 'hark';
+import hark from 'hark'
 
 export default class Aud extends Component {
     constructor(props) {
@@ -116,8 +116,7 @@ export default class Aud extends Component {
     }
 
     render() {
-        const isFinishedText = this.state.finishedText;
-        const { status, audioSrc } = this.state; // audioType is also available
+        const { status, audioSrc } = this.state // audioType is also available
         const audioProps = {
             audioType: "audio/wav",
             status,

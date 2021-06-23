@@ -4,7 +4,7 @@ import { Grid, Box } from '@material-ui/core';
 import { IconButton } from '@components/uielements/Button/Button';
 
 export default function DashboardTopCards(props) {
-	console.log("tipe", props)
+	// console.log("tipe", props)
 	return (
 		<Box mb={6}>
 			<StyledDashboardTopCards>

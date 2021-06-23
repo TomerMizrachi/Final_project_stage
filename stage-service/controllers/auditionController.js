@@ -65,9 +65,6 @@ const getRelevantAuditions = (req, res) => {
             let audFieldLength = 0
             let matchField = 0
             auditions.map((audition) => {
-                if (audition.name == "The root") {
-                    console.log(audition)
-                }
                 matchScore = 0
                 if (audition.typecast.age == typecast.age)
                     matchScore += 1
@@ -102,7 +99,6 @@ const getRelevantAuditions = (req, res) => {
                     if (matchField / audFieldLength > 0.3)
                         matchScore += 1
                 }
-                console.log(audition.name, matchScore)
                 if (matchScore > 4) {
                     relevant.push(audition)
                 }
@@ -110,13 +106,11 @@ const getRelevantAuditions = (req, res) => {
             res.json(relevant)
         })
         .catch(err => {
-            console.log(err)
             res.status(400).json({ error: err })
         })
 }
 
 const getAuditionById = async (req, res) => {
-    console.log("audition id has reached")
     try {
         const docs = await Audition.findById({ _id: req.query.audition_id }, (err) => {
             if (err) throw err
@@ -155,7 +149,6 @@ const createAudition = (req, res) => {
 }
 
 const updateAudition = (req, res) => {
-    console.log(req.body)
     const filter = { _id: req.body.id }
     let update = {}
     if (req.body.name)

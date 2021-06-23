@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import SiteConfig from '@config/site.config';
-import { Box } from '@material-ui/core';
-import { LinkButton } from '@components/uielements/Button/Button';
-import PracticeGrid from './PracticeGrid/AuditionGrid';
+import React, { useState, useEffect, useRef } from 'react'
+import { Box } from '@material-ui/core'
+import PracticeGrid from './PracticeGrid/AuditionGrid'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { logoutUser } from '@actions/authActions'
+import { setTrainerAudition } from '@actions/actorActions'
 
 function FilmedAuditions(props) {
-	// const videos = props.actor.trainerAudition.videos
 	const [videos, setVideos] = useState()
+	const isFirstRun = useRef(true)
+	useEffect(() => {
+		if (isFirstRun.current) {
+			isFirstRun.current = false
+			props.setTrainerAudition(JSON.parse(localStorage.getItem('trainerAudition')))
+			return
+		}
+	}, [])
+
 	useEffect(() => {
 		setVideos(props.actor.trainerAudition.videos)
-	}, [props.actor.trainerAudition])
+	}, [props.actor])
 
 	return (
 		<Box mb={6}>
@@ -22,13 +28,12 @@ function FilmedAuditions(props) {
 					<div className="heading4">My Filmed Auditions</div>
 				</Box>
 			</Box>
-
 			{videos && <PracticeGrid videos={videos} />}
 		</Box>
 	)
 }
 FilmedAuditions.propTypes = {
-	logoutUser: PropTypes.func.isRequired,
+	setTrainerAudition: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired
 }
@@ -40,5 +45,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ setTrainerAudition }
 )(withRouter(FilmedAuditions))

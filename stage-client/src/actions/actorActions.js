@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Audition from '../containers/Trainer_1/PracticeGrid/PracticeSteps/Audition'
 import { SET_ACTOR, SET_AUDITIONS, GET_RELEVANT_AUDITIONS, GET_ERRORS, REGISTER_TO_AUDITION, SET_ACT_AUDITION } from './types'
 
 export const getActorInfo = (user_id) => dispatch => {

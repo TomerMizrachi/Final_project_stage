@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { logoutUser } from '@actions/authActions'
-import { Grid, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 import { getActorInfo, getAuditionMetrics, getMyAuditions, getMyRelevantAuditions } from '@actions/actorActions'
 
 function Dashboard(props) {
