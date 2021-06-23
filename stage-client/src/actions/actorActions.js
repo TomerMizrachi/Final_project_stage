@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SET_ACTOR, SET_AUDITIONS, GET_RELEVANT_AUDITIONS, GET_ERRORS, REGISTER_TO_AUDITION } from './types'
+import { SET_ACTOR, SET_AUDITIONS, GET_RELEVANT_AUDITIONS, GET_ERRORS, REGISTER_TO_AUDITION, SET_SUBMITTED } from './types'
 
 export const getActorInfo = (user_id) => dispatch => {
     axios
@@ -16,25 +16,6 @@ export const getActorInfo = (user_id) => dispatch => {
                 payload: err.response.data
             })
         })
-}
-
-export const SubmitVideo = (_id, data) => dispatch => {
-    var config = {
-        method: 'put',
-        url: `http://localhost:8001/actor-audition/${_id}`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: data
-    };
-    axios(config)
-        .catch(err => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        })
-
 }
 export const UpdateProfile = (actor) => dispatch => {
     axios

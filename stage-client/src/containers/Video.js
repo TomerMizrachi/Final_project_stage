@@ -285,6 +285,9 @@ class Video extends Component {
 
                 axios(config)
                     .then(function (response) {
+
+                        console.log("response data")
+
                         console.log(JSON.stringify(response.data));
                     })
                     .catch(error => {

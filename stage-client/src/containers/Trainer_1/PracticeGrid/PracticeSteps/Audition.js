@@ -7,12 +7,23 @@ import VideoPlayer from "react-happy-video"
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { SubmitVideo } from '@actions/actorActions'
+import axios from 'axios'
+import Alert from '@material-ui/lab/Alert'
 
 function Audition(props) {
 	const video = props.video
 	const _id = props.history.location.state.audition._id
 	const submitted = props.history.location.state.audition.submitted
+	const [SubSucsess, setSubSucsess] = useState(false)
+	const [isSubmitted, setIsSubmitted] = useState(false)
+	// useEffect(() => {
+	// 	setSubSucsess(props.history.location.state.audition.submitted)
+
+	// }, [props.history.location.state.audition.submitted])
+	const closeAlert = () => {
+		// props.falseSub()
+		setSubSucsess(false)
+	}
 	const send = e => {
 		e.preventDefault()
 		if (!submitted) {
@@ -20,11 +31,25 @@ function Audition(props) {
 				"submitted": true,
 				"submittedVideo": video.videoUrl
 			});
-			props.SubmitVideo(_id, data)
+			var config = {
+				method: 'put',
+				url: `http://localhost:8001/actor-audition/${_id}`,
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: data
+			};
+			console.log(data)
+			axios(config)
+				.then(res => {
+					setSubSucsess(true)
+				})
+				.catch(err => {
+					console.log(err)
+				})
 		}
 		else {
-			console.log("video was already submitted")
-			return;
+			setIsSubmitted(true)
 		}
 	}
 
@@ -53,6 +78,13 @@ function Audition(props) {
 					<LinkButton onClick={send} className="sc-eCImvq eNJiRc orange bt-sm round">Submit Audition</LinkButton>
 				</Box>
 			</Box>
+			<Grid item>
+				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Actor will get your message!</Alert>}
+			</Grid>
+			<Grid item >
+				{isSubmitted && <Alert onClose={() => setIsSubmitted(false)} severity="error">The audition was already submitted</Alert>}
+			</Grid>
+
 		</StyledPracticeStep>) : null
 	)
 }
@@ -60,7 +92,7 @@ Audition.propTypes = {
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
-	SubmitVideo: PropTypes.func.isRequired
+	// SubmitVideo: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -70,5 +102,5 @@ const mapStateToProps = state => ({
 })
 export default connect(
 	mapStateToProps,
-	{ SubmitVideo }
+	// { SubmitVideo }
 )(withRouter(Audition))

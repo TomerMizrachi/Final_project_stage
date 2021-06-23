@@ -16,7 +16,6 @@ const actor_audition = {
     actor_id: Schema.Types.ObjectId,
     submitted: Boolean,
     submittedVideo: String,
-    score: String,
     videos: [video], // s3 link
     DM: Boolean // Direct Message 
 }

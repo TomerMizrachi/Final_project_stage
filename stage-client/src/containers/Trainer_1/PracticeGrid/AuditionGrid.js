@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import StyledPracticeStep from './PracticeGrid.styles';
 import Audition from './PracticeSteps/Audition';
-import { Grid } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { Grid, Box } from '@material-ui/core'
 
-export default function AuditionsGrid({ videos }) {
+function AuditionsGrid(props) {
+	console.log(props)
+	const [SubSucsess, setSubSucsess] = useState(false)
+	// useEffect(() => {
+	// 	setSubSucsess(props.history.location.state.audition.submitted)
+
+	// }, [props.history.location.state.audition.submitted])
+	const closeAlert = () => {
+		// props.falseSub()
+		setSubSucsess(false)
+	}
 	return (
 		<StyledPracticeStep>
 			<div className="grid-container">
+				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Actor will get your message!</Alert>}
+
 				<div className="wrapper">
 					<Grid container spacing={4}>
-						{videos.map((video, index) => (
+						{props.videos.map((video, index) => (
 							<Grid item key={index} xs={3}>
 								<Audition video={video} />
 							</Grid>
@@ -20,3 +36,14 @@ export default function AuditionsGrid({ videos }) {
 		</StyledPracticeStep>
 	)
 }
+AuditionsGrid.propTypes = {
+	actor: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	actor: state.actor
+})
+
+export default connect(
+	mapStateToProps,
+)(withRouter(AuditionsGrid))
