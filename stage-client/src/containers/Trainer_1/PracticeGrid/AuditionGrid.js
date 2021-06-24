@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom'
 import { Grid, Box } from '@material-ui/core'
 
 function AuditionsGrid(props) {
-	console.log(props)
 	const [SubSucsess, setSubSucsess] = useState(false)
 	// useEffect(() => {
 	// 	setSubSucsess(props.history.location.state.audition.submitted)

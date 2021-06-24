@@ -36,7 +36,7 @@ export default function DashboardTopCards(props) {
 										</Grid>
 										<Grid item>
 											<div className="heading2">{props.invitedNum}</div>
-											<div className="desc">Invited auditions</div>
+											<div className="desc">Invited Auditions</div>
 										</Grid>
 									</Grid>
 								</Grid>
@@ -57,7 +57,7 @@ export default function DashboardTopCards(props) {
 										</Grid>
 										<Grid item>
 											<div className="heading2">{props.stats.auditions.length}</div>
-											<div className="desc">Audition in practice</div>
+											<div className="desc">Auditions In Practice</div>
 										</Grid>
 									</Grid>
 								</Grid>
