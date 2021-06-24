@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom'
 import { setTrainerAudition } from '@actions/actorActions'
 
 function FilmedAuditions(props) {
-	const [videos, setVideos] = useState()
+	const [videos, setVideos] = useState();
+	console.log("videos test:",videos);
 	const isFirstRun = useRef(true)
 	useEffect(() => {
 		if (isFirstRun.current) {

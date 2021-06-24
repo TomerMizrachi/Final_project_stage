@@ -11,7 +11,7 @@ function SubmittedBox(props) {
     const [reqruite, setReqruite] = useState(false)
     const audition = props.audition
     const actor_audition = props.actor_audition
-
+    console.log("hello",actor_audition)
     const clicked = e => {
         e.preventDefault()
         props.history.push({

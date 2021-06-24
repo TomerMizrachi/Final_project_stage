@@ -150,6 +150,7 @@ class Video extends Component {
         this.videoPlayer.on('finishRecord', () => {
             react_comp.recording = false
             console.log("this is finish")
+
             // this.isSaveDisabled = false
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
@@ -239,15 +240,20 @@ class Video extends Component {
         var merged_blob = new Blob(this.currSessionBlobs);
         var formData = new FormData()
         console.log(`Current seesion blobs ${this.currSessionBlobs.length}`)
-        formData.append('file', merged_blob)
+        this.currSessionBlobs.forEach (blob=> {
+
+        formData.append('files', blob)
+
+        })
         this.currSessionBlobs = [];
 
         // save in S3
         console.log("[finish] Auto record active", this.state.auto_record_active)
         console.log("recording", this.speaking)
         axios({
-            method: "get",
-            url: "http://localhost:8001/actor-audition/get_signed_url",
+            method: "post",
+            data: formData,
+            url: "http://localhost:8001/actor-audition/upload_audition_videos",
         }).then(function (response) {
             var postURL = response.data.postURL;
             var video = response.data.getURL;

@@ -144,11 +144,12 @@ class Video extends Component {
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
             }
+            console.log("herree");
             var formData = new FormData()
             formData.append('file', this.videoPlayer.recordedData)
             // save in S3
             console.log("[finish] Auto record active", react_comp.auto_record_active)
-            console.log("recording", react_comp.speaking)
+            console.log("recording", react_comp.speaking);
             axios({
                 method: "get",
                 url: "http://localhost:8001/actor-audition/get_signed_url",

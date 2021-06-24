@@ -16,6 +16,7 @@ import { withRouter } from 'react-router-dom'
 
 function PracticeComp(props) {
 	const [audition, setAudition] = useState()
+	console.log("ron audition", audition);
 	useEffect(() => {
 		setAudition(JSON.parse(localStorage.getItem('trainerAudition')))
 	}, [props.actor.trainerAudition])
