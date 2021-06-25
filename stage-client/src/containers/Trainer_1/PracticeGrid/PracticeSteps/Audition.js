@@ -78,7 +78,7 @@ function Audition(props) {
 				</Box>
 			</Box>
 			<Grid item>
-				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Actor will get your message!</Alert>}
+				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Recruiter will get your auditon!</Alert>}
 			</Grid>
 			<Grid item >
 				{isSubmitted && <Alert onClose={() => setIsSubmitted(false)} severity="error">The audition was already submitted</Alert>}
