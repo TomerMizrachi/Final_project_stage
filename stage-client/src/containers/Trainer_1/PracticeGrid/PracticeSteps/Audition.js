@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import StyledPracticeStep from './Audition.styles';
 import { Grid, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { IconButton, LinkButton } from '@components/uielements/Button/Button';
+import {  LinkButton } from '@components/uielements/Button/Button';
 import VideoPlayer from "react-happy-video"
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'

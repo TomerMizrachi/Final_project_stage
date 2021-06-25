@@ -1,10 +1,13 @@
 import React from 'react';
-import StyledDashboardTopCards from './DashboardTopCards.styles';
-import { Grid, Box } from '@material-ui/core';
-import { IconButton } from '@components/uielements/Button/Button';
+import StyledDashboardTopCards from './DashboardTopCards.styles'
+import { Grid, Box } from '@material-ui/core'
+import { IconButton } from '@components/uielements/Button/Button'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function DashboardTopCards(props) {
-	// console.log("tipe", props)
+function DashboardTopCards(props) {
+	console.log("tipe", props)
 	return (
 		<Box mb={6}>
 			<StyledDashboardTopCards>
@@ -22,7 +25,7 @@ export default function DashboardTopCards(props) {
 											</IconButton>
 										</Grid>
 										<Grid item>
-											<div className="heading2">{props.stats.relevantauditions.length}</div>
+											<div className="heading2">{props.actor.relevantauditions.length}</div>
 											<div className="desc">Availible Auditions</div>
 										</Grid>
 									</Grid>
@@ -56,7 +59,7 @@ export default function DashboardTopCards(props) {
 											</IconButton>
 										</Grid>
 										<Grid item>
-											<div className="heading2">{props.stats.auditions.length}</div>
+											<div className="heading2">{props.actor.auditions.length}</div>
 											<div className="desc">Auditions In Practice</div>
 										</Grid>
 									</Grid>
@@ -82,3 +85,20 @@ export default function DashboardTopCards(props) {
 		</Box>
 	)
 }
+
+DashboardTopCards.propTypes = {
+    auth: PropTypes.object.isRequired,
+    actor: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    actor: state.actor,
+    errors: state.errors
+})
+
+
+export default connect(
+    mapStateToProps,
+)(withRouter(DashboardTopCards))
