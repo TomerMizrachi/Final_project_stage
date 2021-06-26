@@ -9,7 +9,6 @@ import 'webrtc-adapter';
 import RecordRTC from 'recordrtc';
 import hark from 'hark';
 import Blob from 'blob';
-import auditionText from './textForAudition.txt';
 
 // register videojs-record plugin with this import
 import 'videojs-record/dist/css/videojs.record.css';
