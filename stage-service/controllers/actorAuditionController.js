@@ -261,7 +261,11 @@ const s3Url = new URL(s3UrlResponse.postURL);
         headers: {
             'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
         }, 
+<<<<<<< HEAD
        // FormData: 
+=======
+        FormData: output;
+>>>>>>> 37e7fa24281db2e8efbef5ccdfda80ccc47b949d
       }
       
 
