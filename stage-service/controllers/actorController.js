@@ -1,6 +1,6 @@
 import Actor from '../models/actor.js'
 import User from '../models/user.js'
-import ActorAudition from '../models/actoraudition.js'
+import ActorAudition from '../models/actorAudition.js'
 import { validateActorInput } from '../validation/actorValidation.js'
 import s3 from '../config/S3connection.js'
 import { v4 as uuid } from 'uuid'

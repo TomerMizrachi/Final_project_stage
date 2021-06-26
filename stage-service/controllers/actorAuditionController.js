@@ -1,4 +1,4 @@
-import ActorAudition from '../models/actoraudition.js'
+import ActorAudition from '../models/actorAudition.js'
 import s3 from '../config/S3connection.js'
 import config from '../config/env.js'
 import { v4 as uuid } from 'uuid'
