@@ -18,7 +18,7 @@ const videoJsOptions = {
             debug: true,
             // convertEngine: 'ffmpeg.js',
             
-            // convertWorkerURL: 'ffmpeg.js/ffmpeg-worker-mp4.js',
+            //convertWorkerURL: 'ffmpeg.js/ffmpeg-worker-mp4.js',
             // // convert recorded data to MP4 (and copy over audio data without encoding)
             // // convertOptions: ['-f', 'mp3', '-codec:a', 'libmp3lame', '-qscale:a', '2'],
             // convertOptions: ['-c:v', 'libx264', '-preset', 'slow', '-crf', '22', '-c:a', 'copy', '-f', 'mp4'],

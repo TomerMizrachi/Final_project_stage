@@ -254,58 +254,47 @@ class Video extends Component {
             data: formData,
             url: "http://localhost:8001/actor-audition/upload_audition_videos",
         }).then(function (response) {
-            var postURL = response.data.postURL;
-            var video = response.data.getURL;
-            react_comp.setState({ videoURL: video })
-            delete axios.defaults.headers.common['Authorization']
-            axios({
-                method: "put",
-                url: postURL,
-                data: formData.get('file'),
-                headers: {
-                    'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
-                }
-            }).then(res => {
-                console.log(res)
-                react_comp.setState((state) => {
-                    return { finishedText: true }
-                });
-                var parse = JSON.parse(react_comp.state.finalScore)
-                var data = JSON.stringify({
-                    "video": {
-                        "videoUrl": react_comp.state.videoURL,
-                        "similarity": parse.similarityScore,
-                        "exact": parse.exactScore
-                    }
-                });
-                console.log("handleClick", data)
-                var config = {
-                    method: 'put',
-                    url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: data
-                };
+        var video = response.data.videoUrl;
+        console.log("michal", response, video);
+        react_comp.setState({ videoURL: video })
+        
+        console.log("auditionKKK",react_comp.state)
+        react_comp.setState((state) => {
+            return { finishedText: true }
+        });
+        var parse = JSON.parse(react_comp.state.finalScore)
+        var data = JSON.stringify({
+            "video": {
+                "videoUrl": react_comp.state.videoURL,
+                "similarity": parse.similarityScore,
+                "exact": parse.exactScore
+            }
+        });
+        console.log("handleClick", data)
+        var config = {
+            method: 'put',
+            url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
 
-                axios(config)
-                    .then(function (response) {
+        axios(config)
+            .then(function (response) {
 
-                        console.log("response data")
+                console.log("response data")
 
-                        console.log(JSON.stringify(response.data));
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-                console.log(video, postURL);
-                return video;
-            }).catch(error => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(error => {
                 console.log(error);
             })
-        }).catch(function (error) {
-            console.log(error);
-        })
+        return video;
+    
+    }).catch(function (error) {
+        console.log(error);
+    })
     }
 
     // destroy player on unmount

@@ -1,6 +1,8 @@
 import express from 'express'
 import Cors from 'cors'
 import passport from 'passport'
+import fileUpload from 'express-fileupload';
+
 import { passportConfig } from './config/passport.js'
 import config from './config/env.js'
 import router from './routers/router.js'
@@ -23,6 +25,10 @@ app.use((req, res, next) => {
         next()
 })
 app.use(passport.initialize())
+app.use(fileUpload({
+    createParentPath: true,
+    useTempFiles : true,
+}));
 
 passportConfig(passport)
 

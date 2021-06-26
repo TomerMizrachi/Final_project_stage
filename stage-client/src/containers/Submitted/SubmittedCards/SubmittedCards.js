@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import SubmittedBox from './SubmittedBox'
 
 function SubmittedCards(props) {
+    console.log("CARDS",props)
     const submitted = props.recruiter.submitted
     const isFirstRun = useRef(true)
     const [errors, setErrors] = useState()
