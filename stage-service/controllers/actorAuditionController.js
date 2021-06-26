@@ -5,6 +5,16 @@ import { v4 as uuid } from 'uuid'
 import { validateAAInput } from '../validation/aaValidation.js'
 import mongoose from 'mongoose'
 import Audition from '../models/audition.js'
+import concat from 'ffmpeg-concat'
+import ffmpeg from 'fluent-ffmpeg'
+import path from 'path'
+import fs from 'fs'
+import https from 'https'
+
+
+import randomstring from 'randomstring'
+
+
 
 const { S3_BUCKET } = config
 
@@ -168,11 +178,9 @@ const deleteAA = (req, res) => {
         .then(aa => res.json(aa))
         .catch(err => res.status(400).json({ err: err }))
 }
-
-
-const createS3Url = async (req, res) => {
-    try {
-        await s3.getSignedUrl('putObject', {
+const getS3UrlHelper =  ()=>{
+    return new Promise((resolve,reject)=>{
+        s3.getSignedUrl('putObject', {
             Bucket: 'stage-videos',
             Key: uuid(),
             Expires: 300,
@@ -182,19 +190,84 @@ const createS3Url = async (req, res) => {
             // ContentType: 'video/x-matroska'
         }, function (err, signedURL) {
             if (err) {
-                console.log(err)
-                return res.send(err)
+                reject()
             }
             else {
-                return res.json({
+                 resolve({
                     postURL: signedURL,
                     getURL: signedURL.split("?")[0]
                 })
             }
         });
-    } catch (err) {
-        res.send("err");
-    }
+    });
+        
+    
 }
 
-export { getAllAA, getAAById, getSubmmited, getAAByActorId, createAA, updateAA, deleteAA, createS3Url }
+const createS3Url = async (req, res) => {
+    const response = await getS3UrlHelper();
+    console.log(response);
+    return res.json(response)
+}
+
+const mergeFfmpeg = (inputs, output) => {
+    return new Promise((resolve,reject)=>{
+
+        let ffmpegObj = ffmpeg();
+        inputs.forEach( input => {
+            ffmpegObj.addInput(input)
+
+        })
+
+        console.log(inputs, output,path.resolve('./tmp') )
+        ffmpegObj
+        .on('end', ()=>{
+           return resolve()
+         })
+         .on('err',(err)=>{
+             return reject(err)
+         }).mergeToFile(output, path.resolve('./tmp'))
+     })
+}
+
+
+const uploadAuditionVideos  = async (req, res) => {
+
+    let files =Array.isArray(req.files.files) ?  req.files.files :  [req.files.files] ;
+    let filePaths = []
+    let promises =[]
+    files.forEach(file => {
+        const mp4filePath = path.resolve('./uploads/' + file.name+'.mp4')
+        //promises.push(promiseFfmpeg(file.tempFilePath,mp4filePath));
+        filePaths.push(file.tempFilePath);
+
+        
+    });
+    const output=path.resolve('./output/' + randomstring.generate(5) +'.mp4')
+
+    await mergeFfmpeg(filePaths,output)
+
+
+    const s3UrlResponse = await getS3UrlHelper();
+
+    var url = 'http://www.mymainsite.com/somepath/path2/path3/path4';
+
+const s3Url = new URL(s3UrlResponse.postURL);
+
+    const options = {
+        hostname: s3Url.hostname,
+        path: s3Url.pathname,
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
+        }, 
+       // FormData: 
+      }
+      
+
+s
+   
+    res.send("done");
+}
+
+export { getAllAA, getAAById, getSubmmited, getAAByActorId, createAA, updateAA, deleteAA, createS3Url, uploadAuditionVideos }
