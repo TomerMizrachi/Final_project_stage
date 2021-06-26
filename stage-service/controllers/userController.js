@@ -9,7 +9,7 @@ import Actor from '../models/actor.js'
 import keys from '../config/keys.js'
 import { USER_TYPE } from '../config/types.js'
 import Audition from '../models/audition.js'
-import ActorAudition from '../models/actoraudition.js'
+import ActorAudition from '../models/actorAudition.js'
 
 
 
