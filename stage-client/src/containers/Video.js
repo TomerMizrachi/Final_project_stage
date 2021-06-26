@@ -9,7 +9,6 @@ import 'webrtc-adapter';
 import RecordRTC from 'recordrtc';
 import hark from 'hark';
 import Blob from 'blob';
-import auditionText from './textForAudition.txt';
 
 // register videojs-record plugin with this import
 import 'videojs-record/dist/css/videojs.record.css';
@@ -18,7 +17,6 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             _id: props.data.audition._id,
             auto_record_active: false,
@@ -55,13 +53,8 @@ class Video extends Component {
     }
 
     readText() {
-        fetch(auditionText)
-            .then((r) => r.text())
-            .then(text => {
-                this.setState({
-                    entireText: text.split("\n")
-                })
-            })
+        console.log("text",this.props.audition.audition.auditionInfo[0].text_file)
+        this.setState({entireText:this.props.audition.audition.auditionInfo[0].text_file.split("\n")})
     }
 
 
@@ -150,6 +143,7 @@ class Video extends Component {
         this.videoPlayer.on('finishRecord', () => {
             react_comp.recording = false
             console.log("this is finish")
+
             // this.isSaveDisabled = false
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
@@ -169,6 +163,12 @@ class Video extends Component {
                     }
                 }).then(res => {
                     let resultTranscript = res.data.transcript
+                    let confidence=res.data.confidence
+                    console.log("conf",confidence)
+                    console.log(confidence)
+                    if (confidence<0.8){
+                        throw 'We could not hear you';
+                    }
                     console.log('Result transcript', resultTranscript)
                     let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
                     this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
@@ -181,7 +181,7 @@ class Video extends Component {
                         this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilarityScore: parseFloat(this.state.sumSimilarityScore) + parseFloat(res.data.similarityScore) })
                         axios.get("http://127.0.0.1:5000/textToSpeech", {
                             params: {
-                                textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
+                                textToRead: this.state.entireText[this.state.currentLineIterator].replace('other actor:', '')
                             }
                         }).then(res => {
                             if (this.state.currentLineIterator < this.state.entireText.length) {
@@ -239,15 +239,20 @@ class Video extends Component {
         var merged_blob = new Blob(this.currSessionBlobs);
         var formData = new FormData()
         console.log(`Current seesion blobs ${this.currSessionBlobs.length}`)
-        formData.append('file', merged_blob)
+        this.currSessionBlobs.forEach (blob=> {
+
+        formData.append('files', blob)
+
+        })
         this.currSessionBlobs = [];
 
         // save in S3
         console.log("[finish] Auto record active", this.state.auto_record_active)
         console.log("recording", this.speaking)
         axios({
-            method: "get",
-            url: "http://localhost:8001/actor-audition/get_signed_url",
+            method: "post",
+            data: formData,
+            url: "http://localhost:8001/actor-audition/upload_audition_videos",
         }).then(function (response) {
             var postURL = response.data.postURL;
             var video = response.data.getURL;

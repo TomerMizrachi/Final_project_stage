@@ -16,7 +16,7 @@ const videoJsOptions = {
             maxLength: 60000,
             debug: true,
             timeSlice: 100,
-            videoMimeType: 'video/mp4',
+            videoMimeType: 'video/webm;codecs=H264',
         }
     }
 }
@@ -30,7 +30,7 @@ const Filming = (props) => {
     return (
         <div>
             <div style={video}>
-                <Video style={video}{...videoJsOptions} data={props}></Video>
+                <Video audition={props}{...videoJsOptions} data={props}></Video>
             </div>
         </div>
     )
