@@ -97,7 +97,7 @@ function TrainerTopCards(props) {
 										</Grid>
 									</Grid>
 									<Grid item xs={5}>
-										<Box className="heading3" mb={0}>Highest Audition Metrics</Box>
+										<Box className="heading3" mb={0}>Recent Audition Metrics</Box>
 										<Grid item>
 											<div className="chart">
 												<Chart options={options} series={[audition.videos[0] ?

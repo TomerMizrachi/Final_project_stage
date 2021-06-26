@@ -144,6 +144,7 @@ class Video extends Component {
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
             }
+            
             console.log("herree");
             var formData = new FormData()
             formData.append('file', this.videoPlayer.recordedData)

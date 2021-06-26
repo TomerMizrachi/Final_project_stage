@@ -10,6 +10,8 @@ import ffmpeg from 'fluent-ffmpeg'
 import path from 'path'
 import fs from 'fs'
 import https from 'https'
+import  AWS from 'aws-sdk'
+
 
 
 import randomstring from 'randomstring'
@@ -237,41 +239,36 @@ const uploadAuditionVideos  = async (req, res) => {
     let filePaths = []
     let promises =[]
     files.forEach(file => {
+        console.log("1")
         const mp4filePath = path.resolve('./uploads/' + file.name+'.mp4')
+        console.log("2")
         //promises.push(promiseFfmpeg(file.tempFilePath,mp4filePath));
         filePaths.push(file.tempFilePath);
 
         
     });
     const output=path.resolve('./output/' + randomstring.generate(5) +'.mp4')
+    
+    await mergeFfmpeg(filePaths,output);
 
-    await mergeFfmpeg(filePaths,output)
-
-
-    const s3UrlResponse = await getS3UrlHelper();
-
-    var url = 'http://www.mymainsite.com/somepath/path2/path3/path4';
-
-const s3Url = new URL(s3UrlResponse.postURL);
-
-    const options = {
-        hostname: s3Url.hostname,
-        path: s3Url.pathname,
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
-        }, 
-<<<<<<< HEAD
-       // FormData: 
-=======
-        FormData: output;
->>>>>>> 37e7fa24281db2e8efbef5ccdfda80ccc47b949d
-      }
-      
-
-s
-   
-    res.send("done");
+    console.log("3")
+    fs.readFile(output, (err, data) => {
+        if (err) throw err;
+        console.log("4")
+        const params = {
+            Bucket: 'stage-videos',
+            Key: uuid(),
+            Expires: 300,
+            ACL: 'public-read',
+            ContentType: 'video/mp4',
+            Body: data
+        };
+        s3.upload(params, function(s3Err, data) {
+            console.log("5")
+            res.send({videoUrl:data.Location});
+        });  
+     });
+    
 }
 
 export { getAllAA, getAAById, getSubmmited, getAAByActorId, createAA, updateAA, deleteAA, createS3Url, uploadAuditionVideos }
