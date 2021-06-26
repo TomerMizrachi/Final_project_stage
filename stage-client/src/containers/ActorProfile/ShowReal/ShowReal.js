@@ -36,7 +36,7 @@ function ShowReal(props) {
             formData.append("file", fileObject.file);
             axios({
                 method: "get",
-                url: "http://localhost:8001/actor-audition/get_signed_url",
+                url: "/actor-audition/get_signed_url",
             }).then(function (response) {
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
@@ -52,7 +52,7 @@ function ShowReal(props) {
                     var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id });
                     var config = {
                         method: 'put',
-                        url: "http://localhost:8001/actor/uploadVideos",
+                        url: "/actor/uploadVideos",
                         headers: {
                             'Content-Type': 'application/json'
                         },

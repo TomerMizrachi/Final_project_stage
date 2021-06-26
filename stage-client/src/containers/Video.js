@@ -252,7 +252,7 @@ class Video extends Component {
         axios({
             method: "post",
             data: formData,
-            url: "http://localhost:8001/actor-audition/upload_audition_videos",
+            url: "/actor-audition/upload_audition_videos",
         }).then(function (response) {
         var video = response.data.videoUrl;
         console.log("michal", response, video);
@@ -273,7 +273,7 @@ class Video extends Component {
         console.log("handleClick", data)
         var config = {
             method: 'put',
-            url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
+            url: `/actor-audition/${react_comp.state._id}`,
             headers: {
                 'Content-Type': 'application/json'
             },

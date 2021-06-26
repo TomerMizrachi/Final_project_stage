@@ -153,7 +153,7 @@ class Video extends Component {
             console.log("recording", react_comp.speaking);
             axios({
                 method: "get",
-                url: "http://localhost:8001/actor-audition/get_signed_url",
+                url: "/actor-audition/get_signed_url",
             }).then(function (response) {
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;

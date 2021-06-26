@@ -18,7 +18,7 @@ export default function VideoBox({ video, actor_id }) {
         });
         var config = {
             method: 'put',
-            url: 'http://localhost:8001/actor/deleteFromS3',
+            url: '/actor/deleteFromS3',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -39,7 +39,7 @@ export default function VideoBox({ video, actor_id }) {
         });
         var config = {
             method: 'put',
-            url: 'http://localhost:8001/actor/deletevideo',
+            url: '/actor/deletevideo',
             headers: {
                 'Content-Type': 'application/json'
             },
