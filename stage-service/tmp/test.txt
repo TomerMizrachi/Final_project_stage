@@ -1,0 +1,2 @@
+file '/Users/algopixadministrator/Desktop/Final_project_stage/stage-service/tmp/tmp-1-1624735807184'
+file '/Users/algopixadministrator/Desktop/Final_project_stage/stage-service/tmp/tmp-2-1624735807192'

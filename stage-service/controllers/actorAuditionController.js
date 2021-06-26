@@ -216,19 +216,40 @@ const mergeFfmpeg = (inputs, output) => {
     return new Promise((resolve,reject)=>{
 
         let ffmpegObj = ffmpeg();
-        inputs.forEach( input => {
-            ffmpegObj.addInput(input)
+        // inputs.forEach( input => {
+        //     ffmpegObj.addInput(input)
 
-        })
+        // })
+
+        let inputNamesFormatted = 'concat:' + inputs.join('|');
+
+
+
 
         console.log(inputs, output,path.resolve('./tmp') )
-        ffmpegObj
+
+
+        var listFileName = 'tmp/'+ randomstring.generate(10), fileNames = '';
+
+        // ffmpeg -f concat -i mylist.txt -c copy output
+        inputs.forEach(function(fileName, index){
+        fileNames = fileNames + 'file ' + '\'' + fileName + '\n';
+        });
+
+        fs.writeFileSync(listFileName, fileNames);
+
+
+        ffmpegObj.input(listFileName)
+         .on('start', (cmdline) => console.log(cmdline))
         .on('end', ()=>{
            return resolve()
          })
          .on('err',(err)=>{
              return reject(err)
-         }).mergeToFile(output, path.resolve('./tmp'))
+         })
+.inputOptions(['-f concat', '-safe 0'])
+.outputOptions('-c copy')
+.save(output)
      })
 }
 
