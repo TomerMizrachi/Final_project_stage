@@ -49,6 +49,8 @@ function Dashboard(props) {
 			body_structure: props.actor.profile.body_structure,
 			hair: props.actor.profile.hair,
 			eyes: props.actor.profile.eyes,	
+			skills: props.actor.profile.skills,
+			languages: props.actor.profile.languages
 		}
 		props.getMyRelevantAuditions(params)
 	}, [props.actor.profile])
@@ -63,7 +65,7 @@ function Dashboard(props) {
 					<h3 className="dec">Here are your recent practices and audition submissions:</h3>
 				</Grid>
 			</Grid>
-			<DashboardTopCards stats={props.actor} invitedNum={invitedNum} submitted={submitted} />
+			<DashboardTopCards invitedNum={invitedNum} submitted={submitted} />
 		</DashboardLayout>
 	)
 }

@@ -58,10 +58,8 @@ function TrainerTopCards(props) {
 						<span >{audition.auditionInfo[0].name}</span>
 						{/* <div target="_blank" onClick={this.trainerPage} >Trainer {'> '} </div>
 					<div onClick={this.currPage}>Cinderalla</div> */}
-
 					</Box>
 					<Grid container spacing={5}>
-
 						<Grid item xs={12}>
 							<div className="card-box">
 								<Grid container spacing={3} className="align">

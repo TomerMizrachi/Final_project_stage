@@ -168,7 +168,11 @@ class Video extends Component {
                     console.log("conf",confidence)
                     console.log(confidence)
                     if (confidence<0.8){
+<<<<<<< HEAD
                         throw 'We could not hear';
+=======
+                        throw 'We could not hear you';
+>>>>>>> a7949f719f1c50000c30f6b9fc5663bb0b1fc559
                     }
                     console.log('Result transcript', resultTranscript)
                     let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')

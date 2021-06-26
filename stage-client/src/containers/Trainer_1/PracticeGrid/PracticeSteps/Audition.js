@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import StyledPracticeStep from './Audition.styles';
 import { Grid, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { IconButton, LinkButton } from '@components/uielements/Button/Button';
+import {  LinkButton } from '@components/uielements/Button/Button';
 import VideoPlayer from "react-happy-video"
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -79,7 +78,7 @@ function Audition(props) {
 				</Box>
 			</Box>
 			<Grid item>
-				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Actor will get your message!</Alert>}
+				{SubSucsess && <Alert onClose={() => { closeAlert() }} severity="success">This is a success — The Recruiter will get your auditon!</Alert>}
 			</Grid>
 			<Grid item >
 				{isSubmitted && <Alert onClose={() => setIsSubmitted(false)} severity="error">The audition was already submitted</Alert>}
