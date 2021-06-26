@@ -6,6 +6,8 @@ import fileUpload from 'express-fileupload';
 import { passportConfig } from './config/passport.js'
 import config from './config/env.js'
 import router from './routers/router.js'
+import path from 'path'
+
 import DBconnection from './config/DBconnection.js'
 
 
@@ -36,6 +38,16 @@ app.use('/user', USER_ROUTE)
 app.use('/actor', ACTOR_ROUTE)
 app.use('/audition', AUDITION_ROUTE)
 app.use('/actor-audition', ACTOR_AUDITION_ROUTE)
+
+
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../stage-client/build')));
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../stage-client/build', 'index.html'));
+  });
+
 
 
 app.listen(SERVICE_PORT, () => console.log(`listening on port ${SERVICE_PORT}`))
