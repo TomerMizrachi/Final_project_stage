@@ -261,14 +261,12 @@ const uploadAuditionVideos  = async (req, res) => {
     let promises =[]
     files.forEach(file => {
         console.log("1")
-        const mp4filePath = path.resolve('./uploads/' + file.name+'.mp4')
         console.log("2")
-        //promises.push(promiseFfmpeg(file.tempFilePath,mp4filePath));
         filePaths.push(file.tempFilePath);
 
         
     });
-    const output=path.resolve('./output/' + randomstring.generate(5) +'.mp4')
+    const output=path.resolve('tmp/' + randomstring.generate(8) +'.mp4')
     
     await mergeFfmpeg(filePaths,output);
 
