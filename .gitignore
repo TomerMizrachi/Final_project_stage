@@ -104,7 +104,7 @@ dist
 .tern-port
 
 stage-service/tmp/*
-stage-service/output/*
+stage-service/output/*.mp4
 stage-service/node_modules
 stage-client/node_modules
 node_modules
