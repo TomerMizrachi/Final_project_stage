@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
 	background-color: #333333;
@@ -11,6 +11,6 @@ const StyledFooter = styled.footer`
 			height: 40px;
 		}
 	}
-`;
+`
 
-export default StyledFooter;
+export default StyledFooter

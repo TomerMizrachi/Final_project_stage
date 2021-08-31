@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const RecruiterCards = styled.div`
 	.card-box {
@@ -28,6 +28,6 @@ const RecruiterCards = styled.div`
 			}
 		}
 	}
-`;
+`
 
-export default RecruiterCards;
+export default RecruiterCards

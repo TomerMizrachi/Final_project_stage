@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledStartSignUp = styled.section`
 	.heading {
@@ -28,6 +28,6 @@ const StyledStartSignUp = styled.section`
 			}
 		}
 	}
-`;
+`
 
-export default StyledStartSignUp;
+export default StyledStartSignUp

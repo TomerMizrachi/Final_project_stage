@@ -23,7 +23,6 @@ export default class Aud extends Component {
             errorMessage: "",
 
         }
-
     }
 
     controlAudio(status) {
@@ -47,64 +46,61 @@ export default class Aud extends Component {
         })
         return JSON.stringify(finalScore)
     }
+
     readText() {
-            console.log("TEXT",this.props.audition.auditionInfo[0].text_file)
-            this.setState({ entireText:this.props.audition.auditionInfo[0].text_file.split("\n")})
-
+        console.log("TEXT", this.props.audition.auditionInfo[0].text_file)
+        this.setState({ entireText: this.props.audition.auditionInfo[0].text_file.split("\n") })
     }
-
 
     componentDidMount() {
         this.readText()
-        this.speaking = false;
-        this.speech_timeout = 0;
-        this.speech_loop_counter_timeout = 0;
+        this.speaking = false
+        this.speech_timeout = 0
+        this.speech_loop_counter_timeout = 0
         var react_comp = this
         navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function (camera) {
-            var speechEvents = hark(camera, {});
+            var speechEvents = hark(camera, {})
             speechEvents.on('speaking', function () {
                 if (react_comp.state.auto_record_active !== true) {
-                    return;
+                    return
                 }
                 if (react_comp.state.status !== 'recording') {
                     react_comp.setState({ status: "recording" })
-                };
-                if (react_comp.speaking == false) {
-                    react_comp.startSpeechTimestamp = new Date().getTime();
                 }
-                react_comp.speaking = true;
-                console.log('started speaking!');
+                if (react_comp.speaking == false) {
+                    react_comp.startSpeechTimestamp = new Date().getTime()
+                }
+                react_comp.speaking = true
+                console.log('started speaking!')
                 react_comp.setState({ errorMessage: ' ' })
-                clearTimeout(react_comp.speech_timeout);
-                clearTimeout(react_comp.speech_loop_counter_timeout);
-            });
+                clearTimeout(react_comp.speech_timeout)
+                clearTimeout(react_comp.speech_loop_counter_timeout)
+            })
             speechEvents.on('stopped_speaking', function () {
                 if (react_comp.speaking === false) {
-                    return;
+                    return
                 }
                 console.log('Stopped speaking. State:', react_comp.state)
                 let silence_timeout = 3
                 react_comp.speech_timeout = setTimeout(function () {
-                    react_comp.speaking = false;
+                    react_comp.speaking = false
                     react_comp.setState({ status: "inactive", auto_record_active: false })
                     console.log('Stopped speaking')
-                }, silence_timeout * 1000);
+                }, silence_timeout * 1000)
 
                 // logging  
-                var seconds = silence_timeout;
-                (function looper() {
-                    console.log('Recording is going to be stopped in ' + seconds + ' seconds.');
-                    seconds--;
-                    if (seconds <= 0) {
-                        return;
-                    }
-                    react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000);
-                })();
-            });
-        });
+                var seconds = silence_timeout
+                    (function looper() {
+                        console.log('Recording is going to be stopped in ' + seconds + ' seconds.')
+                        seconds--
+                        if (seconds <= 0) {
+                            return
+                        }
+                        react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000)
+                    })()
+            })
+        })
     }
-
-
 
     changeScheme(e) {
         this.setState({
@@ -130,20 +126,19 @@ export default class Aud extends Component {
                 this.setState({
                     audioSrc: window.URL.createObjectURL(e)
                 })
-                const formData = new FormData();
-
-                formData.append("file", e);
+                const formData = new FormData()
+                formData.append("file", e)
                 console.log("succ stop", e)
                 if (this.state.currentLineIterator < this.state.entireText.length) {
                     this.setState({ status: "inactive", auto_record_active: false })
                     axios.post("https://textualservices.herokuapp.com/speechToTextAudio", formData)
                         .then(res => {
-                            let confidence=res.data.confidence
+                            let confidence = res.data.confidence
                             let resultTranscript = res.data.transcript
-                            console.log("conf",confidence)
+                            console.log("conf", confidence)
                             console.log(confidence)
-                            if (confidence<0.8){
-                                throw 'We could not hear you';
+                            if (confidence < 0.8) {
+                                throw 'We could not hear you'
                             }
                             console.log('Result transcript', resultTranscript)
                             let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
@@ -162,7 +157,7 @@ export default class Aud extends Component {
                                 }).then(res => {
                                     if (this.state.currentLineIterator < this.state.entireText.length) {
                                         var base64string = res.data.data
-                                        var snd = new Audio("data:audio/wav;base64," + base64string);
+                                        var snd = new Audio("data:audio/wav;base64," + base64string)
                                         snd.play()
                                         snd.onended = () => {
                                             snd.currentTime = 0
@@ -178,8 +173,6 @@ export default class Aud extends Component {
                                             }
                                         }
                                     }
-
-
                                     else {
                                         console.log("No more texts to read")
                                         this.setState({ finishedText: true, finalScore: this.calculateTotalScore(), auto_record_active: false })
@@ -189,13 +182,10 @@ export default class Aud extends Component {
                                 .catch(err => {
                                     console.log(err)
                                 })
-
                         }).catch(err => {
                             console.log('Got error from speechToTextAudio api')
                             this.setState({ errorMessage: "We could not hear you. Please try again", status: "active", auto_record_active: true })
                         })
-
-
                 }
                 else {
                     console.log("no more text to read")
@@ -226,7 +216,7 @@ export default class Aud extends Component {
                             </div>
                         </AudioAnalyser>
                     </div>
-                );
+                )
             }
             else {
                 return (<p>{(this.state.finalScore)}</p>)

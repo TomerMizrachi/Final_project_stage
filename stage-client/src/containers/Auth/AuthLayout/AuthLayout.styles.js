@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledAuthLayout = styled.div`
 	height: 100%;
@@ -31,4 +31,4 @@ const StyledAuthLayout = styled.div`
 	}
 `;
 
-export default StyledAuthLayout;
+export default StyledAuthLayout

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 const BigSearchBar = styled.body`
 .search-box {
@@ -46,4 +46,4 @@ const BigSearchBar = styled.body`
 	}
 `;
 
-export default BigSearchBar;
+export default BigSearchBar

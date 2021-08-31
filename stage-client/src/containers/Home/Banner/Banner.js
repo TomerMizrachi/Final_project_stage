@@ -1,9 +1,9 @@
-import React from 'react';
-import SiteConfig from '@config/site.config';
-import StyledBanner from './Banner.styles';
-import BannerActorCard from './BannerActorCard/BannerActorCard';
-import { LinkButton } from '@components/uielements/Button/Button';
-import { Box } from '@material-ui/core';
+import React from 'react'
+import SiteConfig from '@config/site.config'
+import StyledBanner from './Banner.styles'
+import BannerActorCard from './BannerActorCard/BannerActorCard'
+import { LinkButton } from '@components/uielements/Button/Button'
+import { Box } from '@material-ui/core'
 
 function Banner() {
 	const bannerActorData = {
@@ -11,7 +11,7 @@ function Banner() {
 		'title': 'Actor',
 		'image': SiteConfig.BLANK_IMAGE,
 		'rating': 5,
-	};
+	}
 
 	return (
 		<StyledBanner id="banner">
@@ -41,4 +41,4 @@ function Banner() {
 	)
 }
 
-export default Banner;
+export default Banner

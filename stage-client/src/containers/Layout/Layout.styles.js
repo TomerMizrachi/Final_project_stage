@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledLayout = styled.main`
 	display: flex;
@@ -10,4 +10,4 @@ const StyledLayout = styled.main`
 	}
 `;
 
-export default StyledLayout;
+export default StyledLayout

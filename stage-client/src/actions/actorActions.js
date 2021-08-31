@@ -17,6 +17,7 @@ export const getActorInfo = (user_id) => dispatch => {
             })
         })
 }
+
 export const UpdateProfile = (actor) => dispatch => {
     axios
         .put("/actor", actor)
@@ -27,6 +28,7 @@ export const UpdateProfile = (actor) => dispatch => {
             })
         })
 }
+
 export const getMyAuditions = (actor_id) => dispatch => {
     axios
         .get("/actor-audition/actor", { params: { actor_id: actor_id } })
@@ -42,12 +44,6 @@ export const getMyAuditions = (actor_id) => dispatch => {
                 payload: err.response.data
             })
         })
-}
-
-
-export const getAuditionMetrics = (actor_id) => dispatch => {
-    // let trainingsArr=getMyAuditions(actor_id)
-    // console.log("efdsfsh",trainingsArr)
 }
 
 export const registerToAudition = (actor_id, audition_id) => dispatch => {

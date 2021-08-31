@@ -1,10 +1,10 @@
 import React from 'react'
 import TextTrainer from '../TextTrainer/TextTrainer'
 import Filming from '../Filming'
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-import StyledActorFrame from './ActorFrame.styles';
-import DashboardLayout from '../DashboardLayout/DashboardLayout';
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css'
+import StyledActorFrame from './ActorFrame.styles'
+import DashboardLayout from '../DashboardLayout/DashboardLayout'
 
 const linkStyle = {
     paddingRight: 30

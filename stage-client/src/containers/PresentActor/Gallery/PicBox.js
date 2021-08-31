@@ -1,7 +1,7 @@
-import React from 'react';
-import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeSteps/Audition.styles';
-import { Box } from '@material-ui/core';
-import { LinkButton } from '@components/uielements/Button/Button';
+import React from 'react'
+import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeSteps/Audition.styles'
+import { Box } from '@material-ui/core'
+import { LinkButton } from '@components/uielements/Button/Button'
 
 export default function PicBox({ picture }) {
     return (

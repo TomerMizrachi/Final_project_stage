@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import StyledFeaturedActor from '@containers/AllAuditions/AuditionsList/SingleAudition/SingleAudition.styles';
+import React, { useState, useRef, useEffect } from 'react'
+import StyledFeaturedActor from '@containers/AllAuditions/AuditionsList/SingleAudition/SingleAudition.styles'
 import { Button } from '@components/uielements/Button/Button'
 import { Grid } from '@material-ui/core'
 import { TextField, MenuItem } from '@material-ui/core'
@@ -20,7 +20,7 @@ function Details(props) {
     useEffect(() => {
         if (isFirstRun.current) {
             isFirstRun.current = false
-            return;
+            return
         }
         setErrors({ errors: props.errors })
     }, [props.errors])

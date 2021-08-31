@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '@containers/Layout/Layout';
-import StyledDashboardLayout from './DashboardLayout.styles';
-import RecruiterSidebar from './Sidebar/RecruiterSidebar';
+import React from 'react'
+import Layout from '@containers/Layout/Layout'
+import StyledDashboardLayout from './DashboardLayout.styles'
+import RecruiterSidebar from './Sidebar/RecruiterSidebar'
 
 export default function DashboardLayout({ children }) {
 	return (

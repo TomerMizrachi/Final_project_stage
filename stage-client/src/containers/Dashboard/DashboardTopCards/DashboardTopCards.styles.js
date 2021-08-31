@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledDashboardTopCards = styled.div`
 	.card-box {
@@ -28,6 +28,6 @@ const StyledDashboardTopCards = styled.div`
 			}
 		}
 	}
-`;
+`
 
-export default StyledDashboardTopCards;
+export default StyledDashboardTopCards

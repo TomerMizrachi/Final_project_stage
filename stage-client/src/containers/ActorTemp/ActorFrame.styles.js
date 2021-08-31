@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledActorFrame = styled.div`
 	box-shadow: 0px 2px 15px rgba(62, 53, 120, 0.2);
@@ -7,4 +7,4 @@ const StyledActorFrame = styled.div`
 	padding: 15px;
 `;
 
-export default StyledActorFrame;
+export default StyledActorFrame

@@ -29,7 +29,7 @@ function ShowReal(props) {
                 <CloseIcon />
             </IconButton>
         </>
-    );
+    )
     const uploadVideo = (fileObjects) => {
         fileObjects.map((fileObject) => {
             const formData = new FormData();
@@ -49,7 +49,7 @@ function ShowReal(props) {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id });
+                    var data = JSON.stringify({ "videos": getURL, "id": props.auth.user.actor_id })
                     var config = {
                         method: 'put',
                         url: "/actor/uploadVideos",
@@ -57,7 +57,7 @@ function ShowReal(props) {
                             'Content-Type': 'application/json'
                         },
                         data: data
-                    };
+                    }
                     axios(config)
                         .then(function (response) {
                             console.log(JSON.stringify(response.data));
@@ -65,7 +65,6 @@ function ShowReal(props) {
                         .catch(error => {
                             console.log(error);
                         })
-                    // this.setState({ success: true });
                 }).catch(error => {
                     console.log(error);
                 })

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledFeaturedActorAudition = styled.div`
 	box-shadow: 0px 2px 15px rgba(62, 53, 120, 0.2);
@@ -44,6 +44,6 @@ const StyledFeaturedActorAudition = styled.div`
 			padding-left: 6px;
 		}
 	}
-`;
+`
 
-export default StyledFeaturedActorAudition;
+export default StyledFeaturedActorAudition

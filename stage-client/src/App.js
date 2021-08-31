@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logoutUser } from './actions/authActions'
 
-import { Provider } from "react-redux";
-import store from "./store";
+import { Provider } from "react-redux"
+import store from "./store"
 
-import Routes from '@router/Router';
-import { ThemeProvider } from 'styled-components';
-import themeConfig from '@config/theme.config';
-import GlobalStyles from '@assets/styles/GlobalStyles';
+import Routes from '@router/Router'
+import { ThemeProvider } from 'styled-components'
+import themeConfig from '@config/theme.config'
+import GlobalStyles from '@assets/styles/GlobalStyles'
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -43,4 +43,4 @@ const App = () => {
     )
 }
 
-export default App;
+export default App

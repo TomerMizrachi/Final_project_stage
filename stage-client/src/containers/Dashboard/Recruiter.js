@@ -23,7 +23,7 @@ function Recruiter(props) {
             </Grid>
             <RcruiterCards />
         </RecruiterLayout>
-    );
+    )
 }
 
 Recruiter.propTypes = {

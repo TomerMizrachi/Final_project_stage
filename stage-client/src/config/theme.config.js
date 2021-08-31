@@ -24,4 +24,4 @@ const themeConfig = {
 	strokeColor: '#E9E6FE',
 }
 
-export default themeConfig;
+export default themeConfig

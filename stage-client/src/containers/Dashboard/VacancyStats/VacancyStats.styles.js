@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledVacancyStatsGraph = styled.div`
 	.stats-graph {}
@@ -16,6 +16,6 @@ const StyledVacancyStatsGraph = styled.div`
 			}
 		}
 	}
-`;
+`
 
-export default StyledVacancyStatsGraph;
+export default StyledVacancyStatsGraph

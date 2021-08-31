@@ -3,10 +3,10 @@ import RecruiterLayout from '@containers/DashboardLayout/RecruiterLayout'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 import { myAuditions } from '@actions/recruiterActions'
 import { withRouter } from 'react-router-dom'
-import SubmittedCards from './SubmittedCards/SubmittedCards';
+import SubmittedCards from './SubmittedCards/SubmittedCards'
 
 function Submitted(props) {
     console.log("ACTOR",props)
@@ -24,7 +24,7 @@ function Submitted(props) {
             </Grid>
             <SubmittedCards />
         </RecruiterLayout>
-    );
+    )
 }
 
 Submitted.propTypes = {

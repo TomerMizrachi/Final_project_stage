@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
-import 'video.js/dist/video-js.css';
-import videojs from 'video.js';
-import '@videojs/plugin-concat';
-import 'webrtc-adapter';
-
-import RecordRTC from 'recordrtc';
-import hark from 'hark';
-import Blob from 'blob';
-
-// register videojs-record plugin with this import
-import 'videojs-record/dist/css/videojs.record.css';
-import Record from 'videojs-record/dist/videojs.record.js';
-
+import 'video.js/dist/video-js.css'
+import videojs from 'video.js'
+import '@videojs/plugin-concat'
+import 'webrtc-adapter'
+import RecordRTC from 'recordrtc'
+import hark from 'hark'
+import Blob from 'blob'
+import 'videojs-record/dist/css/videojs.record.css'
 class Video extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             _id: props.data.audition._id,
             auto_record_active: false,
@@ -34,9 +28,8 @@ class Video extends Component {
             errorMessage: "",
 
         }
-        this.startConversation = this.startConversation.bind(this);
-        this.sendToS3 = this.sendToS3.bind(this);
-        // this.sendRecording = this.sendRecording.bind(this);
+        this.startConversation = this.startConversation.bind(this)
+        this.sendToS3 = this.sendToS3.bind(this)
     }
     calculateTotalScore() {
         //avg of sumSimilarty and sumExact divided by length of sentence/2, taking into consideration the actorLine and actor has one line each. Should be replaced.
@@ -53,62 +46,60 @@ class Video extends Component {
     }
 
     readText() {
-        console.log("text",this.props.audition.audition.auditionInfo[0].text_file)
-        this.setState({entireText:this.props.audition.audition.auditionInfo[0].text_file.split("\n")})
+        console.log("text", this.props.audition.audition.auditionInfo[0].text_file)
+        this.setState({ entireText: this.props.audition.audition.auditionInfo[0].text_file.split("\n") })
     }
 
 
     componentDidMount() {
         this.readText()
-        this.currSessionBlobs = [];// collect all audio blobs until silence
+        this.currSessionBlobs = []// collect all audio blobs until silence
 
         this.videoPlayer = videojs(this.videoNode, this.props, () => {
             // print version information at startup
             const version_info = 'Using video.js ' + videojs.VERSION +
                 ' with videojs-record ' + videojs.getPluginVersion('record') +
-                ' and recordrtc ' + RecordRTC.version;
-            videojs.log(version_info);
-        });
+                ' and recordrtc ' + RecordRTC.version
+            videojs.log(version_info)
+        })
         console.log(this.videoPlayer)
         // Allows start/stop recording
-        this.videoPlayer.deviceButton.handleClick();
-        this.speach_timeout = 0;
-        this.speaking = false;
+        this.videoPlayer.deviceButton.handleClick()
+        this.speach_timeout = 0
+        this.speaking = false
         this.recording = false
-        this.state.auto_record_active = false;
-        this.speech_loop_counter_timeout = 0;
+        this.state.auto_record_active = false
+        this.speech_loop_counter_timeout = 0
         var react_comp = this
-
         // device is ready
         this.videoPlayer.on('deviceReady', () => {
-            console.log('Video device is ready!!');
-        });
+            console.log('Video device is ready!!')
+        })
 
         this.videoPlayer.onStateChanged = function (state) {
             console.log('Video player state changed', state)
         }
-
         navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function (camera) {
-            var speechEvents = hark(camera, {});
+            var speechEvents = hark(camera, {})
             speechEvents.on('speaking', function () {
                 if (react_comp.state.auto_record_active !== true) {
-                    return;
+                    return
                 }
                 if (react_comp.state.status !== 'recording') {
                     react_comp.setState({ status: "recording" })
-                };
-                if (react_comp.speaking == false) {
-                    react_comp.startSpeechTimestamp = new Date().getTime();
-                    console.log('started speaking!');
                 }
-                react_comp.speaking = true;
+                if (react_comp.speaking == false) {
+                    react_comp.startSpeechTimestamp = new Date().getTime()
+                    console.log('started speaking!')
+                }
+                react_comp.speaking = true
                 react_comp.setState({ errorMessage: ' ' })
-                clearTimeout(react_comp.speech_timeout);
-                clearTimeout(react_comp.speech_loop_counter_timeout);
-            });
+                clearTimeout(react_comp.speech_timeout)
+                clearTimeout(react_comp.speech_loop_counter_timeout)
+            })
             speechEvents.on('stopped_speaking', function () {
                 if (react_comp.speaking === false) {
-                    return;
+                    return
                 }
                 console.log('Stopped speaking. State:', react_comp.state)
                 let silence_timeout = 3
@@ -116,41 +107,39 @@ class Video extends Component {
                     if (react_comp.state.auto_record_active) {
                         react_comp.videoPlayer.recordToggle.handleClick()
                     }
-                    react_comp.speaking = false;
+                    react_comp.speaking = false
                     react_comp.setState({ status: "inactive", auto_record_active: false })
                     console.log('Stopped speaking')
-                }, silence_timeout * 1000);
+                }, silence_timeout * 1000)
 
                 // logging  
-                var seconds = silence_timeout;
-                (function looper() {
-                    console.log('Recording is going to be stopped in ' + seconds + ' seconds.');
-                    seconds--;
-                    if (seconds <= 0) {
-                        return;
-                    }
-                    react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000);
-                })();
-            });
-        });
+                var seconds = silence_timeout
+                    (function looper() {
+                        console.log('Recording is going to be stopped in ' + seconds + ' seconds.')
+                        seconds--
+                        if (seconds <= 0) {
+                            return
+                        }
+                        react_comp.speech_loop_counter_timeout = setTimeout(looper, 1000)
+                    })()
+            })
+        })
         // user clicked the record button and started recording
         this.videoPlayer.on('startRecord', () => {
             react_comp.recording = true
-            console.log('started recording!');
-            react_comp.state.auto_record_active = true;
-        });
-
+            console.log('started recording!')
+            react_comp.state.auto_record_active = true
+        })
         this.videoPlayer.on('finishRecord', () => {
             react_comp.recording = false
             console.log("this is finish")
-
             // this.isSaveDisabled = false
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
             }
             var formData = new FormData()
             // singleFormData
-            react_comp.currSessionBlobs.push(this.videoPlayer.recordedData);
+            react_comp.currSessionBlobs.push(this.videoPlayer.recordedData)
             formData.append('file', this.videoPlayer.recordedData)
             if (this.state.currentLineIterator < this.state.entireText.length) {
                 this.setState({ status: "inactive", auto_record_active: false })
@@ -163,11 +152,11 @@ class Video extends Component {
                     }
                 }).then(res => {
                     let resultTranscript = res.data.transcript
-                    let confidence=res.data.confidence
-                    console.log("conf",confidence)
+                    let confidence = res.data.confidence
+                    console.log("conf", confidence)
                     console.log(confidence)
-                    if (confidence<0.8){
-                        throw 'We could not hear you';
+                    if (confidence < 0.8) {
+                        throw 'We could not hear you'
                     }
                     console.log('Result transcript', resultTranscript)
                     let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
@@ -186,7 +175,7 @@ class Video extends Component {
                         }).then(res => {
                             if (this.state.currentLineIterator < this.state.entireText.length) {
                                 var base64string = res.data.data
-                                var snd = new Audio("data:audio/wav;base64," + base64string);
+                                var snd = new Audio("data:audio/wav;base64," + base64string)
                                 snd.play()
                                 snd.onended = () => {
                                     snd.currentTime = 0
@@ -204,8 +193,6 @@ class Video extends Component {
                                     }
                                 }
                             }
-
-
                             else {
                                 console.log("No more texts to read")
                                 this.setState({ finishedText: true, finalScore: this.calculateTotalScore(), auto_record_active: false })
@@ -215,7 +202,6 @@ class Video extends Component {
                         .catch(err => {
                             console.log(err)
                         })
-
                 }).catch(err => {
                     console.log('Got error from speechToTextAudio api')
                     this.videoPlayer.recordToggle.handleClick()
@@ -223,29 +209,24 @@ class Video extends Component {
                 })
             }
         }) // End event "record finished"
-
         // error handling
         this.videoPlayer.on('error', (element, error) => {
-            console.warn(error);
-        });
+            console.warn(error)
+        })
 
         this.videoPlayer.on('deviceError', () => {
-            console.error('device error:', this.videoPlayer.deviceErrorCode);
-        });
+            console.error('device error:', this.videoPlayer.deviceErrorCode)
+        })
     }
-
     sendToS3() {
         var react_comp = this
-        var merged_blob = new Blob(this.currSessionBlobs);
+        var merged_blob = new Blob(this.currSessionBlobs)
         var formData = new FormData()
         console.log(`Current seesion blobs ${this.currSessionBlobs.length}`)
-        this.currSessionBlobs.forEach (blob=> {
-
-        formData.append('files', blob)
-
+        this.currSessionBlobs.forEach(blob => {
+            formData.append('files', blob)
         })
-        this.currSessionBlobs = [];
-
+        this.currSessionBlobs = []
         // save in S3
         console.log("[finish] Auto record active", this.state.auto_record_active)
         console.log("recording", this.speaking)
@@ -254,67 +235,62 @@ class Video extends Component {
             data: formData,
             url: "/actor-audition/upload_audition_videos",
         }).then(function (response) {
-        var video = response.data.videoUrl;
-        console.log("michal", response, video);
-        react_comp.setState({ videoURL: video })
-        
-        console.log("auditionKKK",react_comp.state)
-        react_comp.setState((state) => {
-            return { finishedText: true }
-        });
-        var parse = JSON.parse(react_comp.state.finalScore)
-        var data = JSON.stringify({
-            "video": {
-                "videoUrl": react_comp.state.videoURL,
-                "similarity": parse.similarityScore,
-                "exact": parse.exactScore
+            var video = response.data.videoUrl
+            console.log("michal", response, video)
+            react_comp.setState({ videoURL: video })
+
+            console.log("auditionKKK", react_comp.state)
+            react_comp.setState((state) => {
+                return { finishedText: true }
+            })
+            var parse = JSON.parse(react_comp.state.finalScore)
+            var data = JSON.stringify({
+                "video": {
+                    "videoUrl": react_comp.state.videoURL,
+                    "similarity": parse.similarityScore,
+                    "exact": parse.exactScore
+                }
+            })
+            console.log("handleClick", data)
+            var config = {
+                method: 'put',
+                url: `/actor-audition/${react_comp.state._id}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
             }
-        });
-        console.log("handleClick", data)
-        var config = {
-            method: 'put',
-            url: `/actor-audition/${react_comp.state._id}`,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
+            axios(config)
+                .then(function (response) {
 
-        axios(config)
-            .then(function (response) {
+                    console.log("response data")
 
-                console.log("response data")
-
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        return video;
-    
-    }).catch(function (error) {
-        console.log(error);
-    })
+                    console.log(JSON.stringify(response.data))
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            return video
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
-
     // destroy player on unmount
     componentWillUnmount() {
         if (this.videoPlayer) {
-            this.videoPlayer.dispose();
+            this.videoPlayer.dispose()
         }
-        if (this.audioPlayer) this.audioPlayer.dispose();
+        if (this.audioPlayer) this.audioPlayer.dispose()
     }
-
     startConversation() {
         if (!this.state.auto_record_active) {
             // Meaning we will now turn it on
-            this.currSessionBlobs = [];
+            this.currSessionBlobs = []
         }
-
         this.videoPlayer.recordToggle.handleClick()
         this.setState(state => {
             return { auto_record_active: true, conversationStarted: true }
-        });
+        })
     }
     changeScheme(e) {
         this.setState({
@@ -322,7 +298,7 @@ class Video extends Component {
         })
     }
     render() {
-        // const isFinishedText = this.state.finishedText;
+        // const isFinishedText = this.state.finishedText
         if (!this.state.finishedText) {
             return (
                 <div>
@@ -341,7 +317,7 @@ class Video extends Component {
                 </div>
 
 
-            );
+            )
         }
         else {
             if (this.state.videoURL) {
@@ -358,7 +334,6 @@ class Video extends Component {
                     </div>
                 )
             }
-
             else {
                 return (<span></span>)
             }
@@ -366,4 +341,4 @@ class Video extends Component {
     }
 }
 
-export default Video;
+export default Video

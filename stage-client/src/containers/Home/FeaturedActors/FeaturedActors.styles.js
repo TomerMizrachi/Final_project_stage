@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledFeaturedActors = styled.section`
 	.wrapper {
@@ -9,6 +9,6 @@ const StyledFeaturedActors = styled.section`
 			}
 		}
 	}
-`;
+`
 
-export default StyledFeaturedActors;
+export default StyledFeaturedActors

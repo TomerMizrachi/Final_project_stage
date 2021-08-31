@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import StyledFeaturedActorAudition from './SingleAudition.styles';
-import { Button, IconButton } from '@components/uielements/Button/Button';
+import StyledFeaturedActorAudition from './SingleAudition.styles'
+import { Button, IconButton } from '@components/uielements/Button/Button'
 import { registerToAudition } from '@actions/actorActions'
-import { Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 function useToggle(initialState) {
-	const [value, setValue] = useState(initialState);
-	const toggle = () => { setValue(!value) };
+	const [value, setValue] = useState(initialState)
+	const toggle = () => { setValue(!value) }
 
-	return [value, toggle];
+	return [value, toggle]
 };
 function SingleAudition(props) {
 	console.log(props)
-	const { audition } = props;
+	const { audition } = props
 	const [modal, setModal] = useToggle(false);
 	const obj = audition.auditionInfo[0].typecast
 	const str = Object

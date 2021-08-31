@@ -1,7 +1,6 @@
 
-import React from 'react';
-import BigSearchBar from './SearchBar.styles';
-import { LinkButton,FilterButton } from '@components/uielements/Button/Button';
+import React from 'react'
+import BigSearchBar from './SearchBar.styles'
 
 
 
@@ -10,13 +9,6 @@ return(
     <BigSearchBar>
     <div className="search-box">
     <div className="search">
-        {/* <LinkButton className="filter-btn default white round graystroke ">Comedy</LinkButton>
-        <LinkButton className="filter-btn default white round graystroke ">Drama</LinkButton>
-        <LinkButton className="filter-btn default white round graystroke ">Theatre</LinkButton>
-        <LinkButton className="filter-btn default white round graystroke ">TV</LinkButton> */}
-
-
-
     </div>
     </div>
     </BigSearchBar>
@@ -24,4 +16,4 @@ return(
 
 }
 
-export default SearchBar;
+export default SearchBar

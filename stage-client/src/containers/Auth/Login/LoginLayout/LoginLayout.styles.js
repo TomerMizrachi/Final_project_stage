@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledSignUpLayout = styled.div`
 	.login-header {
@@ -11,4 +11,4 @@ const StyledSignUpLayout = styled.div`
 	}
 `;
 
-export default StyledSignUpLayout;
+export default StyledSignUpLayout

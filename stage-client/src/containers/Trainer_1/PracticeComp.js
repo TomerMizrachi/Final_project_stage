@@ -16,7 +16,7 @@ import { withRouter } from 'react-router-dom'
 
 function PracticeComp(props) {
 	const [audition, setAudition] = useState()
-	console.log("ron audition", audition);
+	console.log("ron audition", audition)
 	useEffect(() => {
 		setAudition(JSON.parse(localStorage.getItem('trainerAudition')))
 	}, [props.actor.trainerAudition])
@@ -24,7 +24,7 @@ function PracticeComp(props) {
 	const [openAudio, setAudioOpen] = useState(false)
 	const [openVideo, setVidioOpen] = useState(false)
 	const [openText, setTextOpen] = useState(false)
-	const theme = useTheme();
+	const theme = useTheme()
 	const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 	const handleAudioClickOpen = () => {
 		setAudioOpen(true)
@@ -124,7 +124,6 @@ function PracticeComp(props) {
 										</Dialog>
 									</Box>
 								</Grid>
-
 							</div>
 						</Grid>
 						<Grid item xs={4}>
@@ -159,10 +158,6 @@ function PracticeComp(props) {
 													</div>
 												</DialogContentText>
 											</DialogContent>
-											{/* <DialogActions>
-											<Button autoFocus onClick={handleClose} color="primary">Disagree</Button>
-											<Button onClick={handleClose} color="primary" autoFocus>Agree</Button>
-										</DialogActions> */}
 										</Dialog>
 									</Box>
 								</Grid>

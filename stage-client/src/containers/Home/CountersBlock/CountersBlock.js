@@ -1,6 +1,6 @@
-import React from 'react';
-import StyledCountersBlock from './CountersBlock.styles';
-import { Grid, Box } from '@material-ui/core';
+import React from 'react'
+import StyledCountersBlock from './CountersBlock.styles'
+import { Grid, Box } from '@material-ui/core'
 
 export default function CountersBlock() {
 	const counters = [
@@ -20,7 +20,7 @@ export default function CountersBlock() {
 			'title': 'Active auditions',
 			'count': '2,000',
 		},
-	];
+	]
 
 	return (
 		<StyledCountersBlock>

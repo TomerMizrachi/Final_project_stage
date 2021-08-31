@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 const StyledHeader = styled.header`
 	background: #F8F9FD;
@@ -89,6 +89,6 @@ const StyledHeader = styled.header`
 			}
 		}
 	}
-`;
+`
 
-export default StyledHeader;
+export default StyledHeader

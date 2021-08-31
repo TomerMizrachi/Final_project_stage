@@ -26,7 +26,7 @@ function Trainer(props) {
 			<PracticeComp />
 			<FilmedAuditions />
 		</DashboardLayout>
-	);
+	)
 }
 
 Trainer.propTypes = {

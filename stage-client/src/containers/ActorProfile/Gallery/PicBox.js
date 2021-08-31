@@ -1,7 +1,7 @@
-import React from 'react';
-import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeSteps/Audition.styles';
-import { Box } from '@material-ui/core';
-import { LinkButton } from '@components/uielements/Button/Button';
+import React from 'react'
+import StyledPracticeStep from '@containers/Trainer_1/PracticeGrid/PracticeSteps/Audition.styles'
+import { Box } from '@material-ui/core'
+import { LinkButton } from '@components/uielements/Button/Button'
 import axios from 'axios'
 
 export default function PicBox({ picture, actor_id }) {
@@ -20,19 +20,19 @@ export default function PicBox({ picture, actor_id }) {
                 'Content-Type': 'application/json'
             },
             data: data_
-        };
+        }
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data))
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             });
         var data = JSON.stringify({
             "urlPic": picture,
             "id": actor_id
-        });
+        })
         var config = {
             method: 'put',
             url: '/actor/deletePic',
@@ -40,14 +40,14 @@ export default function PicBox({ picture, actor_id }) {
                 'Content-Type': 'application/json'
             },
             data: data
-        };
+        }
 
         axios(config)
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data))
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             });
         console.log("delete image", picture)
     }

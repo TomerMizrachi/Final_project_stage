@@ -1,8 +1,8 @@
-import React from 'react';
-import StyledVacancyStatsGraph from './VacancyStats.styles';
-import { Box, Grid } from '@material-ui/core';
-import { Line } from 'react-chartjs-2';
-import { FormControlLabel, Switch, Select, MenuItem, FormControl } from '@material-ui/core';
+import React from 'react'
+import StyledVacancyStatsGraph from './VacancyStats.styles'
+import { Box, Grid } from '@material-ui/core'
+import { Line } from 'react-chartjs-2'
+import { FormControlLabel, Switch, Select, MenuItem, FormControl } from '@material-ui/core'
 
 export default function VacancyStats() {
 
@@ -10,13 +10,13 @@ export default function VacancyStats() {
 		available_auditions: true,
 		auditions_sent: true,
 		rejected: false
-	});
+	})
 
 	const checkboxHandleChange = (event) => {
 		setGraphCheckboxState({
 			...graphCheckboxState,
 			[event.target.name]: event.target.checked
-		});
+		})
 	}
 
 	const chartLegendLabels = [
@@ -32,7 +32,7 @@ export default function VacancyStats() {
 			name: 'Rejected',
 			color: '#FF424D'
 		},
-	];
+	]
 
 	return (
 		<Box mb={8}>

@@ -13,10 +13,6 @@ function TrainerTopCards(props) {
 	const options = {
 		colors: ['#FBA556', '#2BC155'],
 		labels: ['Similarity Score', 'Exact Score'],
-		// legend: "#FFFFFF",
-		// alignItems:{
-		// 	position:'left'
-		// },
 		chart: {
 			type: 'donut',
 		},
@@ -37,7 +33,6 @@ function TrainerTopCards(props) {
 			options: {
 				chart: {
 					width: 200,
-					// height:200
 				},
 				legend: {
 					position: 'bottom'
@@ -56,8 +51,6 @@ function TrainerTopCards(props) {
 					<Box display="flex" justifyContent="normal" alignItems="center" mb={4}>
 						<Link to="/Dashboard/trainer">Trainer {'> '}</Link>
 						<span >{audition.auditionInfo[0].name}</span>
-						{/* <div target="_blank" onClick={this.trainerPage} >Trainer {'> '} </div>
-					<div onClick={this.currPage}>Cinderalla</div> */}
 					</Box>
 					<Grid container spacing={5}>
 						<Grid item xs={12}>

@@ -1,10 +1,10 @@
 import React from 'react'
-import StyledBannerActorCard from './BannerActorCard.styles';
-import { IconButton } from '@components/uielements/Button/Button';
-import Rating from '@material-ui/lab/Rating';
+import StyledBannerActorCard from './BannerActorCard.styles'
+import { IconButton } from '@components/uielements/Button/Button'
+import Rating from '@material-ui/lab/Rating'
 
 export default function BannerActorCard(props) {
-	const { actor } = props;
+	const { actor } = props
 	return (
 		<StyledBannerActorCard className={`banner-actor-card ${props.className}`}>
 			<div className="actor-image">

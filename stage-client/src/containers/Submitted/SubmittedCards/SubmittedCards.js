@@ -16,7 +16,7 @@ function SubmittedCards(props) {
         if (isFirstRun.current) {
             isFirstRun.current = false
             props.mySubmitted(props.auth.user.id)
-            return;
+            return
         }
         setErrors({ errors: props.errors })
     }, [props.errors])

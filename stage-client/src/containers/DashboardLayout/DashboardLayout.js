@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '@containers/Layout/Layout';
-import StyledDashboardLayout from './DashboardLayout.styles';
-import DashboardSidebar from '@containers/DashboardLayout/Sidebar/DashboardSidebar';
+import React from 'react'
+import Layout from '@containers/Layout/Layout'
+import StyledDashboardLayout from './DashboardLayout.styles'
+import DashboardSidebar from '@containers/DashboardLayout/Sidebar/DashboardSidebar'
 
 export default function DashboardLayout(props) {
 	return (

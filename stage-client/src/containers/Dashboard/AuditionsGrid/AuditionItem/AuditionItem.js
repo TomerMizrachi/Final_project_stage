@@ -1,7 +1,7 @@
-import React from 'react';
-import StyledAuditionItem from './AuditionItem.styles';
-import { Grid, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import StyledAuditionItem from './AuditionItem.styles'
+import { Grid, Box } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 export default function AuditionItem({ audition }) {
 	return (

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import SiteConfig from '@config/site.config';
-import StyledHeader from './Header.styles';
-import { LinkButton, IconButton } from '@components/uielements/Button/Button';
-import { Badge, Box } from '@material-ui/core';
-import { connect } from 'react-redux';
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import SiteConfig from '@config/site.config'
+import StyledHeader from './Header.styles'
+import { LinkButton, IconButton } from '@components/uielements/Button/Button'
+import { Badge, Box } from '@material-ui/core'
+import { connect } from 'react-redux'
 
 function Header({ auth }) {
 	if (!auth.isAuthenticated){
@@ -53,4 +53,4 @@ const mapStateToProps = state => ({
 	auth: state.auth
 })
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(Header)

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import themeConfig from '@config/theme.config';
+import styled from 'styled-components'
+import themeConfig from '@config/theme.config'
 
 const StyledDashboardSidebar = styled.div`
 	.header {
@@ -37,6 +37,6 @@ const StyledDashboardSidebar = styled.div`
 			padding-left: 15px;
 		}
 	}
-`;
+`
 
-export default StyledDashboardSidebar;
+export default StyledDashboardSidebar

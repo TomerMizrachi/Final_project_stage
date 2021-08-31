@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledBanner = styled.section`
 	background-color: #F8F9FD;
@@ -47,6 +47,6 @@ const StyledBanner = styled.section`
 			}
 		}
 	}
-`;
+`
 
-export default StyledBanner;
+export default StyledBanner

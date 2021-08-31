@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledAuditionStep = styled.div`
 
@@ -35,5 +35,6 @@ const StyledAuditionStep = styled.div`
 		}
 	}
 }
-`;
-export default StyledAuditionStep;
+`
+
+export default StyledAuditionStep

@@ -1,17 +1,17 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react'
 import {
   Route,
   BrowserRouter as Router,
   Switch
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import ErrorBoundary from '@router/ErrorBoundary';
-import { OpenRoutes, PublicRoutes, PrivateRoutes } from '@router/Routes';
+import ErrorBoundary from '@router/ErrorBoundary'
+import { OpenRoutes, PublicRoutes, PrivateRoutes } from '@router/Routes'
 
-import PublicRoute from '@router/PublicRoute';
-import PrivateRoute from '@router/PrivateRoute';
+import PublicRoute from '@router/PublicRoute'
+import PrivateRoute from '@router/PrivateRoute'
 
-import Loader from '@components/utility/Loader/Loader';
+import Loader from '@components/utility/Loader/Loader'
 
 function AllRoutes() {
   return (
@@ -33,7 +33,7 @@ function AllRoutes() {
         </Router>
       </Suspense>
     </ErrorBoundary>
-  );
+  )
 }
 
-export default AllRoutes;
+export default AllRoutes

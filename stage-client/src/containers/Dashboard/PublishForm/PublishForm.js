@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { publishAudition } from '@actions/recruiterActions'
 import { Alert } from '@material-ui/lab'
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core';
-import { Button } from '@components/uielements/Button/Button';
-import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from "@material-ui/core/styles"
+import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core'
+import { Button } from '@components/uielements/Button/Button'
+import Checkbox from '@material-ui/core/Checkbox'
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions.js'
 import { textExample, typeOptions, publicOptions, heightOptions, ageOptions } from './recruiterOptions'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const useStyles = makeStyles(theme => ({
   textarea: {
@@ -42,7 +42,7 @@ function PublishForm(props) {
   useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
-      return;
+      return
     }
     setErrors({ errors: props.errors })
   }, [props.errors])

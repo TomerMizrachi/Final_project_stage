@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Grid, TextField, MenuItem, FormGroup } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Button } from '@components/uielements/Button/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import { Button } from '@components/uielements/Button/Button'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'

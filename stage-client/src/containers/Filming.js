@@ -1,7 +1,6 @@
 import React from 'react'
 import Video from './Video'
 
-
 const videoJsOptions = {
     controls: true,
     recordToggle: true,
@@ -20,7 +19,6 @@ const videoJsOptions = {
         }
     }
 }
-
 
 const video = {
     position: 'relative',

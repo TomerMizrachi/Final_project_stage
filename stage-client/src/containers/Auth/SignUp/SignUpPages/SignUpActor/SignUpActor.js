@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Alert } from '@material-ui/lab'
-import SignUpLayout from '@containers/Auth/SignUp/SignUpLayout/SignUpLayout';
-import StyledSignUpActor from './SignUpActor.styles';
-import SignUpSteps from '@containers/Auth/SignUp/SignUpSteps/SignUpSteps';
-import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Button } from '@components/uielements/Button/Button';
-import { Link } from 'react-router-dom';
+import SignUpLayout from '@containers/Auth/SignUp/SignUpLayout/SignUpLayout'
+import StyledSignUpActor from './SignUpActor.styles'
+import SignUpSteps from '@containers/Auth/SignUp/SignUpSteps/SignUpSteps'
+import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import { Button } from '@components/uielements/Button/Button'
+import { Link } from 'react-router-dom'
 import { registerActor } from '@actions/authActions'
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from './actorOptions.js'
 function SignUpActor(props) {
@@ -32,7 +32,7 @@ function SignUpActor(props) {
 		if (isFirstRun.current) {
 			setEmail(props.auth.user.email)
 			isFirstRun.current = false;
-			return;
+			return
 		}
 		setErrors({ errors: props.errors })
 	}, [props.errors])

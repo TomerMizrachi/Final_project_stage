@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledBannerActorCard = styled.div`
 	background: rgba(255, 255, 255, 0.6);
@@ -39,6 +39,6 @@ const StyledBannerActorCard = styled.div`
 	.actor-actions {
 		margin-top: 8px;
 	}
-`;
+`
 
-export default StyledBannerActorCard;
+export default StyledBannerActorCard

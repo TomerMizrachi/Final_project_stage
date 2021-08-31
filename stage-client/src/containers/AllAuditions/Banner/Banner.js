@@ -1,7 +1,7 @@
-import React from 'react';
-import HeroAuditions from './Banner.styles';
-import SearchBar from './SearchBar/SearchBar';
-import { Box } from '@material-ui/core';
+import React from 'react'
+import HeroAuditions from './Banner.styles'
+import SearchBar from './SearchBar/SearchBar'
+import { Box } from '@material-ui/core'
 
 function Banner() {
 	return (
@@ -26,4 +26,4 @@ function Banner() {
 	)
 }
 
-export default Banner;
+export default Banner

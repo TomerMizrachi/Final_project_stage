@@ -1,9 +1,9 @@
-import React from 'react';
-import StyledFeaturedAuditions from './FeaturedAuditions.styles';
-import { Grid, Box } from '@material-ui/core';
-import SiteConfig from '@config/site.config';
-import FeaturedAuditionItem from './FeaturedAuditionItem/FeaturedAuditionItem';
-import { Button } from '@components/uielements/Button/Button';
+import React from 'react'
+import StyledFeaturedAuditions from './FeaturedAuditions.styles'
+import { Grid, Box } from '@material-ui/core'
+import SiteConfig from '@config/site.config'
+import FeaturedAuditionItem from './FeaturedAuditionItem/FeaturedAuditionItem'
+import { Button } from '@components/uielements/Button/Button'
 
 export default function FeaturedAuditions() {
 	const featuredAuditions = [
@@ -40,7 +40,7 @@ export default function FeaturedAuditions() {
 			'image': SiteConfig.BLANK_IMAGE,
 			'link': '',
 		},
-	];
+	]
 
 	return (
 		<StyledFeaturedAuditions>

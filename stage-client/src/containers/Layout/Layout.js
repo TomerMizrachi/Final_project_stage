@@ -1,7 +1,7 @@
-import React from 'react';
-import StyledLayout from './Layout.styles';
-import Header from '@containers/Layout/Header/Header';
-import Footer from '@containers/Layout/Footer/Footer';
+import React from 'react'
+import StyledLayout from './Layout.styles'
+import Header from '@containers/Layout/Header/Header'
+import Footer from '@containers/Layout/Footer/Footer'
 
 function Layout(props) {
 	return (
@@ -12,7 +12,7 @@ function Layout(props) {
 			</article>
 			<Footer />
 		</StyledLayout>
-	);
+	)
 }
 
-export default Layout;
+export default Layout

@@ -1,8 +1,8 @@
-import React from 'react';
-import AuthLayout from '@containers/Auth/AuthLayout/AuthLayout';
-import StyledLoginLayout from './LoginLayout.styles';
-import { Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import AuthLayout from '@containers/Auth/AuthLayout/AuthLayout'
+import StyledLoginLayout from './LoginLayout.styles'
+import { Box } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 export default function LoginLayout(props) {
 	return (

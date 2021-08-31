@@ -1,8 +1,8 @@
-import React from 'react';
-import SignUpLayout from '@containers/Auth/SignUp/SignUpLayout/SignUpLayout';
-import StyledStartSignUp from './StartSignUp.styles';
-import { Grid, Box } from '@material-ui/core';
-import SignUpSteps from '@containers/Auth/SignUp/SignUpSteps/SignUpSteps';
+import React from 'react'
+import SignUpLayout from '@containers/Auth/SignUp/SignUpLayout/SignUpLayout'
+import StyledStartSignUp from './StartSignUp.styles'
+import { Grid, Box } from '@material-ui/core'
+import SignUpSteps from '@containers/Auth/SignUp/SignUpSteps/SignUpSteps'
 
 function SignUp() {
 	const userRoles = [
@@ -16,7 +16,7 @@ function SignUp() {
 			type: 'recruiter',
 			image: '/images/pages/signup/user-roles/recruiter.png'
 		},
-	];
+	]
 
 	return (
 		<SignUpLayout>
@@ -46,4 +46,4 @@ function SignUp() {
 	);
 }
 
-export default SignUp;
+export default SignUp

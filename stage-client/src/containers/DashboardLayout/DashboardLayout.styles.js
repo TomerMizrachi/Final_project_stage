@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledDashboardLayout = styled.div`
 	display: flex;
@@ -22,6 +22,6 @@ const StyledDashboardLayout = styled.div`
 			margin: 0 auto;
 		}
 	}
-`;
+`
 
-export default StyledDashboardLayout;
+export default StyledDashboardLayout

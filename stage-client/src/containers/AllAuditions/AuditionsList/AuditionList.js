@@ -24,7 +24,7 @@ function AuditionList(props) {
 	useEffect(() => {
 		if (isFirst.current) {
 			isFirst.current = false
-			return;
+			return
 		}
 		setErrors({ errors: props.errors.actor })
 	}, [props.errors])
@@ -32,8 +32,8 @@ function AuditionList(props) {
 	useEffect(() => {
 		console.log(props)
 		if (isFirstRun.current) {
-			isFirstRun.current = false;
-			return;
+			isFirstRun.current = false
+			return
 		}
 		const params = {
 			age: props.actor.profile.age,

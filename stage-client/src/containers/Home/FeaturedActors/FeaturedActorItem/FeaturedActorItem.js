@@ -1,11 +1,11 @@
-import React from 'react';
-import StyledFeaturedActorItem from './FeaturedActorItem.styles';
-import Rating from '@material-ui/lab/Rating';
-import { LinkButton } from '@components/uielements/Button/Button';
-import { Grid, Box } from '@material-ui/core';
+import React from 'react'
+import StyledFeaturedActorItem from './FeaturedActorItem.styles'
+import Rating from '@material-ui/lab/Rating'
+import { LinkButton } from '@components/uielements/Button/Button'
+import { Grid, Box } from '@material-ui/core'
 
 export default function FeaturedActorItem(props) {
-	const { actor } = props;
+	const { actor } = props
 
 	return (
 		<StyledFeaturedActorItem className={`featured-actor-item ${props.className}`}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import StyledRecruiterCards from './RecruiterAudition.styles';
-import { Button, IconButton } from '@components/uielements/Button/Button';
-import { Grid } from '@material-ui/core';
+import StyledRecruiterCards from './RecruiterAudition.styles'
+import { Button, IconButton } from '@components/uielements/Button/Button'
+import { Grid } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ function useToggle(initialState) {
 	const [value, setValue] = useState(initialState);
 	const toggle = () => { setValue(!value) };
 
-	return [value, toggle];
+	return [value, toggle]
 };
 
 function RecruiterAudition(props) {
@@ -95,14 +95,12 @@ function RecruiterAudition(props) {
 }
 
 RecruiterAudition.propTypes = {
-	// auth: PropTypes.object.isRequired,
 	updateAudition: PropTypes.func.isRequired,
 	recruiter: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-	// auth: state.auth,
 	errors: state.errors,
 	recruiter: state.recruiter
 })

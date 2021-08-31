@@ -14,7 +14,7 @@ function RecruiterCards(props) {
         if (isFirstRun.current) {
             isFirstRun.current = false
             props.myAuditions(props.auth.user.id)
-            return;
+            return
         }
         setErrors({ errors: props.errors })
     }, [props.errors])

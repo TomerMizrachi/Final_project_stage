@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
-import DashboardTopCards from '@containers/Dashboard/DashboardTopCards/DashboardTopCards';
+import DashboardTopCards from '@containers/Dashboard/DashboardTopCards/DashboardTopCards'
 import VacancyStats from '@containers/Dashboard/VacancyStats/VacancyStats'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

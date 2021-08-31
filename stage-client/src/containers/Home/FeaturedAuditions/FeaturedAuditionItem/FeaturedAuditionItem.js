@@ -1,10 +1,10 @@
-import React from 'react';
-import StyledFeaturedAuditionItem from './FeaturedAuditionItem.styles';
-import { LinkButton, IconButton } from '@components/uielements/Button/Button';
-import { Grid, Box } from '@material-ui/core';
+import React from 'react'
+import StyledFeaturedAuditionItem from './FeaturedAuditionItem.styles'
+import { LinkButton, IconButton } from '@components/uielements/Button/Button'
+import { Grid, Box } from '@material-ui/core'
 
 export default function FeaturedAuditionItem(props) {
-	const { audition } = props;
+	const { audition } = props
 
 	return (
 		<StyledFeaturedAuditionItem className={`featured-audition-item ${props.className}`}>

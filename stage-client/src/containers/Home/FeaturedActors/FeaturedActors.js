@@ -1,9 +1,9 @@
-import React from 'react';
-import StyledFeaturedActors from './FeaturedActors.styles';
-import { Link } from 'react-router-dom';
-import { Grid, Box } from '@material-ui/core';
-import SiteConfig from '@config/site.config';
-import FeaturedActorItem from './FeaturedActorItem/FeaturedActorItem';
+import React from 'react'
+import StyledFeaturedActors from './FeaturedActors.styles'
+import { Link } from 'react-router-dom'
+import { Grid, Box } from '@material-ui/core'
+import SiteConfig from '@config/site.config'
+import FeaturedActorItem from './FeaturedActorItem/FeaturedActorItem'
 
 export default function FeaturedActors() {
 	const featuredActors = [
@@ -35,7 +35,7 @@ export default function FeaturedActors() {
 			'rating': 4.3,
 			'link': '',
 		},
-	];
+	]
 
 	return (
 		<StyledFeaturedActors>

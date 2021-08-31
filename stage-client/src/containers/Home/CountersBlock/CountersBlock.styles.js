@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import themeConfig from '@config/theme.config';
+import styled from 'styled-components'
+import themeConfig from '@config/theme.config'
 
 const StyledCountersBlock = styled.div`
 	.wrapper {
@@ -27,6 +27,6 @@ const StyledCountersBlock = styled.div`
 			}
 		}
 	}
-`;
+`
 
-export default StyledCountersBlock;
+export default StyledCountersBlock

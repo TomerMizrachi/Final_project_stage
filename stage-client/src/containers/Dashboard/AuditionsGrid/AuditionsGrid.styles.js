@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledAuditionsGrid = styled.div`
 	margin-left: -10px;
@@ -11,6 +11,6 @@ const StyledAuditionsGrid = styled.div`
 			width: 100%;
 		}
 	}
-`;
+`
 
-export default StyledAuditionsGrid;
+export default StyledAuditionsGrid

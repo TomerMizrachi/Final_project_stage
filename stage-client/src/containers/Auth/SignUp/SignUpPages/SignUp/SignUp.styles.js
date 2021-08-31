@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledSignUp = styled.section`
-`;
+`
 
-export default StyledSignUp;
+export default StyledSignUp

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Alert } from '@material-ui/lab'
-import StyledSignUpActor from '@containers/Auth/SignUp/SignUpPages/SignUpActor/SignUpActor.styles';
-import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Button } from '@components/uielements/Button/Button';
+import StyledSignUpActor from '@containers/Auth/SignUp/SignUpPages/SignUpActor/SignUpActor.styles'
+import { Grid, Box, TextField, MenuItem, FormGroup, FormLabel } from '@material-ui/core'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import { Button } from '@components/uielements/Button/Button'
 import { searchActors } from '@actions/recruiterActions'
 import { genderOptions, bodyOptions, skillsOptions, hairOptions, eyesOptions, languagesOptions } from '@containers/Auth/SignUp/SignUpPages/SignUpActor/actorOptions'
 import { heightOptions } from '@containers/Dashboard/PublishForm/recruiterOptions'

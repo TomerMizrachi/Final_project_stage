@@ -6,7 +6,7 @@ import DashboardLayout from '../DashboardLayout/DashboardLayout'
 import Details from './Details/Details'
 import { getActorInfo } from '@actions/actorActions'
 import ShowReal from './ShowReal/ShowReal'
-import Gallery from "./Gallery/Gallery";
+import Gallery from "./Gallery/Gallery"
 
 function Profile(props) {
     useEffect(() => {

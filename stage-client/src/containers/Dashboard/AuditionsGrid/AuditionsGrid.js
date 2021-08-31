@@ -1,7 +1,7 @@
-import React from 'react';
-import StyledAuditionsGrid from './AuditionsGrid.styles';
-import AuditionItem from '@containers/Dashboard/AuditionsGrid/AuditionItem/AuditionItem';
-import { Grid } from '@material-ui/core';
+import React from 'react'
+import StyledAuditionsGrid from './AuditionsGrid.styles'
+import AuditionItem from '@containers/Dashboard/AuditionsGrid/AuditionItem/AuditionItem'
+import { Grid } from '@material-ui/core'
 
 export default function AuditionsGrid({ auditions }) {
 	return (

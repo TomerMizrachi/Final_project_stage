@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy } from 'react'
 
 export const OpenRoutes = [
 
@@ -7,7 +7,7 @@ export const OpenRoutes = [
 		exact: true,
 		component: lazy(() => import('@containers/CaseStudies/CaseStudies')),
 	}
-];
+]
 
 export const PublicRoutes = [
 	{
@@ -35,7 +35,7 @@ export const PublicRoutes = [
 		exact: true,
 		component: lazy(() => import('@containers/Auth/Login/Login')),
 	}
-];
+]
 
 export const PrivateRoutes = [
 	{
@@ -88,6 +88,6 @@ export const PrivateRoutes = [
 		exact: true,
 		component: lazy(() => import('@containers/Submitted/Submitted')),
 	}
-];
+]
 
 

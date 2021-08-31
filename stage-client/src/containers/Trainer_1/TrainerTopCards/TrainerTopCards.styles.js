@@ -55,6 +55,6 @@ const StyledDashboardTopCards = styled.div`
 			flex-basis: 24.666667%;
 		}
 	}
-`;
+`
 
-export default StyledDashboardTopCards;
+export default StyledDashboardTopCards

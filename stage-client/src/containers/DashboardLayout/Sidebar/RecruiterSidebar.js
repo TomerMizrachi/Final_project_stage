@@ -1,8 +1,8 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Grid, Box } from '@material-ui/core';
-import StyledDashboardSidebar from './DashboardSidebar.styles';
-import { IconButton } from '@components/uielements/Button/Button';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { Grid, Box } from '@material-ui/core'
+import StyledDashboardSidebar from './DashboardSidebar.styles'
+import { IconButton } from '@components/uielements/Button/Button'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '@actions/authActions'

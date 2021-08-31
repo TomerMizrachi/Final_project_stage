@@ -1,6 +1,5 @@
 import React from 'react'
-import Layout from '@containers/Layout/Layout';
-// import { Box } from '@material-ui/core';
+import Layout from '@containers/Layout/Layout'
 
 export default function CaseStudies() {
 	return (

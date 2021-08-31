@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 import StyledFeaturedActorAudition from './SingleAudition.styles'
 import { LinkButton, IconButton } from '@components/uielements/Button/Button'
 import { Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { setTrainerAudition } from '@actions/actorActions';
+import { setTrainerAudition } from '@actions/actorActions'
 
 function SingleAudition(props) {
 	const { audition } = props

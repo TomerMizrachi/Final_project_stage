@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import StyledPracticeStep from './PracticeGrid.styles';
-import Audition from './PracticeSteps/Audition';
+import StyledPracticeStep from './PracticeGrid.styles'
+import Audition from './PracticeSteps/Audition'
 import Alert from '@material-ui/lab/Alert'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

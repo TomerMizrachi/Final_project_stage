@@ -31,7 +31,7 @@ function Login(props) {
 	useEffect(() => {
 		if (isFirstRun.current) {
 			isFirstRun.current = false;
-			return;
+			return
 		}
 		setErrors({ errors: props.errors })
 	}, [props.errors])

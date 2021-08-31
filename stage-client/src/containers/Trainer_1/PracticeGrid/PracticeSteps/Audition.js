@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import StyledPracticeStep from './Audition.styles';
-import { Grid, Box } from '@material-ui/core';
-import {  LinkButton } from '@components/uielements/Button/Button';
+import StyledPracticeStep from './Audition.styles'
+import { Grid, Box } from '@material-ui/core'
+import {  LinkButton } from '@components/uielements/Button/Button'
 import VideoPlayer from "react-happy-video"
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -29,7 +29,7 @@ function Audition(props) {
 			var data = JSON.stringify({
 				"submitted": true,
 				"submittedVideo": video.videoUrl
-			});
+			})
 			var config = {
 				method: 'put',
 				url: `/actor-audition/${_id}`,
@@ -37,7 +37,7 @@ function Audition(props) {
 					'Content-Type': 'application/json'
 				},
 				data: data
-			};
+			}
 			console.log(data)
 			axios(config)
 				.then(res => {
@@ -91,7 +91,6 @@ Audition.propTypes = {
 	auth: PropTypes.object.isRequired,
 	actor: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
-	// SubmitVideo: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -101,5 +100,4 @@ const mapStateToProps = state => ({
 })
 export default connect(
 	mapStateToProps,
-	// { SubmitVideo }
 )(withRouter(Audition))

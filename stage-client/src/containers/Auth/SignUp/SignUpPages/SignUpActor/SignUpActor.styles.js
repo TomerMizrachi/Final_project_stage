@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledSignUpActor = styled.section`
 	.header {
@@ -9,6 +9,6 @@ const StyledSignUpActor = styled.section`
 			font-style: italic;
 		}
 	}
-`;
+`
 
-export default StyledSignUpActor;
+export default StyledSignUpActor

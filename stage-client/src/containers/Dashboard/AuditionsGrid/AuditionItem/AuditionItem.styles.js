@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledAuditionItem = styled.div`
 	box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.15);
@@ -67,4 +67,4 @@ const StyledAuditionItem = styled.div`
 	}
 `;
 
-export default StyledAuditionItem;
+export default StyledAuditionItem

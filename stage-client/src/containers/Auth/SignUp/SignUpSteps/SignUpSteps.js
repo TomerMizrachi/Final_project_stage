@@ -1,11 +1,11 @@
-import React from 'react';
-import StyledSignUpSteps from './SignUpSteps.styles';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import React from 'react'
+import StyledSignUpSteps from './SignUpSteps.styles'
+import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 export default function SignUpSteps({ step, role = '' }) {
-	const { pathname } = useLocation();
-	const roleURL = "/signup/" + role;
+	const { pathname } = useLocation()
+	const roleURL = "/signup/" + role
 
 	return (
 		<StyledSignUpSteps>

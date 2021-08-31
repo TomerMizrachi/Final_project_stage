@@ -32,7 +32,7 @@ function Gallery(props) {
                 <CloseIcon />
             </IconButton>
         </>
-    );
+    )
 
     const uploadImage = (fileObjects) => {
         fileObjects.map((fileObject) => {
@@ -53,7 +53,7 @@ function Gallery(props) {
                         'Content-Type': 'image/png', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
-                    var data = JSON.stringify({ "pictures": getURL, "id": props.auth.user.actor_id });
+                    var data = JSON.stringify({ "pictures": getURL, "id": props.auth.user.actor_id })
                     var config = {
                         method: 'put',
                         url: "/actor/uploadPics",
@@ -106,17 +106,17 @@ function Gallery(props) {
                                 maxFileSize={5000000}
                                 open={open}
                                 onAdd={newFileObjs => {
-                                    console.log('onAdd', newFileObjs);
-                                    setFileObjects([].concat(fileObjects, newFileObjs));
+                                    console.log('onAdd', newFileObjs)
+                                    setFileObjects([].concat(fileObjects, newFileObjs))
                                 }}
                                 onDelete={() => {
-                                    console.log('onDelete', deleteFileObj);
+                                    console.log('onDelete', deleteFileObj)
                                 }}
                                 onClose={() => setOpen(false)}
                                 onSave={() => {
-                                    console.log('onSave', fileObjects);
+                                    console.log('onSave', fileObjects)
                                     uploadImage(fileObjects)
-                                    setOpen(false);
+                                    setOpen(false)
                                 }}
                                 showPreviews={true}
                                 showFileNamesInPreview={true}

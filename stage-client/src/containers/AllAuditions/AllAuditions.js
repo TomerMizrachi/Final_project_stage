@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import Banner from './Banner/Banner';
+import React, { useEffect } from 'react'
+import Banner from './Banner/Banner'
 import DashboardLayout from '@containers/DashboardLayout/DashboardLayout'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import AuditionList from './AuditionsList/AuditionList';
+import AuditionList from './AuditionsList/AuditionList'
 import { getActorInfo } from '@actions/actorActions'
 
 

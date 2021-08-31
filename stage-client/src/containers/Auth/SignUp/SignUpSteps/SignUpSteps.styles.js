@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import themeConfig from '@config/theme.config';
+import styled from 'styled-components'
+import themeConfig from '@config/theme.config'
 
 const StyledSignUpSteps = styled.div`
 	.steps {
@@ -23,6 +23,6 @@ const StyledSignUpSteps = styled.div`
 			}
 		}
 	}
-`;
+`
 
-export default StyledSignUpSteps;
+export default StyledSignUpSteps

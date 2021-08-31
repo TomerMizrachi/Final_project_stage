@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Test = styled.section`
 	background-color: #F8F9FD;
@@ -43,4 +43,4 @@ const Test = styled.section`
 	}
 `;
 
-export default Test;
+export default Test

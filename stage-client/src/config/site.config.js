@@ -4,4 +4,4 @@ const siteConfig = {
 	BLANK_IMAGE: '/images/blank.gif',
 }
 
-export default siteConfig;
+export default siteConfig

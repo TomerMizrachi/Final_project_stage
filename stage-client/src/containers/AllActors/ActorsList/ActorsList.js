@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { Grid, Box } from '@material-ui/core'
 import SingleActor from './SingleActor/SingleActor'
 import Alert from '@material-ui/lab/Alert'
-import { falseDM } from '@actions/recruiterActions';
+import { falseDM } from '@actions/recruiterActions'
 
 
 function ActorList(props) {

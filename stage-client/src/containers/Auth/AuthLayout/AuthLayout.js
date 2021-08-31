@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '@containers/Layout/Layout';
-import StyledAuthLayout from './AuthLayout.styles';
-import { Grid, Box } from '@material-ui/core';
+import React from 'react'
+import Layout from '@containers/Layout/Layout'
+import StyledAuthLayout from './AuthLayout.styles'
+import { Grid, Box } from '@material-ui/core'
 
 export default function SignUpLayout(props) {
 	return (

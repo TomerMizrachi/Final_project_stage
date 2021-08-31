@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { setTrainerAudition } from '@actions/actorActions'
-import StyledPracticeStep from './PracticeGrid/PracticeGrid.styles';
+import StyledPracticeStep from './PracticeGrid/PracticeGrid.styles'
 
 
 function FilmedAuditions(props) {
-	const [videos, setVideos] = useState();
-	console.log("videos test:",videos);
+	const [videos, setVideos] = useState()
+	console.log("videos test:",videos)
 	const isFirstRun = useRef(true)
 	useEffect(() => {
 		if (isFirstRun.current) {

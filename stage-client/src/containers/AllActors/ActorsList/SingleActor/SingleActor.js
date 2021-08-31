@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import StyledFeaturedActor from '@containers/AllAuditions/AuditionsList/SingleAudition/SingleAudition.styles';
+import React, { useState } from 'react'
+import StyledFeaturedActor from '@containers/AllAuditions/AuditionsList/SingleAudition/SingleAudition.styles'
 import { Button, IconButton } from '@components/uielements/Button/Button'
 import { Grid } from '@material-ui/core'
 import { TextField, MenuItem } from '@material-ui/core'

@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import themeConfig from '@config/theme.config';
+import { createGlobalStyle } from 'styled-components'
+import themeConfig from '@config/theme.config'
 
 const GlobalStyles = createGlobalStyle`
 	*, *:before, *:after {
@@ -83,6 +83,6 @@ const GlobalStyles = createGlobalStyle`
 		transform: scaleX(-1);
 	}
 
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles

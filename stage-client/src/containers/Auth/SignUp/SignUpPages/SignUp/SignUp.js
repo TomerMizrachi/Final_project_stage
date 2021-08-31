@@ -35,7 +35,7 @@ function SignUp(props) {
 	useEffect(() => {
 		if (isFirstRun.current) {
 			isFirstRun.current = false;
-			return;
+			return
 		}
 		setErrors({ errors: props.errors })
 	}, [props.errors])
@@ -43,14 +43,14 @@ function SignUp(props) {
 	useEffect(() => {
 		ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
 			if (value !== password) {
-				return false;
+				return false
 			}
-			return true;
+			return true
 		});
 	}, [password2])
 
 	useEffect(() => {
-		return () => ValidatorForm.removeValidationRule('isPasswordMatch');
+		return () => ValidatorForm.removeValidationRule('isPasswordMatch')
 	}, [])
 
 	const handleSubmit = e => {

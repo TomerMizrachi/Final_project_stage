@@ -1,6 +1,6 @@
-import React from 'react';
-import HeroAuditions from '@containers/AllAuditions/Banner/Banner.styles';
-import { Box } from '@material-ui/core';
+import React from 'react'
+import HeroAuditions from '@containers/AllAuditions/Banner/Banner.styles'
+import { Box } from '@material-ui/core'
 
 function Banner() {
 	return (

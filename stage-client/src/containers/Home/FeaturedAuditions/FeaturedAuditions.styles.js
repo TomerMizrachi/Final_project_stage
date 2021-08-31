@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledFeaturedAuditions = styled.section`
 	.wrapper {
@@ -16,6 +16,6 @@ const StyledFeaturedAuditions = styled.section`
 			}
 		}
 	}
-`;
+`
 
-export default StyledFeaturedAuditions;
+export default StyledFeaturedAuditions

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import StyledDashboardTopCards from './DashboardTopCards.styles'
 import { Grid, Box } from '@material-ui/core'
 import { IconButton } from '@components/uielements/Button/Button'
