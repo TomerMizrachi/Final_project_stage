@@ -11,7 +11,7 @@ function SubmittedBox(props) {
     const [reqruite, setReqruite] = useState(false)
     const audition = props.audition
     const actor_audition = props.actor_audition
-
+    console.log("hello",actor_audition)
     const clicked = e => {
         e.preventDefault()
         props.history.push({
@@ -79,7 +79,7 @@ function SubmittedBox(props) {
             <div className="header" />
             <Box display="flex" alignItems="center" justifyContent="space-evenly">
                 <Grid item >
-                    <LinkButton onClick={() => setReqruite(!reqruite)} className="sc-eCImvq eNJiRc orange bt-sm round">Reqruite {actor_audition.actorInfo[0].user_info[0].full_name}</LinkButton>
+                    <LinkButton onClick={() => setReqruite(!reqruite)} className="sc-eCImvq eNJiRc orange bt-sm round">Recruite {actor_audition.actorInfo[0].user_info[0].full_name}</LinkButton>
                 </Grid>
             </Box>
 

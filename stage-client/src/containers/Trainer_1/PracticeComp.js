@@ -16,6 +16,7 @@ import { withRouter } from 'react-router-dom'
 
 function PracticeComp(props) {
 	const [audition, setAudition] = useState()
+	console.log("ron audition", audition);
 	useEffect(() => {
 		setAudition(JSON.parse(localStorage.getItem('trainerAudition')))
 	}, [props.actor.trainerAudition])
@@ -116,7 +117,7 @@ function PracticeComp(props) {
 														<div className="paragraph"> This is the place where we will practice the text itself prior to filming it. We will display the score here in the end of each practice.</div>
 													</div>
 													<div className="audioWrapper">
-														<Audio></Audio>
+														<Audio audition={audition}></Audio>
 													</div>
 												</DialogContentText>
 											</DialogContent>

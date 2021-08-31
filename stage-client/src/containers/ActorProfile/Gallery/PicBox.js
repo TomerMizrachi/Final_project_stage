@@ -15,7 +15,7 @@ export default function PicBox({ picture, actor_id }) {
         });
         var config = {
             method: 'put',
-            url: 'http://localhost:8001/actor/deleteFromS3',
+            url: '/actor/deleteFromS3',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -35,7 +35,7 @@ export default function PicBox({ picture, actor_id }) {
         });
         var config = {
             method: 'put',
-            url: 'http://localhost:8001/actor/deletePic',
+            url: '/actor/deletePic',
             headers: {
                 'Content-Type': 'application/json'
             },

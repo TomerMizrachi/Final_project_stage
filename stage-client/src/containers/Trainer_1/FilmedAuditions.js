@@ -9,7 +9,8 @@ import StyledPracticeStep from './PracticeGrid/PracticeGrid.styles';
 
 
 function FilmedAuditions(props) {
-	const [videos, setVideos] = useState()
+	const [videos, setVideos] = useState();
+	console.log("videos test:",videos);
 	const isFirstRun = useRef(true)
 	useEffect(() => {
 		if (isFirstRun.current) {

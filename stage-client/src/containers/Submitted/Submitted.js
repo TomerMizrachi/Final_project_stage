@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom'
 import SubmittedCards from './SubmittedCards/SubmittedCards';
 
 function Submitted(props) {
+    console.log("ACTOR",props)
     useEffect(() => {
     }, [props.auth.user])
     return (

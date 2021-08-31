@@ -9,7 +9,6 @@ import 'webrtc-adapter';
 import RecordRTC from 'recordrtc';
 import hark from 'hark';
 import Blob from 'blob';
-import auditionText from './textForAudition.txt';
 
 // register videojs-record plugin with this import
 import 'videojs-record/dist/css/videojs.record.css';
@@ -18,7 +17,6 @@ import Record from 'videojs-record/dist/videojs.record.js';
 class Video extends Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             _id: props.data.audition._id,
             auto_record_active: false,
@@ -55,13 +53,8 @@ class Video extends Component {
     }
 
     readText() {
-        fetch(auditionText)
-            .then((r) => r.text())
-            .then(text => {
-                this.setState({
-                    entireText: text.split("\n")
-                })
-            })
+        console.log("text",this.props.audition.audition.auditionInfo[0].text_file)
+        this.setState({entireText:this.props.audition.audition.auditionInfo[0].text_file.split("\n")})
     }
 
 
@@ -150,6 +143,7 @@ class Video extends Component {
         this.videoPlayer.on('finishRecord', () => {
             react_comp.recording = false
             console.log("this is finish")
+
             // this.isSaveDisabled = false
             if (this.retake == 0) {
                 this.isRetakeDisabled = false
@@ -162,26 +156,32 @@ class Video extends Component {
                 this.setState({ status: "inactive", auto_record_active: false })
                 axios({
                     method: "post",
-                    url: "http://127.0.0.1:5000/speechToTextVideo",
+                    url: "https://textualservices.herokuapp.com/speechToTextVideo",
                     data: formData,
                     headers: {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
                     }
                 }).then(res => {
                     let resultTranscript = res.data.transcript
+                    let confidence=res.data.confidence
+                    console.log("conf",confidence)
+                    console.log(confidence)
+                    if (confidence<0.8){
+                        throw 'We could not hear you';
+                    }
                     console.log('Result transcript', resultTranscript)
                     let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
                     this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
-                    axios.get("http://127.0.0.1:12345/compare", {
+                    axios.get("https://sentencesimilaritystage.herokuapp.com/compare", {
                         params: {
                             inputText: resultTranscript,
                             expectedText: expectedText
                         }
                     }).then(res => {
                         this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilarityScore: parseFloat(this.state.sumSimilarityScore) + parseFloat(res.data.similarityScore) })
-                        axios.get("http://127.0.0.1:5000/textToSpeech", {
+                        axios.get("https://textualservices.herokuapp.com/textToSpeech", {
                             params: {
-                                textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
+                                textToRead: this.state.entireText[this.state.currentLineIterator].replace('other actor:', '')
                             }
                         }).then(res => {
                             if (this.state.currentLineIterator < this.state.entireText.length) {
@@ -239,68 +239,62 @@ class Video extends Component {
         var merged_blob = new Blob(this.currSessionBlobs);
         var formData = new FormData()
         console.log(`Current seesion blobs ${this.currSessionBlobs.length}`)
-        formData.append('file', merged_blob)
+        this.currSessionBlobs.forEach (blob=> {
+
+        formData.append('files', blob)
+
+        })
         this.currSessionBlobs = [];
 
         // save in S3
         console.log("[finish] Auto record active", this.state.auto_record_active)
         console.log("recording", this.speaking)
         axios({
-            method: "get",
-            url: "http://localhost:8001/actor-audition/get_signed_url",
+            method: "post",
+            data: formData,
+            url: "/actor-audition/upload_audition_videos",
         }).then(function (response) {
-            var postURL = response.data.postURL;
-            var video = response.data.getURL;
-            react_comp.setState({ videoURL: video })
-            delete axios.defaults.headers.common['Authorization']
-            axios({
-                method: "put",
-                url: postURL,
-                data: formData.get('file'),
-                headers: {
-                    'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
-                }
-            }).then(res => {
-                console.log(res)
-                react_comp.setState((state) => {
-                    return { finishedText: true }
-                });
-                var parse = JSON.parse(react_comp.state.finalScore)
-                var data = JSON.stringify({
-                    "video": {
-                        "videoUrl": react_comp.state.videoURL,
-                        "similarity": parse.similarityScore,
-                        "exact": parse.exactScore
-                    }
-                });
-                console.log("handleClick", data)
-                var config = {
-                    method: 'put',
-                    url: `http://localhost:8001/actor-audition/${react_comp.state._id}`,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: data
-                };
+        var video = response.data.videoUrl;
+        console.log("michal", response, video);
+        react_comp.setState({ videoURL: video })
+        
+        console.log("auditionKKK",react_comp.state)
+        react_comp.setState((state) => {
+            return { finishedText: true }
+        });
+        var parse = JSON.parse(react_comp.state.finalScore)
+        var data = JSON.stringify({
+            "video": {
+                "videoUrl": react_comp.state.videoURL,
+                "similarity": parse.similarityScore,
+                "exact": parse.exactScore
+            }
+        });
+        console.log("handleClick", data)
+        var config = {
+            method: 'put',
+            url: `/actor-audition/${react_comp.state._id}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
 
-                axios(config)
-                    .then(function (response) {
+        axios(config)
+            .then(function (response) {
 
-                        console.log("response data")
+                console.log("response data")
 
-                        console.log(JSON.stringify(response.data));
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-                console.log(video, postURL);
-                return video;
-            }).catch(error => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(error => {
                 console.log(error);
             })
-        }).catch(function (error) {
-            console.log(error);
-        })
+        return video;
+    
+    }).catch(function (error) {
+        console.log(error);
+    })
     }
 
     // destroy player on unmount

@@ -32,7 +32,7 @@ function Audition(props) {
 			});
 			var config = {
 				method: 'put',
-				url: `http://localhost:8001/actor-audition/${_id}`,
+				url: `/actor-audition/${_id}`,
 				headers: {
 					'Content-Type': 'application/json'
 				},

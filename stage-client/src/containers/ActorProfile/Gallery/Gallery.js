@@ -40,7 +40,7 @@ function Gallery(props) {
             formData.append("file", fileObject.file);
             axios({
                 method: "get",
-                url: "http://localhost:8001/actor/get_signed_url",
+                url: "/actor/get_signed_url",
             }).then(function (response) {
                 var postURL = response.data.postURL;
                 var getURL = response.data.getURL;
@@ -56,7 +56,7 @@ function Gallery(props) {
                     var data = JSON.stringify({ "pictures": getURL, "id": props.auth.user.actor_id });
                     var config = {
                         method: 'put',
-                        url: "http://localhost:8001/actor/uploadPics",
+                        url: "/actor/uploadPics",
                         headers: {
                             'Content-Type': 'application/json'
                         },

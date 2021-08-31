@@ -7,6 +7,7 @@ import hark from 'hark'
 export default class Aud extends Component {
     constructor(props) {
         super(props)
+        console.log(props)
         this.state = {
             status: "",
             entireText: "",
@@ -47,13 +48,9 @@ export default class Aud extends Component {
         return JSON.stringify(finalScore)
     }
     readText() {
-        fetch(auditionText)
-            .then((r) => r.text())
-            .then(text => {
-                this.setState({
-                    entireText: text.split("\n")
-                })
-            })
+            console.log("TEXT",this.props.audition.auditionInfo[0].text_file)
+            this.setState({ entireText:this.props.audition.auditionInfo[0].text_file.split("\n")})
+
     }
 
 
@@ -139,22 +136,28 @@ export default class Aud extends Component {
                 console.log("succ stop", e)
                 if (this.state.currentLineIterator < this.state.entireText.length) {
                     this.setState({ status: "inactive", auto_record_active: false })
-                    axios.post("http://127.0.0.1:5000/speechToTextAudio", formData)
+                    axios.post("https://textualservices.herokuapp.com/speechToTextAudio", formData)
                         .then(res => {
+                            let confidence=res.data.confidence
                             let resultTranscript = res.data.transcript
+                            console.log("conf",confidence)
+                            console.log(confidence)
+                            if (confidence<0.8){
+                                throw 'We could not hear you';
+                            }
                             console.log('Result transcript', resultTranscript)
                             let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
                             this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
-                            axios.get("http://127.0.0.1:12345/compare", {
+                            axios.get("https://sentencesimilaritystage.herokuapp.com/compare", {
                                 params: {
                                     inputText: resultTranscript,
                                     expectedText: expectedText
                                 }
                             }).then(res => {
                                 this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilariyScore: parseFloat(this.state.sumSimilariyScore) + parseFloat(res.data.similarityScore) })
-                                axios.get("http://127.0.0.1:5000/textToSpeech", {
+                                axios.get("https://textualservices.herokuapp.com/textToSpeech", {
                                     params: {
-                                        textToRead: this.state.entireText[this.state.currentLineIterator].replace('otherLine:', '')
+                                        textToRead: this.state.entireText[this.state.currentLineIterator].replace('other actor:', '')
                                     }
                                 }).then(res => {
                                     if (this.state.currentLineIterator < this.state.entireText.length) {
