@@ -24,9 +24,10 @@ function FilmedAuditions(props) {
 	}, [props.actor])
 
 	return (
+		
 		<StyledPracticeStep>
 
-			<Grid container spacing={5} className="align">
+			<Grid container justify="space-between" alignItems="flex-end" spacing={4}>
 				<Box mb={6}>
 					<Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
 						<Box display="flex" alignItems="center">
