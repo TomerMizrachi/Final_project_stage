@@ -1,8 +1,6 @@
 import Audition from '../models/audition.js'
 import { validateAuditionInput } from '../validation/auditionValidation.js'
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-//Michal: Remove, as line 14 describes exactly the same??
+
 const getAuditions = async (req, res) => {
     try {
         const docs = await Audition.find({})
@@ -11,8 +9,6 @@ const getAuditions = async (req, res) => {
         return res.status(400).json({ err: err })
     }
 }
-
-
 
 const getRelevantAuditions = (req, res) => {
     let relevant = []

@@ -39,12 +39,6 @@ const validateActorInput = (data) => {
     if (Validator.isEmpty(languages)) {
         errors.languages = "languages field is required"
     }
-    // if (Validator.isEmpty(data.img)) {
-    //     errors.img = "img field is required"
-    // }
-    // if (Validator.isEmpty(data.info)) {
-    //     errors.info = "info field is required"
-    // }
     return {
         errors,
         isValid: isEmpty(errors)

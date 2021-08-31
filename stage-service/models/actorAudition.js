@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const { Schema } = mongoose;
+const { Schema } = mongoose
 
 const video = new Schema({
     videoUrl: String,

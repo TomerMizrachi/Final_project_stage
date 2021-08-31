@@ -1,19 +1,17 @@
 import express from 'express'
 import Cors from 'cors'
 import passport from 'passport'
-import fileUpload from 'express-fileupload';
-
+import fileUpload from 'express-fileupload'
 import { passportConfig } from './config/passport.js'
 import config from './config/env.js'
 import router from './routers/router.js'
 import path from 'path'
-
 import DBconnection from './config/DBconnection.js'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 
 const app = express()
@@ -49,8 +47,8 @@ app.use(express.static(path.resolve(__dirname, '../stage-client/build')));
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../stage-client/build', 'index.html'));
-  });
+    res.sendFile(path.resolve(__dirname, '../stage-client/build', 'index.html'))
+  })
 
 
 

@@ -5,20 +5,10 @@ import { v4 as uuid } from 'uuid'
 import { validateAAInput } from '../validation/aaValidation.js'
 import mongoose from 'mongoose'
 import Audition from '../models/audition.js'
-import concat from 'ffmpeg-concat'
-import ffmpeg from 'fluent-ffmpeg'
 import path from 'path'
 import fs from 'fs'
-import https from 'https'
-import  AWS from 'aws-sdk'
-
-
-
 import randomstring from 'randomstring'
 
-
-
-const { S3_BUCKET } = config
 
 const getAllAA = async (req, res) => {
     try {
@@ -162,8 +152,6 @@ const updateAA = (req, res) => {
             $push: {
                 videos: req.body.video
             }
-        }, {
-            //new: true // return the object after the update
         })
             .then(aa => res.json(aa))
             .catch(err => res.status(400).json({ error: err }))    // }
@@ -188,8 +176,6 @@ const getS3UrlHelper =  ()=>{
             Expires: 300,
             ACL: 'public-read',
             ContentType: 'video/mp4'
-
-            // ContentType: 'video/x-matroska'
         }, function (err, signedURL) {
             if (err) {
                 reject()
@@ -212,48 +198,6 @@ const createS3Url = async (req, res) => {
     return res.json(response)
 }
 
-const mergeFfmpeg = (inputs, output) => {
-    return new Promise((resolve,reject)=>{
-
-        let ffmpegObj = ffmpeg();
-        // inputs.forEach( input => {
-        //     ffmpegObj.addInput(input)
-
-        // })
-
-        let inputNamesFormatted = 'concat:' + inputs.join('|');
-
-
-
-
-        console.log(inputs, output,path.resolve('./tmp') )
-
-
-        var listFileName = 'tmp/'+ randomstring.generate(10), fileNames = '';
-
-        // ffmpeg -f concat -i mylist.txt -c copy output
-        inputs.forEach(function(fileName, index){
-        fileNames = fileNames + 'file ' + '\'' + fileName + '\n';
-        });
-
-        fs.writeFileSync(listFileName, fileNames);
-
-
-        ffmpegObj.input(listFileName)
-         .on('start', (cmdline) => console.log(cmdline))
-        .on('end', ()=>{
-           return resolve()
-         })
-         .on('err',(err)=>{
-             return reject(err)
-         })
-.inputOptions(['-f concat', '-safe 0'])
-.outputOptions('-c copy')
-.save(output)
-     })
-}
-
-
 const uploadAuditionVideos  = async (req, res) => {
 
     let files =Array.isArray(req.files.files) ?  req.files.files :  [req.files.files] ;
@@ -263,8 +207,6 @@ const uploadAuditionVideos  = async (req, res) => {
         console.log("1")
         console.log("2")
         filePaths.push(file.tempFilePath);
-
-        
     });
     const output=path.resolve('tmp/' + randomstring.generate(8) +'.mp4')
     

@@ -1,5 +1,8 @@
 import express from 'express'
-import { getAuditions, getAuditionById, createAudition, updateAudition, recruiterAudition,getRelevantAuditions } from '../controllers/auditionController.js'
+import {
+    getAuditions, getAuditionById, createAudition,
+    updateAudition, recruiterAudition, getRelevantAuditions
+} from '../controllers/auditionController.js'
 
 const router = express.Router()
 
@@ -13,6 +16,6 @@ router.put('/', updateAudition)
 
 router.get('/rec', recruiterAudition)
 
-router.get('/getRelevantAuditions',getRelevantAuditions)
+router.get('/getRelevantAuditions', getRelevantAuditions)
 
 export default router

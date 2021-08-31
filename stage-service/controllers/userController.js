@@ -1,17 +1,16 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
 import { validateRegisterInput } from '../validation/register.js'
 import { validateLoginInput } from '../validation/login.js'
 import { validatePasswordInput } from '../validation/password.js'
 import User from '../models/user.js'
 import Actor from '../models/actor.js'
-import keys from '../config/keys.js'
+import config from '../config/env.js' 
 import { USER_TYPE } from '../config/types.js'
 import Audition from '../models/audition.js'
 import ActorAudition from '../models/actorAudition.js'
 
-
+const env = config.env
 
 const getUsers = async (req, res) => {
     try {
@@ -99,7 +98,7 @@ const login = (req, res) => {
                 // Sign token
                 jwt.sign(
                     payload,
-                    keys.secretOrKey,
+                    env.secretOrKey,
                     {
                         expiresIn: 31556926 // 1 year in seconds
                     },
@@ -142,7 +141,6 @@ const updatePassword = (req, res) => {
     }
     const filter = { _id: req.params.id }
     let update = { password: req.body.password }
-
     // Hash password before updating database
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(update.password, salt, (err, hash) => {
