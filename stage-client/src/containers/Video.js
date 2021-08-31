@@ -156,7 +156,7 @@ class Video extends Component {
                 this.setState({ status: "inactive", auto_record_active: false })
                 axios({
                     method: "post",
-                    url: "http://127.0.0.1:5000/speechToTextVideo",
+                    url: "https://textualservices.herokuapp.com/speechToTextVideo",
                     data: formData,
                     headers: {
                         'Content-Type': 'video/mp4', "AllowedHeaders": "", 'Access-Control-Allow-Origin': ''
@@ -172,14 +172,14 @@ class Video extends Component {
                     console.log('Result transcript', resultTranscript)
                     let expectedText = this.state.entireText[this.state.currentLineIterator].replace('actor:', '')
                     this.setState({ currentLineIterator: this.state.currentLineIterator + 1, roleSpeaking: "ACTOR", lineToRead: this.state.entireText[this.state.currentLineIterator] })
-                    axios.get("http://127.0.0.1:12345/compare", {
+                    axios.get("https://sentencesimilaritystage.herokuapp.com/compare", {
                         params: {
                             inputText: resultTranscript,
                             expectedText: expectedText
                         }
                     }).then(res => {
                         this.setState({ roleSpeaking: "VOCAL_SERVICE", sumExactScore: parseFloat(this.state.sumExactScore) + parseFloat(res.data.exactScore), sumSimilarityScore: parseFloat(this.state.sumSimilarityScore) + parseFloat(res.data.similarityScore) })
-                        axios.get("http://127.0.0.1:5000/textToSpeech", {
+                        axios.get("https://textualservices.herokuapp.com/textToSpeech", {
                             params: {
                                 textToRead: this.state.entireText[this.state.currentLineIterator].replace('other actor:', '')
                             }
